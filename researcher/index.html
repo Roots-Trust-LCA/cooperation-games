@@ -9,42 +9,58 @@
   <link rel="canonical" href="https://cooperation.games/researcher/">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --void: #0c0c0c;
-      --surface: #161616;
-      --panel: #222222;
-      --raised: #2a2a2a;
-      --border: #383838;
-      --border-dim: #2a2a2a;
-      --gold: #c4956a;
-      --parchment: #f0f0f0;
-      --warm: #d0d0d0;
-      --muted: #9a9a9a;
-      --dim: #707070;
-      --ghost: #505050;
-      --status-ok: #4ade80;
-      --font-mono: 'IBM Plex Mono', monospace;
-      --font-serif: 'Libre Baskerville', Georgia, serif;
-    }
+  /* ── Coord-games design system tokens ── */
+  --bg:          #1C1A17;
+  --surface:     #252320;
+  --panel:       #2E2B27;
+  --raised:      #38342E;
+  --border:      #46423D;
+  --border-dim:  rgba(70, 66, 61, 0.5);
+  --cool:        #02E2AC;
+  --cool-dim:    rgba(2, 226, 172, 0.12);
+  --hot:         #FF5A1F;
+  --phosphor:    #C9A85D;
+  --bone:        #FBFAF9;
+  --chalk:       #C8C4BE;
+  --ash:         #9C9790;
+  --smoke:       #6B665F;
+  /* Legacy aliases — keep all old var() references working */
+  --void:        #1C1A17;
+  --parchment:   #FBFAF9;
+  --warm:        #C8C4BE;
+  --muted:       #9C9790;
+  --dim:         #6B665F;
+  --ghost:       #46423D;
+  --gold:        #02E2AC;
+  --status-ok:   #02E2AC;
+  --font-mono:   'IBM Plex Mono', monospace;
+  --font-serif:  'Source Serif 4', Georgia, serif;
+  --font-sans:   'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
     [data-theme="light"] {
-      --void: #f5f3f0;
-      --surface: #fff;
-      --panel: #f0ede8;
-      --raised: #e8e4dd;
-      --border: rgba(0,0,0,0.12);
-      --border-dim: rgba(0,0,0,0.07);
-      --gold: #a07850;
-      --parchment: #1a1a1a;
-      --warm: #333;
-      --muted: #666;
-      --dim: #888;
-      --ghost: #aaa;
-    }
+  --bg:          #F2EFE9;
+  --surface:     #FFFFFF;
+  --panel:       #ECEAE5;
+  --raised:      #E4E0D9;
+  --border:      rgba(70, 66, 61, 0.2);
+  --border-dim:  rgba(70, 66, 61, 0.1);
+  --void:        #F2EFE9;
+  --parchment:   #1A1814;
+  --warm:        #2E2A25;
+  --muted:       #5A5650;
+  --dim:         #7A7670;
+  --ghost:       #A0998E;
+  --gold:        #009B76;
+  --status-ok:   #009B76;
+  --cool:        #009B76;
+  --phosphor:    #9B7A3A;
+  }
 
     html { background: var(--void); color: var(--warm); font-family: var(--font-serif); font-size: 16px; line-height: 1.7; scroll-behavior: smooth; }
 
@@ -102,7 +118,7 @@
       gap: 0.45rem;
       background: var(--raised);
       border: 1px solid var(--border);
-      border-radius: 4px;
+      border-radius: 0;
       padding: 0.3rem 0.7rem;
       cursor: pointer;
       font-family: var(--font-mono);
@@ -145,7 +161,7 @@
     }
 
     .hero h1 {
-      font-family: var(--font-serif);
+      font-family: var(--font-sans);
       font-size: clamp(1.9rem, 4vw, 2.75rem);
       font-weight: 700;
       line-height: 1.2;
@@ -201,8 +217,8 @@
     .framing-block {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-left: 3px solid var(--gold);
-      border-radius: 6px;
+      border-left: 2px solid var(--cool);
+      border-radius: 0;
       padding: 1.75rem 2rem;
       margin-bottom: 2rem;
     }
@@ -238,7 +254,7 @@
       flex-shrink: 0;
       width: 6px;
       height: 6px;
-      border-radius: 50%;
+      
       background: var(--gold);
       margin-top: 0.55rem;
     }
@@ -253,11 +269,12 @@
     .card {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: 0;
       padding: 1.5rem 1.75rem;
       transition: border-color 0.15s;
     }
-    .card:hover { border-color: var(--gold); }
+    .card:hover { border-color: var(--gold);   box-shadow: 0 0 20px rgba(2, 226, 172, 0.08);
+}
 
     .card-tag {
       font-family: var(--font-mono);
@@ -289,7 +306,7 @@
       flex-direction: column;
       gap: 0;
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: 0;
       overflow: hidden;
     }
 
@@ -344,7 +361,7 @@
     .compare-panel {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 6px;
+      border-radius: 0;
       padding: 1.25rem 1.5rem;
     }
 
@@ -423,7 +440,7 @@
       flex-shrink: 0;
       width: 1.75rem;
       height: 1.75rem;
-      border-radius: 50%;
+      
       border: 1px solid var(--border);
       background: var(--panel);
       display: flex;
@@ -445,7 +462,7 @@
     .timeline-dot-inner {
       width: 7px;
       height: 7px;
-      border-radius: 50%;
+      
       background: var(--ghost);
     }
 
@@ -496,7 +513,7 @@
       color: var(--muted);
       background: var(--raised);
       border: 1px solid var(--border);
-      border-radius: 3px;
+      border-radius: 0;
       padding: 0.25rem 0.65rem;
     }
 
@@ -508,7 +525,7 @@
     .cta-box {
       background: var(--panel);
       border: 1px solid var(--border);
-      border-radius: 8px;
+      border-radius: 0;
       padding: 2.5rem 2rem;
       text-align: center;
     }
@@ -540,19 +557,20 @@
       font-size: 0.78rem;
       letter-spacing: 0.04em;
       padding: 0.6rem 1.3rem;
-      border-radius: 4px;
+      border-radius: 0;
       text-decoration: none;
       transition: border-color 0.15s, color 0.15s, background 0.15s;
     }
 
     .btn-primary {
       background: var(--gold);
-      color: var(--void);
+      color: var(--bg);
       border: 1px solid var(--gold);
       font-weight: 500;
     }
     [data-theme="light"] .btn-primary { color: #fff; }
-    .btn-primary:hover { opacity: 0.88; }
+    .btn-primary:hover { opacity: 0.88;   box-shadow: 0 0 20px rgba(2, 226, 172, 0.35);
+}
 
     .btn-secondary {
       background: transparent;
@@ -596,7 +614,7 @@
       color: var(--gold);
       background: var(--raised);
       border: 1px solid var(--border-dim);
-      border-radius: 3px;
+      border-radius: 0;
       padding: 0.1em 0.4em;
     }
 

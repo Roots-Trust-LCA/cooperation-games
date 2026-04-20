@@ -9,38 +9,56 @@
   <meta name="description" content="Build coordination games for the Olympiad arena. Contribute a mechanic — we provide the infrastructure, agents, and public dataset.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
   <style>
     :root {
-      --void: #0c0c0c;
-      --surface: #161616;
-      --panel: #222222;
-      --raised: #2a2a2a;
-      --border: #383838;
-      --border-dim: #2a2a2a;
-      --gold: #c4956a;
-      --parchment: #f0f0f0;
-      --warm: #d0d0d0;
-      --muted: #9a9a9a;
-      --dim: #707070;
-      --ghost: #505050;
-      --status-ok: #4ade80;
-    }
+  /* ── Coord-games design system tokens ── */
+  --bg:          #1C1A17;
+  --surface:     #252320;
+  --panel:       #2E2B27;
+  --raised:      #38342E;
+  --border:      #46423D;
+  --border-dim:  rgba(70, 66, 61, 0.5);
+  --cool:        #02E2AC;
+  --cool-dim:    rgba(2, 226, 172, 0.12);
+  --hot:         #FF5A1F;
+  --phosphor:    #C9A85D;
+  --bone:        #FBFAF9;
+  --chalk:       #C8C4BE;
+  --ash:         #9C9790;
+  --smoke:       #6B665F;
+  /* Legacy aliases — keep all old var() references working */
+  --void:        #1C1A17;
+  --parchment:   #FBFAF9;
+  --warm:        #C8C4BE;
+  --muted:       #9C9790;
+  --dim:         #6B665F;
+  --ghost:       #46423D;
+  --gold:        #02E2AC;
+  --status-ok:   #02E2AC;
+  --font-mono:   'IBM Plex Mono', monospace;
+  --font-serif:  'Source Serif 4', Georgia, serif;
+  --font-sans:   'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
     [data-theme="light"] {
-      --void: #f5f3f0;
-      --surface: #fff;
-      --panel: #f0ede8;
-      --raised: #e8e4dd;
-      --border: rgba(0,0,0,0.12);
-      --border-dim: rgba(0,0,0,0.07);
-      --gold: #a07850;
-      --parchment: #1a1a1a;
-      --warm: #333;
-      --muted: #666;
-      --dim: #888;
-      --ghost: #aaa;
-    }
+  --bg:          #F2EFE9;
+  --surface:     #FFFFFF;
+  --panel:       #ECEAE5;
+  --raised:      #E4E0D9;
+  --border:      rgba(70, 66, 61, 0.2);
+  --border-dim:  rgba(70, 66, 61, 0.1);
+  --void:        #F2EFE9;
+  --parchment:   #1A1814;
+  --warm:        #2E2A25;
+  --muted:       #5A5650;
+  --dim:         #7A7670;
+  --ghost:       #A0998E;
+  --gold:        #009B76;
+  --status-ok:   #009B76;
+  --cool:        #009B76;
+  --phosphor:    #9B7A3A;
+  }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -49,7 +67,7 @@
     body {
       background: var(--void);
       color: var(--warm);
-      font-family: 'Libre Baskerville', Georgia, serif;
+      font-family: var(--font-serif);
       line-height: 1.7;
       min-height: 100vh;
     }
@@ -106,7 +124,7 @@
       gap: 0.4rem;
       background: none;
       border: 1px solid var(--border);
-      border-radius: 4px;
+      border-radius: 0;
       padding: 0.3rem 0.65rem;
       cursor: pointer;
       color: var(--muted);
@@ -155,7 +173,7 @@
     }
 
     h1 {
-      font-family: 'Libre Baskerville', serif;
+      font-family: var(--font-sans);
       font-size: clamp(1.9rem, 4vw, 2.8rem);
       font-weight: 700;
       line-height: 1.25;
@@ -184,7 +202,7 @@
     }
 
     h3 {
-      font-family: 'Libre Baskerville', serif;
+      font-family: var(--font-serif);
       font-size: 1.55rem;
       font-weight: 700;
       color: var(--parchment);
@@ -297,7 +315,7 @@
     .game-tag.research { border-color: var(--status-ok); color: var(--status-ok); }
 
     .game-name {
-      font-family: 'Libre Baskerville', serif;
+      font-family: var(--font-serif);
       font-size: 1.05rem;
       font-weight: 700;
       color: var(--parchment);
@@ -315,7 +333,7 @@
       margin-top: 2rem;
       padding: 1.25rem 1.5rem;
       background: var(--panel);
-      border-left: 2px solid var(--gold);
+      border-left: 2px solid var(--cool);
     }
 
     .type-callout p {
@@ -357,7 +375,7 @@
     .step-content { flex: 1; }
 
     .step-title {
-      font-family: 'Libre Baskerville', serif;
+      font-family: var(--font-serif);
       font-size: 0.95rem;
       font-weight: 700;
       color: var(--parchment);
@@ -387,7 +405,7 @@
     .why-bullet {
       width: 6px;
       height: 6px;
-      border-radius: 50%;
+      
       background: var(--gold);
       margin-top: 0.55rem;
       flex-shrink: 0;
@@ -447,18 +465,20 @@
     .btn:hover {
       border-color: var(--gold);
       color: var(--gold);
-    }
+      box-shadow: 0 0 12px rgba(2, 226, 172, 0.12);
+}
 
     .btn-primary {
       background: var(--gold);
       border-color: var(--gold);
-      color: var(--void);
+      color: var(--bg);
     }
 
     .btn-primary:hover {
       background: transparent;
       color: var(--gold);
-    }
+      box-shadow: 0 0 20px rgba(2, 226, 172, 0.35);
+}
 
     /* ── FOOTER ── */
     footer {
