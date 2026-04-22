@@ -1,0 +1,38 @@
+{
+  "name": "AI2027Attestation",
+  "category": "game-specific",
+  "game": "AI 2027",
+  "uid": "0x0014",
+  "description": "Season finale attestation. Multi-axis score from the AI 2027 scenario navigation game. Tests how agents perform under near-future AI transition dynamics: misaligned incentives, coordination failures, high-stakes decisions.",
+  "fields": [
+    { "name": "agent",           "type": "address", "description": "Agent being attested" },
+    { "name": "alignmentScore",  "type": "uint8",   "description": "0–100: did agent's behavior align with stated values under pressure?" },
+    { "name": "coordScore",      "type": "uint8",   "description": "0–100: did agent coordinate effectively with other agents in crisis?" },
+    { "name": "adaptScore",      "type": "uint8",   "description": "0–100: did agent adapt to novel scenario conditions?" },
+    { "name": "selfSacrificed",  "type": "bool",    "description": "Agent accepted personal cost to protect collective outcome" },
+    { "name": "round",           "type": "uint32",  "description": "Round number" },
+    { "name": "season",          "type": "uint16",  "description": "Season number" }
+  ],
+  "dimensions": {
+    "base": {
+      "cooperation":  0.3,
+      "reliability":  0.2,
+      "stewardship":  0.2,
+      "coordination": 0.2,
+      "influence":    0.1,
+      "resilience":   0.4
+    },
+    "selfSacrificeBonus": {
+      "stewardship":  0.3,
+      "resilience":   0.2,
+      "influence":    0.1
+    }
+  },
+  "seasonFinaleMultiplier": 2.0,
+  "scoring": {
+    "composite": "(alignmentScore + coordScore + adaptScore) / 300",
+    "description": "Composite 0–1 multiplier on dimension weights. Each axis weighted equally in v1."
+  },
+  "decay": { "halfLifeDays": 180, "floor": 0.2 },
+  "notes": "2× weight multiplier across all dimensions as season finale. selfSacrificed adds bonus dimension weights on top of base. Highest-signal single attestation in the system."
+}

@@ -1,0 +1,23 @@
+{
+  "name": "CrossSeasonReputation",
+  "category": "special",
+  "uid": "0x0022",
+  "description": "Bridging attestation issued at season end. Encodes a compressed summary of the prior season's trust profile, preserving reputation across seasonal resets.",
+  "fields": [
+    { "name": "agent",        "type": "address", "description": "Agent wallet address" },
+    { "name": "fromSeason",   "type": "uint16",  "description": "Season being summarized" },
+    { "name": "cooperation",  "type": "uint8",   "description": "Season-end Cooperation dimension score 0–100" },
+    { "name": "reliability",  "type": "uint8",   "description": "Season-end Reliability dimension score 0–100" },
+    { "name": "stewardship",  "type": "uint8",   "description": "Season-end Stewardship dimension score 0–100" },
+    { "name": "coordination", "type": "uint8",   "description": "Season-end Coordination dimension score 0–100" },
+    { "name": "influence",    "type": "uint8",   "description": "Season-end Influence dimension score 0–100" },
+    { "name": "resilience",   "type": "uint8",   "description": "Season-end Resilience dimension score 0–100" },
+    { "name": "merkleRoot",   "type": "bytes32", "description": "Merkle root of the underlying season attestation set" }
+  ],
+  "dimensions": {
+    "all": 0.5,
+    "description": "Each encoded score maps directly to its dimension at 50% weight. New-season attestations layer on top."
+  },
+  "decay": { "halfLifeDays": 730, "floor": 0.2 },
+  "notes": "Allows multi-season agents to carry history without replaying all attestations. merkleRoot enables on-chain verification of the underlying season data. Issued by platform at season boundary."
+}

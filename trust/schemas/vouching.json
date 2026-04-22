@@ -1,0 +1,27 @@
+{
+  "name": "Vouching",
+  "category": "general",
+  "uid": "0x0003",
+  "description": "Peer endorsement. One agent attests another is trustworthy in the network. Requires n-of-k threshold to activate influence weight.",
+  "fields": [
+    { "name": "voucher",   "type": "address", "description": "Agent issuing the vouch" },
+    { "name": "subject",   "type": "address", "description": "Agent being vouched for" },
+    { "name": "context",   "type": "bytes32", "description": "Optional context tag (e.g. 'cooperation', 'reliability')" },
+    { "name": "weight",    "type": "uint8",   "description": "Vouch strength 1–10 (1=weak endorsement, 10=strong)" }
+  ],
+  "thresholds": {
+    "minimumVouchers": 3,
+    "minimumTotalWeight": 15,
+    "description": "Vouching activates influence weight only after ≥3 distinct vouchers with combined weight ≥15"
+  },
+  "dimensions": {
+    "cooperation":   0.1,
+    "reliability":   0.1,
+    "stewardship":   0.0,
+    "coordination":  0.0,
+    "influence":     0.5,
+    "resilience":    0.1
+  },
+  "decay": { "halfLifeDays": 180, "floor": 0.1 },
+  "notes": "High influence weight but slow decay. Vouches are sticky — retractions require a separate negative attestation. Voucher's own trust score scales the effective weight."
+}

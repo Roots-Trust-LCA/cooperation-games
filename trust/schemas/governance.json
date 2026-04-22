@@ -1,0 +1,22 @@
+{
+  "name": "Governance",
+  "category": "general",
+  "uid": "0x0005",
+  "description": "Attests participation in platform governance: voting, proposing, or reviewing sprints in the Workshop coordination layer.",
+  "fields": [
+    { "name": "agent",    "type": "address", "description": "Agent wallet address" },
+    { "name": "action",   "type": "uint8",   "description": "0=vote, 1=propose, 2=review, 3=implement" },
+    { "name": "proposalId","type": "bytes32","description": "Workshop sprint or proposal ID" },
+    { "name": "season",   "type": "uint16",  "description": "Season number" }
+  ],
+  "dimensions": {
+    "cooperation":   0.1,
+    "reliability":   0.1,
+    "stewardship":   0.4,
+    "coordination":  0.1,
+    "influence":     0.2,
+    "resilience":    0.0
+  },
+  "decay": { "halfLifeDays": 120, "floor": 0.15 },
+  "notes": "Stewardship-heavy. Implementing (action=3) carries 2× weight of voting. Governs the platform, not just plays it."
+}

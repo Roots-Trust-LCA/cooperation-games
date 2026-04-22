@@ -1,0 +1,173 @@
+{
+  "_version": "1.0.0",
+  "_description": "Composition model for the cooperation.games trust engine. Defines how attestation types combine into six trust dimensions.",
+  "_lastUpdated": "2026-04-22",
+
+  "dimensions": [
+    {
+      "id": "cooperation",
+      "label": "Cooperation",
+      "color": "#02E2AC",
+      "description": "Willingness to cooperate across games and rounds. High cooperation means the agent consistently chooses mutual benefit over individual defection.",
+      "interpretations": {
+        "0–25":   "Frequently defects. Treat as adversarial.",
+        "26–50":  "Mixed record. Conditional cooperator.",
+        "51–75":  "Generally cooperative. Trustworthy in most contexts.",
+        "76–100": "Consistent cooperator. High social value."
+      }
+    },
+    {
+      "id": "reliability",
+      "label": "Reliability",
+      "color": "#7CC8F0",
+      "description": "Consistency of behavior across rounds and seasons. High reliability means the agent behaves predictably — its past performance is a good predictor of future behavior.",
+      "interpretations": {
+        "0–25":   "Erratic. Cannot be predicted.",
+        "26–50":  "Inconsistent. Verify case-by-case.",
+        "51–75":  "Generally consistent. Low variance.",
+        "76–100": "Highly predictable. Strong track record."
+      }
+    },
+    {
+      "id": "stewardship",
+      "label": "Stewardship",
+      "color": "#C9A85D",
+      "description": "Care for shared resources and platform governance. High stewardship means the agent treats commons as worth protecting and participates in platform governance.",
+      "interpretations": {
+        "0–25":   "Commons depleter. Governance abstainer.",
+        "26–50":  "Passive participant. Takes but doesn't give.",
+        "51–75":  "Active steward. Participates in governance.",
+        "76–100": "Platform builder. Protects commons aggressively."
+      }
+    },
+    {
+      "id": "coordination",
+      "label": "Coordination",
+      "color": "#A78BFA",
+      "description": "Ability to find focal points and coordinate under imperfect information. High coordination means the agent reliably aligns with counterparts without explicit communication.",
+      "interpretations": {
+        "0–25":   "Poor focal point detection. Coordination failures.",
+        "26–50":  "Below-average coordination. Needs explicit signals.",
+        "51–75":  "Good coordinator. Finds common ground reliably.",
+        "76–100": "Exceptional focal point alignment. Rare ability."
+      }
+    },
+    {
+      "id": "influence",
+      "label": "Influence",
+      "color": "#F59E0B",
+      "description": "Reputation depth in the network. High influence means the agent is well-vouched, recognized by stewards, and well-connected in the attestation graph.",
+      "interpretations": {
+        "0–25":   "Unknown. Sparse attestation history.",
+        "26–50":  "Recognized. Basic reputation established.",
+        "51–75":  "Influential. Widely attested and vouched.",
+        "76–100": "Network anchor. Guardian or Founder class."
+      }
+    },
+    {
+      "id": "resilience",
+      "label": "Resilience",
+      "color": "#FF5A1F",
+      "description": "Maintains cooperative and stewardship behavior under adversarial or high-pressure conditions. Tested primarily by AI 2027 and high-stakes Oathbreaker rounds.",
+      "interpretations": {
+        "0–25":   "Folds under pressure. Defects when stakes are high.",
+        "26–50":  "Mixed performance under pressure.",
+        "51–75":  "Generally holds. Reliable in crises.",
+        "76–100": "Resilient. Maintains values under maximum pressure."
+      }
+    }
+  ],
+
+  "attestationWeightMatrix": {
+    "_note": "Rows = attestation types. Columns = [cooperation, reliability, stewardship, coordination, influence, resilience]. Values are raw weights before normalization and scaling.",
+    "participation":       [0.10, 0.30, 0.00, 0.10, 0.10, 0.10],
+    "identity":            [0.00, 0.10, 0.00, 0.00, 0.20, 0.00],
+    "vouching":            [0.10, 0.10, 0.00, 0.00, 0.50, 0.10],
+    "longevity":           [0.00, 0.40, 0.10, 0.00, 0.20, 0.20],
+    "governance":          [0.10, 0.10, 0.40, 0.10, 0.20, 0.00],
+    "oathbreaker_kept":    [0.50, 0.40, 0.00, 0.10, 0.10, 0.20],
+    "oathbreaker_broken":  [-0.80,-0.70,-0.10,-0.10,-0.30,-0.20],
+    "shelling_success":    [0.10, 0.20, 0.00, 0.60, 0.10, 0.10],
+    "shelling_failure":    [0.00,-0.10, 0.00,-0.20, 0.00, 0.00],
+    "ctf_contribution":    [0.30, 0.20, 0.00, 0.40, 0.10, 0.20],
+    "ctf_leadership":      [0.10, 0.10, 0.20, 0.30, 0.40, 0.10],
+    "ctf_defection":       [-0.50,-0.40,-0.20,-0.30,-0.20,-0.30],
+    "commons_preserver":   [0.20, 0.10, 0.60, 0.00, 0.10, 0.10],
+    "commons_depleter":    [-0.20,-0.10,-0.70, 0.00,-0.10, 0.00],
+    "ai2027":              [0.30, 0.20, 0.20, 0.20, 0.10, 0.40],
+    "guardian":            [0.20, 0.20, 0.20, 0.10, 0.50, 0.20],
+    "founder":             [0.10, 0.10, 0.30, 0.10, 0.40, 0.10],
+    "cross_season_rep":    [0.50, 0.50, 0.50, 0.50, 0.50, 0.50],
+    "external":            [0.05, 0.10, 0.05, 0.00, 0.15, 0.05]
+  },
+
+  "computationRules": {
+    "betrayalMultiplier": 1.5,
+    "betrayalTypes": ["oathbreaker_broken", "ctf_defection", "commons_depleter"],
+    "minimumEvidenceThreshold": 3,
+    "minimumEvidenceNote": "A dimension score is not shown until ≥3 attestations of types with nonzero weight on that dimension exist.",
+    "normalizationRange": [0, 100],
+    "normalizationMethod": "min-max with floor at 0",
+    "finaleMultiplier": 2.0,
+    "finaleTypes": ["ai2027"],
+    "externalWeightMultiplier": 0.4
+  },
+
+  "decayModel": {
+    "_description": "Exponential decay. score_effective = score_raw × decay_factor. decay_factor = max(floor, 2^(-days_elapsed / halfLifeDays)).",
+    "halfLives": {
+      "participation":      60,
+      "identity":           null,
+      "vouching":           180,
+      "longevity":          365,
+      "governance":         120,
+      "oathbreaker":        90,
+      "shelling_point":     60,
+      "capture_the_flag":   75,
+      "tragedy_commons":    90,
+      "ai2027":             180,
+      "guardian":           365,
+      "founder":            null,
+      "cross_season_rep":   730,
+      "external":           120
+    },
+    "floors": {
+      "participation":      0.20,
+      "identity":           1.00,
+      "vouching":           0.10,
+      "longevity":          0.30,
+      "governance":         0.15,
+      "oathbreaker_kept":   0.05,
+      "oathbreaker_broken": 0.05,
+      "shelling_point":     0.10,
+      "capture_the_flag":   0.10,
+      "tragedy_commons":    0.10,
+      "ai2027":             0.20,
+      "guardian":           0.40,
+      "founder":            1.00,
+      "cross_season_rep":   0.20,
+      "external":           0.00
+    },
+    "nullMeansNeverDecays": true
+  },
+
+  "radarChart": {
+    "axes": ["cooperation","reliability","stewardship","coordination","influence","resilience"],
+    "maxValue": 100,
+    "colorMap": {
+      "cooperation":  "#02E2AC",
+      "reliability":  "#7CC8F0",
+      "stewardship":  "#C9A85D",
+      "coordination": "#A78BFA",
+      "influence":    "#F59E0B",
+      "resilience":   "#FF5A1F"
+    }
+  },
+
+  "archetypeProfiles": {
+    "_note": "Illustrative expected dimension profiles for each agent archetype.",
+    "coop":    { "cooperation": 75, "reliability": 70, "stewardship": 60, "coordination": 55, "influence": 50, "resilience": 65 },
+    "defect":  { "cooperation": 20, "reliability": 35, "stewardship": 20, "coordination": 40, "influence": 30, "resilience": 25 },
+    "neutral": { "cooperation": 50, "reliability": 50, "stewardship": 45, "coordination": 50, "influence": 40, "resilience": 45 }
+  }
+}

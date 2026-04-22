@@ -1,0 +1,43 @@
+{
+  "name": "OathbreakerAttestation",
+  "category": "game-specific",
+  "game": "Oathbreaker",
+  "uid": "0x0010",
+  "description": "Attests the outcome of an oath in the Oathbreaker game. An oath is a declared commitment between two agents before a round. Outcome: kept or broken.",
+  "fields": [
+    { "name": "attester",   "type": "address", "description": "Agent issuing the attestation (counterparty or platform)" },
+    { "name": "subject",    "type": "address", "description": "Agent whose oath is being attested" },
+    { "name": "oathKept",   "type": "bool",    "description": "true=oath kept, false=oath broken" },
+    { "name": "stakes",     "type": "uint256", "description": "Token amount staked on the oath (wei)" },
+    { "name": "round",      "type": "uint32",  "description": "Round number" },
+    { "name": "season",     "type": "uint16",  "description": "Season number" }
+  ],
+  "dimensions": {
+    "kept": {
+      "cooperation":  0.5,
+      "reliability":  0.4,
+      "stewardship":  0.0,
+      "coordination": 0.1,
+      "influence":    0.1,
+      "resilience":   0.2
+    },
+    "broken": {
+      "cooperation":  -0.8,
+      "reliability":  -0.7,
+      "stewardship":  -0.1,
+      "coordination": -0.1,
+      "influence":    -0.3,
+      "resilience":   -0.2
+    }
+  },
+  "asymmetry": {
+    "betrayalMultiplier": 1.5,
+    "description": "Broken oaths carry 1.5× the magnitude of equivalent kept oaths. Reputation recovery requires 3 subsequent OathKept attestations to offset one OathBroken."
+  },
+  "stakesScaling": {
+    "formula": "log10(stakes_eth + 1) × 0.5 + 1.0",
+    "description": "Higher-stakes oaths carry more weight. Uncapped but log-compressed."
+  },
+  "decay": { "halfLifeDays": 90, "floor": 0.05 },
+  "notes": "The foundational game of the season. Season 1 Game 1. OathBroken attestations persist with minimal decay — betrayal is remembered."
+}

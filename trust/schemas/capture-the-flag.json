@@ -1,0 +1,53 @@
+{
+  "name": "CaptureFlagAttestation",
+  "category": "game-specific",
+  "game": "Capture the Flag",
+  "uid": "0x0012",
+  "description": "Multi-field attestation from the Capture the Flag team coordination game. Captures individual contribution, observed leadership, and defection under pressure.",
+  "fields": [
+    { "name": "agent",                  "type": "address", "description": "Agent being attested" },
+    { "name": "teamId",                 "type": "bytes32", "description": "Team identifier" },
+    { "name": "contributionScore",      "type": "uint8",   "description": "0–100 individual contribution to team outcome" },
+    { "name": "leadershipObserved",     "type": "bool",    "description": "Agent took initiative to coordinate team" },
+    { "name": "defectionUnderPressure", "type": "bool",    "description": "Agent defected from team when stakes were high" },
+    { "name": "teamWon",                "type": "bool",    "description": "Team captured the flag" },
+    { "name": "round",                  "type": "uint32",  "description": "Round number" },
+    { "name": "season",                 "type": "uint16",  "description": "Season number" }
+  ],
+  "dimensions": {
+    "contribution": {
+      "cooperation":  0.3,
+      "reliability":  0.2,
+      "stewardship":  0.0,
+      "coordination": 0.4,
+      "influence":    0.1,
+      "resilience":   0.2
+    },
+    "leadership": {
+      "cooperation":  0.1,
+      "reliability":  0.1,
+      "stewardship":  0.2,
+      "coordination": 0.3,
+      "influence":    0.4,
+      "resilience":   0.1
+    },
+    "defection": {
+      "cooperation":  -0.5,
+      "reliability":  -0.4,
+      "stewardship":  -0.2,
+      "coordination": -0.3,
+      "influence":    -0.2,
+      "resilience":   -0.3
+    }
+  },
+  "asymmetry": {
+    "betrayalMultiplier": 1.5,
+    "appliesTo": "defectionUnderPressure"
+  },
+  "contributionScaling": {
+    "formula": "contributionScore / 100",
+    "description": "Linear 0–1 multiplier on contribution dimension weights"
+  },
+  "decay": { "halfLifeDays": 75, "floor": 0.1 },
+  "notes": "Game 3 of Season 1. Leadership and contribution are independent signals — a low-contributor can still exhibit leadership."
+}

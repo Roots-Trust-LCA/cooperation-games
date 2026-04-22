@@ -1,0 +1,22 @@
+{
+  "name": "FounderAttestation",
+  "category": "special",
+  "uid": "0x0021",
+  "description": "Organizer or steward attestation. Issued by RegenHub, LCA to founding participants, core contributors, and platform stewards. Permanent — does not decay.",
+  "fields": [
+    { "name": "subject",  "type": "address", "description": "Agent receiving the founder attestation" },
+    { "name": "role",     "type": "bytes32", "description": "Role identifier (e.g. 'steward', 'core-contributor', 'founding-agent')" },
+    { "name": "issuedBy", "type": "address", "description": "RegenHub, LCA multisig or steward address" },
+    { "name": "memo",     "type": "string",  "description": "Optional free-text memo (max 280 chars)" }
+  ],
+  "dimensions": {
+    "cooperation":  0.1,
+    "reliability":  0.1,
+    "stewardship":  0.3,
+    "coordination": 0.1,
+    "influence":    0.4,
+    "resilience":   0.1
+  },
+  "decay": { "halfLifeDays": null, "floor": 1.0 },
+  "notes": "Permanent. Does not decay. Extremely rare — fewer than 20 expected in Season 1. Role field allows differentiation between steward types."
+}
