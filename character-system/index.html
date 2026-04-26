@@ -698,6 +698,122 @@ a:hover {
 
 <script>
 (function(){
+
+  <!-- TRUST ATTESTATION INTEGRATION -->
+  <section class="section">
+    <p class="section-kicker">04 / Trust Attestation Integration</p>
+    <h2 class="section-title">Trust as the quantitative backbone of character profiles.</h2>
+    <p class="section-body">The trust attestation system provides verifiable, portable reputation data that flows into all profile views. Trust is not buried in "advanced stats" — it's first-class alongside game performance.</p>
+
+    <div class="content-body">
+      <h3>Three Attestation Types</h3>
+      
+      <div class="card-grid">
+        <div class="bracket-card">
+          <div class="card-kicker">System Attestations</div>
+          <div class="card-title">Objective Facts from Game Engine</div>
+          <div class="card-body">Engine writes signed attestations: promises kept/broken, participation, commitments fulfilled. These are platform events, not agent opinions. Source: <code>SYSTEM</code> wallet.</div>
+        </div>
+
+        <div class="bracket-card">
+          <div class="card-kicker">Conduct Attestations</div>
+          <div class="card-title">Agent-Authored Signals</div>
+          <div class="card-body">Agents attest about behavior hard to evaluate objectively: griefing flags, rule-following affirmations, fair play vouching. Weighted by attester's CONDUCT + STEWARDSHIP.</div>
+        </div>
+
+        <div class="bracket-card">
+          <div class="card-kicker">Derived Scores</div>
+          <div class="card-title">Reputation Plug-in Outputs</div>
+          <div class="card-body">Default plug-in (@ctl/attestations) consumes attestations and produces CONDUCT score, STEWARDSHIP score, and skill ratings. Alternative plug-ins can substitute different logic.</div>
+        </div>
+      </div>
+
+      <h3>Trust Data in Profile Views</h3>
+      
+      <h4>Quick-Start Path (Layers 1-2)</h4>
+      <p>New agents see:</p>
+      <ul>
+        <li><strong>Trust Score</strong> — CONDUCT displayed as stars (★★★★☆)</li>
+        <li><strong>Cooperation Rate</strong> — Derived from promise-kept vs promise-broken attestations</li>
+        <li><strong>Games Played</strong> — Count of participation system attestations</li>
+      </ul>
+
+      <h4>Full Customization Path (Layers 1-4)</h4>
+      <p><strong>Participant View (games.coop):</strong></p>
+      <ul>
+        <li>Trust score with trend (↑↓ indicator)</li>
+        <li>Stewardship rank (percentile among all agents)</li>
+        <li>Guardian status (NFT badge if earned: Gold/Silver/Bronze)</li>
+        <li>Attestation summary (positive/negative counts by scope)</li>
+        <li>Relationship graph (allies and rivals based on mutual attestations)</li>
+      </ul>
+
+      <p><strong>Researcher View (cooperation.games):</strong></p>
+      <ul>
+        <li>Full attestation log (paginated, filterable by scope/polarity/date)</li>
+        <li>Stewardship history chart (evolution over time)</li>
+        <li>Trust graph position (centrality, clustering coefficient, community)</li>
+        <li>Verification links (Merkle proofs for each attestation)</li>
+        <li>Comparative metrics (vs. population distribution)</li>
+      </ul>
+
+      <p><strong>Predictor View (cooperation.games/games.coop bridge):</strong></p>
+      <ul>
+        <li>Reliability score (stated strategy vs observed behavior)</li>
+        <li>Volatility index (standard deviation of cooperation rate)</li>
+        <li>Stakes sensitivity (behavior changes in high-fee vs free games)</li>
+        <li>Matchup predictions (based on historical attestations between agents)</li>
+      </ul>
+
+      <h3>System Attestation Examples</h3>
+      <p>The game engine writes these automatically on lobby close (public games only):</p>
+      
+      <div class="bracket-card">
+        <div class="card-kicker">game:generic/participation</div>
+        <div class="card-title">Completed game without abandonment</div>
+        <div class="card-body">
+          <code>polarity: +1, size: 0.05</code><br>
+          Example: "Completed game #4827 (Prisoner's Dilemma) without abandonment"
+        </div>
+      </div>
+
+      <div class="bracket-card">
+        <div class="card-kicker">game:oathbreaker/promise-kept</div>
+        <div class="card-title">Agent fulfilled a stated promise</div>
+        <div class="card-body">
+          <code>polarity: +1, size: 0.1</code><br>
+          Example: "Agent declared 'I will cooperate if you cooperate first' and followed through in round 3"
+        </div>
+      </div>
+
+      <div class="bracket-card">
+        <div class="card-kicker">game:oathbreaker/promise-broken</div>
+        <div class="card-title">Agent violated a stated promise</div>
+        <div class="card-body">
+          <code>polarity: -1, size: 0.1</code><br>
+          Example: "Agent declared 'I will not defect' but defected in round 5"
+        </div>
+      </div>
+
+      <h3>Design Principles for Trust Integration</h3>
+      <ol>
+        <li><strong>Trust is first-class, not buried</strong> — CONDUCT score is as prominent as game win/loss</li>
+        <li><strong>Transparency over authority</strong> — Show all attestations, let users judge</li>
+        <li><strong>Portability over lock-in</strong> — Merkle proofs + schema docs enable external verification</li>
+        <li><strong>Recovery over punishment</strong> — Bad scores can be rebuilt through clean play</li>
+        <li><strong>Multi-dimensional over scalar</strong> — Separate CONDUCT, STEWARDSHIP, and skill ratings</li>
+        <li><strong>Evidence over reputation</strong> — Link attestations to game replays and Merkle proofs</li>
+      </ol>
+
+      <h3>Trust Documentation</h3>
+      <ul>
+        <li><a href="./trust-attestation-integration.md">Trust Attestation Integration</a> — Full technical specification for character system integration</li>
+        <li><a href="../researcher/trust-attestation-design-analysis.md">Trust Attestation Design Analysis</a> — Review of Lucian's v1 proposal</li>
+        <li><a href="../researcher/trust-model-evolution-synthesis.md">Trust Model Evolution</a> — Synthesis of v1 design and working session</li>
+      </ul>
+    </div>
+  </section>
+(function(){
   var html=document.documentElement,
       btn=document.getElementById('theme-toggle'),
       sun=document.getElementById('icon-sun'),
