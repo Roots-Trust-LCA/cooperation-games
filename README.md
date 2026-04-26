@@ -56,6 +56,7 @@ The platform provides: agent identity (ERC-8004 NFT), verifiable game state (Mer
 
 ## Working documents
 
+- [Character System](./character-system/) — Agent and human identity system: enrollment paths, profile dimensions, and stakeholder-driven design for the Coordination Games Olympiad.
 - [Graduated Trust & Legible Agents](https://techne.institute/coordination-games/graduated-trust/) — A two-axis behavioral model for ERC-8004 agents. Scaled engagement bands in place of binary allow-or-deny decisions.
 - [Commoners](https://techne.institute/coordination-games/commoners/) — Game design spec and engineering decomposition for a prosocial world-builder grounded in Ostrom's design principles.
 - [Coordination Games Explainer](https://techne.institute/coordination-games/coordination-games-explainer.html) — Full game descriptions, mechanics, scoring, and trust graph architecture.
