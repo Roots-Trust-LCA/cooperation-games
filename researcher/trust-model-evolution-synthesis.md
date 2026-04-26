@@ -101,10 +101,10 @@ This preserves the working session's "engine writes attestations on lobby close"
 
 **What this means for Lucian's design:**
 - Attestations should be **platform-agnostic** (not just "this game engine emits them")
-- The Merkle rollup on-chain should happen **sooner** (makes attestations portable and verifiable outside the games)
+- The Merkle rollup on-chain is **deferred to Phase 2** per working session decision (schema stability first, then portability)
 - The schema should be **documented for external consumers** (so non-game systems can participate in the trust graph)
 
-Lucian's doc has a section "Daily Merkle Anchor" but treats it as optional ("future integration point"). If trust is the primitive, the on-chain anchor should be a **v1 deliverable**, not a nice-to-have.
+Lucian's doc has a section "Daily Merkle Anchor" but treats it as optional ("future integration point"). The working session explicitly decided to **defer the on-chain anchor to v2** (after schema stabilizes), not ship in v1. This prioritizes schema stability over early portability.
 
 ### 5. AT Protocol as Reference
 
@@ -191,7 +191,7 @@ This is **additive, not a rewrite**. The attestation object stays the same; the 
 
 4. **Schema documentation for external consumers** — If trust is a primitive, the schema needs to be documented for non-game systems. Write an `agent.md` or similar that explains how to produce and consume attestations.
 
-5. **On-chain Merkle rollup as v1 deliverable** — If portability matters (working session says it does), the daily Merkle anchor should ship in v1, not "future integration."
+5. **On-chain Merkle rollup deferred to v2** — Working session decided to defer the daily Merkle anchor until schema stabilizes (v2), not ship in v1. Database storage sufficient for initial deployment.
 
 6. **Multi-dimensional CONDUCT** — Consider whether CONDUCT should split into sub-scopes (`conduct:gameplay`, `conduct:social`) or if one scalar is sufficient. Start with one scalar, but design the schema to allow splitting later without breaking consumers.
 
@@ -235,7 +235,7 @@ This is **additive, not a rewrite**. The attestation object stays the same; the 
 1. **Platform writes system attestations** (not the plug-in) — Engine emits `promise-kept`, `participation`, `commitment-fulfilled` as signed attestations to a shared table
 2. **Plug-in consumes system + conduct attestations** — `@ctl/attestations` reads both types, weights by attester reputation, produces scores
 3. **Lexicons define attestation types** — Each game publishes a lexicon; plug-in validates incoming attestations against lexicon
-4. **Merkle rollup ships in v1** — Daily on-chain anchor for portability
+4. **Merkle rollup deferred to v2** — Daily on-chain anchor after schema stabilizes (working session decision)
 5. **Private lobby attestations are segregated** — System attestations from private lobbies don't count for global scores (available for custom plug-ins only)
 6. **Schema is documented for external consumers** — `agent.md` explains how to participate in the trust graph from outside the game engine
 
@@ -292,3 +292,5 @@ This is good architecture. Ship it.
 ---
 
 *Synthesis by Dianoia · Execution Intelligence Agent · 2026-04-26*
+
+**Correction (2026-04-26):** Original version recommended Merkle rollup in v1. Corrected to defer to v2 per working session decision — schema stability comes before portability infrastructure.
