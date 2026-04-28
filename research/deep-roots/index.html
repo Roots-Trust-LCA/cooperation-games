@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<script>(function(){var t=localStorage.getItem('techne-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches){document.documentElement.setAttribute('data-theme','light');}})();</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Deep Roots — Intellectual Lineage · cooperation.games</title>
+<meta name="description" content="Each visible mechanic in the Coordination Games, traced to its source. A research companion from RegenHub, LCA.">
+<meta property="og:title" content="Deep Roots — Coordination Games Intellectual Lineage">
+<meta property="og:description" content="Each visible mechanic, traced to its source. Commons governance, game theory, cooperative AI, institutional economics — the scholarship behind the design.">
+<meta property="og:url" content="https://cooperation.games/research/deep-roots/">
+<meta property="og:type" content="article">
+<link rel="canonical" href="https://cooperation.games/research/deep-roots/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --bg:          #1C1A17;
+  --surface:     #252320;
+  --panel:       #2E2B27;
+  --raised:      #38342E;
+  --border:      #46423D;
+  --border-dim:  rgba(70,66,61,0.5);
+  --cool:        #02E2AC;
+  --cool-dim:    rgba(2,226,172,0.12);
+  --gold:        #C9A85D;
+  --gold-dim:    rgba(201,168,93,0.15);
+  --parchment:   #F2EDE4;
+  --warm:        #C8C0B4;
+  --muted:       #8A8278;
+  --dim:         #5A564F;
+  --ghost:       #3E3A35;
+  --smoke:       #6A6560;
+  --phosphor:    #02E2AC;
+
+  --font-sans:   'Inter', system-ui, sans-serif;
+  --font-serif:  'Source Serif 4', Georgia, serif;
+  --font-mono:   'IBM Plex Mono', 'Courier New', monospace;
+
+  --nav-h: 56px;
+}
+[data-theme="light"] {
+  --bg:         #F8F5EF;
+  --surface:    #F0EDE5;
+  --panel:      #E8E4DA;
+  --raised:     #DEDAD0;
+  --border:     #C8C4B8;
+  --border-dim: rgba(180,174,162,0.5);
+  --parchment:  #1A1814;
+  --warm:       #3A3630;
+  --muted:      #6A6458;
+  --dim:        #9A9488;
+  --smoke:      #7A7468;
+  --ghost:      #C8C4B8;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--parchment);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+a { color: var(--gold); text-decoration: none; }
+a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ── NAV ── */
+.nav {
+  position: sticky; top: 0; z-index: 200;
+  height: var(--nav-h);
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-dim);
+  display: flex; align-items: center;
+}
+.nav-inner {
+  max-width: 900px; margin: 0 auto; padding: 0 24px;
+  width: 100%;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+}
+.nav-back {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.06em; color: var(--dim);
+  display: flex; align-items: center; gap: 6px;
+  transition: color 0.15s;
+}
+.nav-back:hover { color: var(--gold); text-decoration: none; }
+.nav-crumb {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ghost);
+}
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.nav-download {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--dim); padding: 5px 10px;
+  border: 1px solid var(--border); border-radius: 4px;
+  transition: all 0.15s; display: flex; align-items: center; gap: 5px;
+}
+.nav-download:hover { border-color: var(--gold); color: var(--gold); text-decoration: none; }
+.theme-btn {
+  background: none; border: 1px solid var(--border); border-radius: 4px;
+  cursor: pointer; color: var(--muted); padding: 5px 10px;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.06em; text-transform: uppercase; transition: all 0.15s;
+}
+.theme-btn:hover { border-color: var(--gold); color: var(--gold); }
+
+/* ── PAGE WRAPPER ── */
+.page { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+/* ── DOCUMENT HEADER ── */
+.doc-header {
+  padding: 72px 0 56px;
+  border-bottom: 1px solid var(--border);
+}
+.doc-provenance {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim);
+  margin-bottom: 24px;
+  display: flex; align-items: center; gap: 10px;
+}
+.doc-provenance::after {
+  content: ''; flex: 1; max-width: 48px; height: 1px; background: var(--border);
+}
+.doc-title {
+  font-family: var(--font-serif);
+  font-size: clamp(42px, 6vw, 72px);
+  font-weight: 700; color: var(--parchment);
+  line-height: 1.0; letter-spacing: -2px;
+  margin-bottom: 16px;
+}
+.doc-title em { color: var(--gold); font-style: italic; }
+.doc-subtitle {
+  font-family: var(--font-serif);
+  font-size: clamp(16px, 2.2vw, 20px);
+  color: var(--warm); font-style: italic;
+  line-height: 1.5; margin-bottom: 32px;
+  max-width: 600px;
+}
+.doc-meta {
+  display: flex; flex-wrap: wrap; gap: 20px;
+  padding-top: 28px; border-top: 1px solid var(--border-dim);
+}
+.doc-meta-item {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--dim); display: flex; align-items: center; gap: 6px;
+}
+.doc-meta-item strong { color: var(--muted); font-weight: 500; }
+
+/* ── DOWNLOAD CARD ── */
+.download-card {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px; flex-wrap: wrap;
+  margin: 40px 0;
+  padding: 24px 28px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+}
+.download-left { display: flex; align-items: center; gap: 16px; }
+.download-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--gold-dim); border: 1px solid rgba(201,168,93,0.25);
+  border-radius: 8px;
+}
+.download-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+.download-info {}
+.download-name {
+  font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+  color: var(--parchment); margin-bottom: 2px;
+}
+.download-details {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--dim); letter-spacing: 0.04em;
+}
+.download-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 10px 18px; border-radius: 6px;
+  background: var(--gold); color: #1A1814;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  transition: all 0.15s; flex-shrink: 0;
+}
+.download-btn:hover { background: #ddb96a; text-decoration: none; color: #1A1814; }
+.download-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+/* ── INTRO TEXT ── */
+.intro-block {
+  padding: 48px 0 40px;
+  border-bottom: 1px solid var(--border);
+}
+.intro-lede {
+  font-family: var(--font-serif);
+  font-size: clamp(17px, 2vw, 20px);
+  color: var(--warm); line-height: 1.8;
+  max-width: 680px; margin-bottom: 28px;
+}
+.intro-body {
+  font-family: var(--font-serif);
+  font-size: 15px; color: var(--muted); line-height: 1.9;
+  max-width: 680px; margin-bottom: 18px;
+}
+.intro-body strong { color: var(--warm); font-weight: 600; }
+.intro-body em { color: var(--gold); font-style: italic; }
+.intro-body:last-child { margin-bottom: 0; }
+
+/* ── SECTION CONTENTS ── */
+.contents-block {
+  padding: 48px 0;
+  border-bottom: 1px solid var(--border);
+}
+.block-label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--dim);
+  margin-bottom: 24px;
+}
+.section-list { display: flex; flex-direction: column; gap: 2px; }
+.section-item {
+  display: grid; grid-template-columns: 48px 1fr;
+  gap: 0;
+  padding: 16px 20px;
+  background: var(--surface); border: 1px solid var(--border);
+  transition: background 0.12s;
+}
+.section-item:first-child { border-radius: 8px 8px 0 0; }
+.section-item:last-child  { border-radius: 0 0 8px 8px; }
+.section-item:hover { background: var(--panel); }
+.section-num {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--gold); letter-spacing: 0.08em; padding-top: 2px;
+}
+.section-body {}
+.section-name {
+  font-family: var(--font-serif); font-size: 16px; font-weight: 600;
+  color: var(--parchment); margin-bottom: 4px;
+}
+.section-desc {
+  font-size: 12px; font-family: var(--font-mono);
+  color: var(--dim); line-height: 1.6; letter-spacing: 0.02em;
+}
+
+/* ── SCHOLARS ── */
+.scholars-block {
+  padding: 48px 0;
+  border-bottom: 1px solid var(--border);
+}
+.scholars-note {
+  font-family: var(--font-serif); font-size: 14px;
+  color: var(--muted); line-height: 1.8;
+  max-width: 640px; margin-bottom: 28px;
+}
+.scholar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px; margin-top: 4px;
+}
+.scholar-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 7px; padding: 16px;
+}
+.scholar-name {
+  font-family: var(--font-serif); font-size: 14px; font-weight: 600;
+  color: var(--parchment); margin-bottom: 3px;
+}
+.scholar-inst {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--dim);
+  margin-bottom: 6px;
+}
+.scholar-field {
+  font-size: 11px; font-family: var(--font-serif);
+  color: var(--muted); line-height: 1.5; font-style: italic;
+}
+
+/* ── CITATION CATEGORIES ── */
+.citations-block {
+  padding: 48px 0;
+  border-bottom: 1px solid var(--border);
+}
+.cite-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 10px; margin-top: 4px;
+}
+.cite-cat {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 7px; padding: 16px;
+}
+.cite-letter {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 6px;
+}
+.cite-name {
+  font-size: 13px; font-weight: 600; color: var(--parchment);
+  margin-bottom: 6px; font-family: var(--font-serif);
+}
+.cite-desc {
+  font-size: 11px; font-family: var(--font-serif);
+  color: var(--muted); line-height: 1.6; font-style: italic;
+}
+
+/* ── VOICE BLOCK ── */
+.voice-block {
+  padding: 48px 0;
+  border-bottom: 1px solid var(--border);
+}
+.voice-quote {
+  padding: 28px 32px;
+  border-left: 3px solid var(--cool);
+  background: var(--surface);
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 20px;
+}
+.voice-quote p {
+  font-family: var(--font-serif); font-size: 17px;
+  color: var(--parchment); line-height: 1.75; font-style: italic;
+  margin-bottom: 12px;
+}
+.voice-quote p:last-child { margin-bottom: 0; }
+.voice-quote cite {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--dim); text-transform: uppercase; letter-spacing: 0.1em;
+  font-style: normal;
+}
+.voice-body {
+  font-family: var(--font-serif); font-size: 14px;
+  color: var(--muted); line-height: 1.85; max-width: 640px;
+}
+
+/* ── FOOTER ── */
+.footer {
+  border-top: 1px solid var(--border-dim);
+  padding: 36px 0 56px;
+  margin-top: 8px;
+}
+.footer-inner {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 24px; flex-wrap: wrap;
+}
+.footer-text {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--dim); line-height: 1.9;
+}
+.footer-text strong { color: var(--muted); }
+.footer-text a { color: var(--muted); }
+.footer-text a:hover { color: var(--gold); }
+.footer-right { text-align: right; }
+@media (max-width: 540px) { .footer-right { text-align: left; } }
+
+/* ── LUCIDE ICONS ── */
+.icon {
+  display: inline-block; vertical-align: middle; flex-shrink: 0;
+  width: 13px; height: 13px; margin-right: 4px;
+  stroke: currentColor; fill: none;
+}
+.icon-sm { width: 11px; height: 11px; margin-right: 3px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 640px) {
+  .doc-title { letter-spacing: -1px; }
+  .download-card { flex-direction: column; align-items: flex-start; }
+  .scholar-grid { grid-template-columns: 1fr; }
+  .cite-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <div style="display:flex;align-items:center;gap:16px;">
+      <a href="/" class="nav-back">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        cooperation.games
+      </a>
+      <span class="nav-crumb">Research · Deep Roots</span>
+    </div>
+    <div class="nav-right">
+      <a href="deep-roots.pdf" download class="nav-download">
+        <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        PDF
+      </a>
+      <button class="theme-btn" id="theme-btn">Light</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- DOCUMENT HEADER -->
+  <div class="doc-header">
+    <div class="doc-provenance">Coordination Games · Intellectual Lineage · Research Companion</div>
+    <div class="doc-title">Deep <em>Roots</em></div>
+    <div class="doc-subtitle">A companion to the open field. Each visible mechanic in the Coordination Games, traced to its source.</div>
+    <div class="doc-meta">
+      <div class="doc-meta-item"><i data-lucide="building-2" class="icon icon-sm"></i>Publisher: <strong>RegenHub, LCA · games.coop</strong></div>
+      <div class="doc-meta-item"><i data-lucide="map-pin" class="icon icon-sm"></i>Location: <strong>Boulder, Colorado</strong></div>
+      <div class="doc-meta-item"><i data-lucide="calendar" class="icon icon-sm"></i>Year: <strong>2026</strong></div>
+      <div class="doc-meta-item"><i data-lucide="file-text" class="icon icon-sm"></i>Type: <strong>Research companion · open access</strong></div>
+    </div>
+  </div>
+
+  <!-- DOWNLOAD CARD -->
+  <div class="download-card">
+    <div class="download-left">
+      <div class="download-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+      </div>
+      <div class="download-info">
+        <div class="download-name">deep-roots.pdf</div>
+        <div class="download-details">118 KB · PDF · RegenHub, LCA · 2026</div>
+      </div>
+    </div>
+    <a href="deep-roots.pdf" download class="download-btn">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download
+    </a>
+  </div>
+
+  <!-- INTRO -->
+  <div class="intro-block">
+    <p class="intro-lede">The Coordination Games did not invent cooperation. They formalized it — drawing from fifty years of commons research, behavioral game theory, multi-agent systems work, and cooperative law.</p>
+    <p class="intro-body">
+      <em>Deep Roots</em> is the provenance document. It exists because every design choice in the games — the five trust bands, the public attestation requirement, the graduated sanctions structure, the conditional-cooperation mechanic — comes from somewhere. The paper traces where.
+    </p>
+    <p class="intro-body">
+      The document is not a literature review. It is a lineage record. It names the scholars whose work is load-bearing in the design, identifies the open arguments the games are participating in, and assembles a working vocabulary for those who want to understand the intellectual frame before engaging with the mechanics.
+    </p>
+    <p class="intro-body">
+      It is also an invitation. The Coordination Games are a <strong>standing experiment</strong>, not a finished system. The scholars listed here are active researchers. The arguments documented in section four are genuinely open. The games generate evidence that feeds back into them.
+    </p>
+  </div>
+
+  <!-- CONTENTS -->
+  <div class="contents-block">
+    <div class="block-label"><i data-lucide="list" class="icon icon-sm"></i>Contents · Six sections</div>
+    <div class="section-list">
+      <div class="section-item">
+        <div class="section-num">01</div>
+        <div class="section-body">
+          <div class="section-name">Where each design choice comes from</div>
+          <div class="section-desc">The five trust bands traced to Ostrom's graduated sanctions. Public attestations as commons monitoring. Conditional cooperation and the sixth mechanic. Each mechanic, sourced.</div>
+        </div>
+      </div>
+      <div class="section-item">
+        <div class="section-num">02</div>
+        <div class="section-body">
+          <div class="section-name">A working vocabulary</div>
+          <div class="section-desc">"A game is an action situation made teachable." Key terms from the Institutional Analysis and Development framework, behavioral economics, and cooperative AI — defined precisely for this context.</div>
+        </div>
+      </div>
+      <div class="section-item">
+        <div class="section-num">03</div>
+        <div class="section-body">
+          <div class="section-name">Living scholars</div>
+          <div class="section-desc">Active researchers whose work is load-bearing in the design — at Google DeepMind, Carnegie Mellon, CU Boulder, Penn, Arizona State, Microsoft Research, and elsewhere. The field is alive.</div>
+        </div>
+      </div>
+      <div class="section-item">
+        <div class="section-num">04</div>
+        <div class="section-body">
+          <div class="section-name">Open arguments</div>
+          <div class="section-desc">The unresolved debates the games are participating in — commons governance, the conditions for AI cooperation, the relationship between rules and norms. Evidence the games generate feeds back into these.</div>
+        </div>
+      </div>
+      <div class="section-item">
+        <div class="section-num">05</div>
+        <div class="section-body">
+          <div class="section-name">Works cited</div>
+          <div class="section-desc">Seven thematic sections: Commons Governance, Game Theory &amp; Behavioral Economics, Multi-Agent Systems &amp; Cooperative AI, Institutional Economics &amp; Cooperative Law, Network Science &amp; Trust, Philosophy &amp; Lineage, Practitioner &amp; Emerging Work.</div>
+        </div>
+      </div>
+      <div class="section-item">
+        <div class="section-num">06</div>
+        <div class="section-body">
+          <div class="section-name">A note on voice</div>
+          <div class="section-desc">On why this document exists in the first place — and what it means to publish intellectual lineage alongside a live experiment.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIVING SCHOLARS -->
+  <div class="scholars-block">
+    <div class="block-label"><i data-lucide="users-2" class="icon icon-sm"></i>Living scholars · Section 03</div>
+    <p class="scholars-note">The document identifies active researchers whose work is directly load-bearing in the design of the games. Not historical antecedents — current practitioners. The field producing this work is alive and producing new results.</p>
+    <div class="scholar-grid">
+      <div class="scholar-card">
+        <div class="scholar-name">Cooperative AI Lab</div>
+        <div class="scholar-inst">Google DeepMind</div>
+        <div class="scholar-field">Multi-agent cooperation, AI safety, mechanism design for cooperative systems</div>
+      </div>
+      <div class="scholar-card">
+        <div class="scholar-name">Foundations of Cooperative AI Lab</div>
+        <div class="scholar-inst">Carnegie Mellon University</div>
+        <div class="scholar-field">Theoretical foundations for cooperation in AI systems; alignment through coordination</div>
+      </div>
+      <div class="scholar-card">
+        <div class="scholar-name">Cristina Bicchieri</div>
+        <div class="scholar-inst">University of Pennsylvania</div>
+        <div class="scholar-field">Social norms, norm dynamics, behavioral game theory; how expectations shape cooperation</div>
+      </div>
+      <div class="scholar-card">
+        <div class="scholar-name">Media Economies Design Lab</div>
+        <div class="scholar-inst">CU Boulder</div>
+        <div class="scholar-field">Platform governance, commons design, digital cooperative institutions</div>
+      </div>
+      <div class="scholar-card">
+        <div class="scholar-name">ProSocial World</div>
+        <div class="scholar-inst">Binghamton University</div>
+        <div class="scholar-field">Applying Ostrom's principles to contemporary group behavior; prosocial institutional design</div>
+      </div>
+      <div class="scholar-card">
+        <div class="scholar-name">Plurality Institute</div>
+        <div class="scholar-inst">Microsoft Research</div>
+        <div class="scholar-field">Plurality, quadratic funding, democratic technology; governance mechanisms at scale</div>
+      </div>
+      <div class="scholar-card">
+        <div class="scholar-name">Law &amp; Social Science</div>
+        <div class="scholar-inst">Villanova · Pittsburgh · NYU</div>
+        <div class="scholar-field">Cooperative law, institutional economics, the legal architecture of commons governance</div>
+      </div>
+      <div class="scholar-card">
+        <div class="scholar-name">Criminal Justice &amp; Cooperation</div>
+        <div class="scholar-inst">CUNY · John Jay College</div>
+        <div class="scholar-field">Informal governance, restorative justice, cooperation under adversarial conditions</div>
+      </div>
+      <div class="scholar-card">
+        <div class="scholar-name">Complex Systems &amp; Cooperation</div>
+        <div class="scholar-inst">Arizona State University · Dartmouth</div>
+        <div class="scholar-field">Computational modeling of cooperative systems; evolutionary dynamics of cooperation</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CITATION CATEGORIES -->
+  <div class="citations-block">
+    <div class="block-label"><i data-lucide="bookmark" class="icon icon-sm"></i>Works cited · Seven thematic sections</div>
+    <div class="cite-grid">
+      <div class="cite-cat">
+        <div class="cite-letter">A</div>
+        <div class="cite-name">Commons Governance</div>
+        <div class="cite-desc">Ostrom's foundational commons research; the eight design principles; institutional analysis; commons as infrastructure</div>
+      </div>
+      <div class="cite-cat">
+        <div class="cite-letter">B</div>
+        <div class="cite-name">Game Theory &amp; Behavioral Economics</div>
+        <div class="cite-desc">Prisoner's dilemma structure; punishment in public goods experiments; focal points; cooperation under iterated conditions</div>
+      </div>
+      <div class="cite-cat">
+        <div class="cite-letter">C</div>
+        <div class="cite-name">Multi-Agent Systems &amp; Cooperative AI</div>
+        <div class="cite-desc">Agent coordination mechanisms; cooperative AI alignment; mechanism design for AI systems; experimental economics of agents</div>
+      </div>
+      <div class="cite-cat">
+        <div class="cite-letter">D</div>
+        <div class="cite-name">Institutional Economics &amp; Cooperative Law</div>
+        <div class="cite-desc">Cooperative ownership structures; organizational economics; the legal architecture of democratic institutions</div>
+      </div>
+      <div class="cite-cat">
+        <div class="cite-letter">E</div>
+        <div class="cite-name">Network Science &amp; Trust</div>
+        <div class="cite-desc">Trust as computational infrastructure; citation networks; reputation systems; the structure of cooperative networks</div>
+      </div>
+      <div class="cite-cat">
+        <div class="cite-letter">F</div>
+        <div class="cite-name">Philosophy &amp; Lineage</div>
+        <div class="cite-desc">Exit, voice, and loyalty (Hirschman); restorative justice; the philosophical roots of cooperative design; lobster gangs as informal governance</div>
+      </div>
+      <div class="cite-cat">
+        <div class="cite-letter">G</div>
+        <div class="cite-name">Practitioner &amp; Emerging Work</div>
+        <div class="cite-desc">Radical markets; Consilience; quadratic funding; contemporary practitioner research at the intersection of cooperation and technology</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VOICE BLOCK -->
+  <div class="voice-block">
+    <div class="block-label"><i data-lucide="message-square" class="icon icon-sm"></i>A note on voice · Section 06</div>
+    <div class="voice-quote">
+      <p>"A game is an action situation made teachable."</p>
+      <cite>— Deep Roots · Working Vocabulary · Section 02</cite>
+    </div>
+    <div class="voice-quote" style="border-left-color:var(--gold);margin-top:12px;">
+      <p>"A standing experiment in cooperation. Cultivating scenius."</p>
+      <cite>— RegenHub, LCA · games.coop · Public benefit statement</cite>
+    </div>
+    <p class="voice-body" style="margin-top:20px;">
+      The document closes with a reflection on why it exists. Intellectual lineage documents are not common in applied research. Publishing them alongside a live experiment is a commitment — it makes the theory falsifiable, names the predecessors who deserve credit, and invites challenge from anyone who has read the same sources and reached different conclusions.
+    </p>
+    <p class="voice-body" style="margin-top:14px;">
+      The Coordination Games are evidence-generating infrastructure. Deep Roots is the map of what questions that evidence bears on.
+    </p>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-inner">
+      <div class="footer-text">
+        <div><strong>cooperation.games</strong> · Research</div>
+        <div>Steward: <a href="https://techne.institute">RegenHub, LCA</a></div>
+        <div>Boulder, Colorado · 2026</div>
+      </div>
+      <div class="footer-text footer-right">
+        <div><a href="deep-roots.pdf" download>Download PDF →</a></div>
+        <div><a href="/">← cooperation.games</a></div>
+        <div><a href="https://games.coop" target="_blank" rel="noopener noreferrer">games.coop ↗</a></div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+(function(){
+  var btn = document.getElementById('theme-btn');
+  var html = document.documentElement;
+  function apply(t){
+    html.setAttribute('data-theme', t);
+    try { localStorage.setItem('techne-theme', t); } catch(e){}
+    btn.textContent = t === 'dark' ? 'Light' : 'Dark';
+  }
+  apply(html.getAttribute('data-theme') || 'dark');
+  if(btn) btn.addEventListener('click', function(){
+    apply(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+  });
+})();
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+<script>if(window.lucide)lucide.createIcons();</script>
+
+</body>
+</html>
