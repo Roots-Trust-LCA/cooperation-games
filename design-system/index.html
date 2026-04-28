@@ -1233,7 +1233,7 @@ button, .btn {
   <section class="ds-hero" id="overview">
     <p class="ds-hero-kicker">cooperation.games · Design System</p>
     <h1>Build with<br><em>cool precision.</em></h1>
-    <p class="ds-hero-body">A living reference for the visual language of the Coordination Games platform. Tokens, components, and motifs — everything needed to build consistent, legible interfaces across cooperation.games, games.coop, and related surfaces.</p>
+    <p class="ds-hero-body">A living reference for the visual language of the Coordination Games platform. Tokens, components, motifs, and particle systems — everything needed to build consistent, legible interfaces across cooperation.games, games.coop, and related surfaces. v2 adds bezier swarm visualizations for hero backgrounds, data contexts, and environmental motion.</p>
     <nav class="ds-toc" aria-label="Design system sections">
       <a href="#colors">Colors</a>
       <a href="#typography">Typography</a>
@@ -1245,6 +1245,7 @@ button, .btn {
       <a href="#motifs">Motifs</a>
       <a href="#motion">Motion</a>
       <a href="#tokens">Token reference</a>
+      <a href="#particle-systems">Particle Systems</a>
     </nav>
   </section>
 
@@ -1923,6 +1924,104 @@ button, .btn {
     </table>
   </section>
 
+  <!-- PARTICLE SYSTEMS -->
+  <section class="ds-section" id="particle-systems">
+    <p class="section-kicker">11 / Particle Systems — Bezier Swarms</p>
+    <h2 class="section-title">Motion as coordination signal.</h2>
+    <p class="section-body">Bezier swarm visualizations for hero backgrounds, loading states, and environmental motion. Each preset maps a coordination concept — cooperation, trust, defection, seasonal arc — to a distinct particle flow pattern. Built with canvas 2D; integrates with the theme system.</p>
+
+    <!-- Hero demo with preset switcher -->
+    <div class="swarm-hero">
+      <canvas class="swarm-hero-canvas" id="swarm-hero"></canvas>
+      <div class="swarm-hero-bar">
+        <span class="swarm-hero-label" id="swarm-hero-preset-label">Cooperation Flow</span>
+        <button class="swarm-preset-btn active" data-preset="cooperation">Cooperation</button>
+        <button class="swarm-preset-btn" data-preset="trust">Trust Network</button>
+        <button class="swarm-preset-btn" data-preset="defection">Defection</button>
+        <button class="swarm-preset-btn" data-preset="season">Season Arc</button>
+        <button class="swarm-toggle" id="swarm-hero-guides">Guide curves: on</button>
+        <div class="swarm-speed-wrap">
+          <span>Speed</span>
+          <input type="range" id="swarm-hero-speed" min="0.3" max="3" step="0.1" value="1">
+        </div>
+      </div>
+    </div>
+
+    <!-- 4-card grid: each preset -->
+    <div class="swarm-grid">
+      <!-- Cooperation Flow -->
+      <div class="swarm-card">
+        <canvas class="swarm-canvas" id="swarm-coop"></canvas>
+        <div class="swarm-meta">
+          <div class="swarm-meta-name" style="color:#02E2AC">Cooperation Flow</div>
+          <div class="swarm-meta-desc">Parallel agents coordinating toward shared outcomes. S-curve trajectories — gentle, aligned, directional. Use as hero background for cooperative contexts.</div>
+          <div class="swarm-controls">
+            <button class="swarm-toggle active" data-target="swarm-coop" data-role="guides">Guides</button>
+            <div class="swarm-speed-wrap">
+              <span>Speed</span>
+              <input type="range" data-target="swarm-coop" data-role="speed" min="0.3" max="4" step="0.1" value="1">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust Network -->
+      <div class="swarm-card">
+        <canvas class="swarm-canvas" id="swarm-trust"></canvas>
+        <div class="swarm-meta">
+          <div class="swarm-meta-name" style="color:#C9A85D">Trust Network</div>
+          <div class="swarm-meta-desc">Trust relationships radiating from a persistent anchor. Radial bezier branching — phosphor palette marks time and accumulated history.</div>
+          <div class="swarm-controls">
+            <button class="swarm-toggle active" data-target="swarm-trust" data-role="guides">Guides</button>
+            <div class="swarm-speed-wrap">
+              <span>Speed</span>
+              <input type="range" data-target="swarm-trust" data-role="speed" min="0.3" max="4" step="0.1" value="1">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Defection Event -->
+      <div class="swarm-card">
+        <canvas class="swarm-canvas" id="swarm-defect"></canvas>
+        <div class="swarm-meta">
+          <div class="swarm-meta-name" style="color:#FF5A1F">Defection Event</div>
+          <div class="swarm-meta-desc">Abrupt trajectory break — agents that committed to a path suddenly diverge. Hook curves, hot palette, faster speed. Use to signal disruption or betrayal.</div>
+          <div class="swarm-controls">
+            <button class="swarm-toggle" data-target="swarm-defect" data-role="guides">Guides</button>
+            <div class="swarm-speed-wrap">
+              <span>Speed</span>
+              <input type="range" data-target="swarm-defect" data-role="speed" min="0.3" max="4" step="0.1" value="1.8">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Season Arc -->
+      <div class="swarm-card">
+        <canvas class="swarm-canvas" id="swarm-season"></canvas>
+        <div class="swarm-meta">
+          <div class="swarm-meta-name" style="color:#C9A85D">Season Arc</div>
+          <div class="swarm-meta-desc">The four-season spiral — cool at the center (summer), phosphor at mid-range (autumn/winter), hot at the outer edge (pressure). Slow, contemplative.</div>
+          <div class="swarm-controls">
+            <button class="swarm-toggle active" data-target="swarm-season" data-role="guides">Guides</button>
+            <div class="swarm-speed-wrap">
+              <span>Speed</span>
+              <input type="range" data-target="swarm-season" data-role="speed" min="0.3" max="4" step="0.1" value="0.7">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Usage note -->
+    <div style="margin-top:24px;padding:16px 20px;background:var(--panel);border:1px solid var(--border-dim);border-left:3px solid var(--phosphor)">
+      <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:var(--phosphor);margin-bottom:8px">Implementation note</div>
+      <p style="font-size:13px;color:var(--text-muted);line-height:1.7;margin:0">Swarms are canvas 2D — no library dependency. Instantiate with <code style="font-family:var(--font-mono);background:var(--raised);padding:1px 5px">new BezierSwarm(canvas, config)</code> and call <code style="font-family:var(--font-mono);background:var(--raised);padding:1px 5px">.start()</code>. The class reads <code style="font-family:var(--font-mono);background:var(--raised);padding:1px 5px">data-theme</code> on <code style="font-family:var(--font-mono);background:var(--raised);padding:1px 5px">&lt;html&gt;</code> each frame — theme switches are automatic. Full source in the repo at <code style="font-family:var(--font-mono);background:var(--raised);padding:1px 5px">design-system/swarm.js</code>.</p>
+    </div>
+  </section>
+
+
 </div>
 
 <!-- FOOTER -->
@@ -1931,7 +2030,7 @@ button, .btn {
     <div class="footer-brand">
       <strong>cooperation.games</strong>
       <span>Steward: RegenHub, LCA</span><br>
-      <span>Design system v1 · April 2026</span>
+      <span>Design system v2 · April 2026</span>
     </div>
     <div class="footer-meta">
       <div><a href="/">cooperation.games</a></div>
@@ -1967,5 +2066,315 @@ button, .btn {
   });
 })();
 </script>
+
+<script>
+/* ============================================================
+   BEZIER SWARM — cooperation.games design system v2
+   Canvas 2D implementation. No external dependencies.
+   ============================================================ */
+class BezierSwarm {
+  constructor(canvas, config) {
+    this.canvas = canvas;
+    this.ctx = canvas.getContext('2d');
+    this.cfg = Object.assign({
+      preset: 'cooperation',
+      curveCount: 10,
+      particleCount: 2200,
+      speed: 0.0007,
+      baseSize: 1.4,
+      trailAlpha: 0.11,
+      showGuides: true,
+      palette: ['#02E2AC'],
+      bgDark: '#1C1A17',
+      bgLight: '#F2EFE9',
+    }, config);
+    this.curves = [];
+    this.particles = [];
+    this.raf = null;
+    this.W = 0; this.H = 0;
+  }
+
+  isDark() {
+    return document.documentElement.getAttribute('data-theme') !== 'light';
+  }
+
+  bezier(p0, p1, p2, p3, t) {
+    const u = 1 - t, u2 = u * u, u3 = u2 * u, t2 = t * t, t3 = t2 * t;
+    return {
+      x: u3*p0.x + 3*u2*t*p1.x + 3*u*t2*p2.x + t3*p3.x,
+      y: u3*p0.y + 3*u2*t*p1.y + 3*u*t2*p2.y + t3*p3.y
+    };
+  }
+
+  makeCurve(i, n, W, H) {
+    const t = n > 1 ? i / (n - 1) : 0.5;
+    const r = () => Math.random();
+    switch (this.cfg.preset) {
+      case 'cooperation': {
+        const y = H * (0.12 + t * 0.76);
+        const b = (t - 0.5) * H * 0.32;
+        return {
+          p0: { x: -W * 0.04, y },
+          p1: { x: W * 0.28, y: y - b },
+          p2: { x: W * 0.72, y: y + b },
+          p3: { x: W * 1.04, y }
+        };
+      }
+      case 'trust': {
+        const a = t * Math.PI * 2;
+        const cx = W / 2, cy = H / 2;
+        const rad = Math.min(W, H) * 0.41;
+        const w = (r() - 0.5) * 0.3;
+        return {
+          p0: { x: cx, y: cy },
+          p1: { x: cx + Math.cos(a - 0.4 + w) * rad * 0.32, y: cy + Math.sin(a - 0.4 + w) * rad * 0.32 },
+          p2: { x: cx + Math.cos(a + 0.4 + w) * rad * 0.74, y: cy + Math.sin(a + 0.4 + w) * rad * 0.74 },
+          p3: { x: cx + Math.cos(a) * rad, y: cy + Math.sin(a) * rad }
+        };
+      }
+      case 'defection': {
+        const x0 = W * 0.08 + t * W * 0.52;
+        const y0 = H * (0.45 + (t - 0.5) * 0.38);
+        return {
+          p0: { x: x0,             y: y0 },
+          p1: { x: x0 + W * 0.1,   y: y0 + (r()-0.5)*H*0.06 },
+          p2: { x: x0 + W * 0.18,  y: y0 - H * 0.32 },
+          p3: { x: x0 + W * 0.07,  y: y0 - H * 0.44 }
+        };
+      }
+      case 'season': {
+        const cx = W / 2, cy = H / 2;
+        const startA = t * Math.PI * 4.5;
+        const endA   = startA + Math.PI * 0.85;
+        const rMin = Math.min(W, H) * 0.05;
+        const rMax = Math.min(W, H) * 0.44;
+        const ri = rMin + t * (rMax - rMin);
+        const rf = rMin + Math.min(t + 0.17, 1) * (rMax - rMin);
+        return {
+          p0: { x: cx + Math.cos(startA)        * ri,        y: cy + Math.sin(startA)        * ri },
+          p1: { x: cx + Math.cos(startA + 0.42) * ri * 1.38, y: cy + Math.sin(startA + 0.42) * ri * 1.38 },
+          p2: { x: cx + Math.cos(endA   - 0.42) * rf * 0.88, y: cy + Math.sin(endA   - 0.42) * rf * 0.88 },
+          p3: { x: cx + Math.cos(endA)           * rf,        y: cy + Math.sin(endA)           * rf }
+        };
+      }
+      default:
+        return { p0:{x:0,y:H/2}, p1:{x:W/3,y:H/3}, p2:{x:2*W/3,y:2*H/3}, p3:{x:W,y:H/2} };
+    }
+  }
+
+  setup() {
+    const dpr = window.devicePixelRatio || 1;
+    const rect = this.canvas.getBoundingClientRect();
+    this.W = rect.width;
+    this.H = rect.height;
+    this.canvas.width  = this.W * dpr;
+    this.canvas.height = this.H * dpr;
+    this.ctx.scale(dpr, dpr);
+    this.generateCurves();
+    this.initParticles();
+    const dark = this.isDark();
+    this.ctx.fillStyle = dark ? this.cfg.bgDark : this.cfg.bgLight;
+    this.ctx.fillRect(0, 0, this.W, this.H);
+  }
+
+  generateCurves() {
+    const { curveCount: n } = this.cfg;
+    this.curves = Array.from({ length: n }, (_, i) => this.makeCurve(i, n, this.W, this.H));
+  }
+
+  initParticles() {
+    const { particleCount: N, speed, baseSize, palette } = this.cfg;
+    const nc = this.curves.length;
+    this.particles = Array.from({ length: N }, (_, i) => ({
+      ci: i % nc,
+      t: Math.random(),
+      spd: speed * (0.35 + Math.random() * 1.65),
+      sz: baseSize * (0.4 + Math.random() * 1.6),
+      al: 0.25 + Math.random() * 0.75,
+      pi: i % palette.length
+    }));
+  }
+
+  update() {
+    const { particles: ps, curves, cfg } = this;
+    const nc = curves.length;
+    for (const p of ps) {
+      p.t += p.spd * cfg.speedMult;
+      if (p.t >= 1) {
+        p.t -= 1;
+        if (Math.random() < 0.07) {
+          p.ci = Math.floor(Math.random() * nc);
+          p.pi = Math.floor(Math.random() * cfg.palette.length);
+        }
+      }
+    }
+  }
+
+  draw() {
+    const { ctx, W, H, cfg, curves, particles } = this;
+    const dark = this.isDark();
+
+    // Trail
+    ctx.globalAlpha = cfg.trailAlpha;
+    ctx.fillStyle = dark ? cfg.bgDark : cfg.bgLight;
+    ctx.fillRect(0, 0, W, H);
+    ctx.globalAlpha = 1;
+
+    // Guide curves
+    if (cfg.showGuides) {
+      ctx.save();
+      ctx.lineWidth = 0.7;
+      for (let i = 0; i < curves.length; i++) {
+        const c = curves[i];
+        const col = cfg.palette[i % cfg.palette.length];
+        ctx.strokeStyle = col + '18';
+        ctx.beginPath();
+        ctx.moveTo(c.p0.x, c.p0.y);
+        ctx.bezierCurveTo(c.p1.x, c.p1.y, c.p2.x, c.p2.y, c.p3.x, c.p3.y);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // Particles
+    for (const p of particles) {
+      const c = curves[p.ci];
+      if (!c) continue;
+      const pos = this.bezier(c.p0, c.p1, c.p2, c.p3, p.t);
+      const hex = Math.round(p.al * 255).toString(16).padStart(2, '0');
+      ctx.beginPath();
+      ctx.arc(pos.x, pos.y, p.sz, 0, 6.283);
+      ctx.fillStyle = cfg.palette[p.pi] + hex;
+      ctx.fill();
+    }
+  }
+
+  start() {
+    this.cfg.speedMult = 1;
+    this.setup();
+    const loop = () => {
+      this.update();
+      this.draw();
+      this.raf = requestAnimationFrame(loop);
+    };
+    this.raf = requestAnimationFrame(loop);
+  }
+
+  stop() { if (this.raf) { cancelAnimationFrame(this.raf); this.raf = null; } }
+
+  switchPreset(preset) {
+    this.stop();
+    this.cfg.preset = preset;
+    this.start();
+  }
+
+  setSpeed(mult) { this.cfg.speedMult = mult; }
+  setGuides(on)  { this.cfg.showGuides = on; }
+}
+
+/* ── Palette definitions ── */
+const PALETTES = {
+  cooperation: ['#02E2AC','#01C99A','#00B588','#27D9AB','#4DE8C2'],
+  trust:       ['#C9A85D','#D4B87A','#B8913E','#E2C88A','#A07828'],
+  defection:   ['#FF5A1F','#FF7A47','#E04000','#FF9966','#CC3800'],
+  season:      ['#02E2AC','#4FB585','#C9A85D','#E8933A','#FF5A1F'],
+};
+
+const CONFIGS = {
+  cooperation: { preset:'cooperation', curveCount:9,  particleCount:2400, speed:0.00065, baseSize:1.3, trailAlpha:0.10, showGuides:true,  palette:PALETTES.cooperation },
+  trust:       { preset:'trust',       curveCount:12, particleCount:2000, speed:0.00055, baseSize:1.4, trailAlpha:0.09, showGuides:true,  palette:PALETTES.trust       },
+  defection:   { preset:'defection',   curveCount:7,  particleCount:2600, speed:0.0011,  baseSize:1.2, trailAlpha:0.13, showGuides:false, palette:PALETTES.defection   },
+  season:      { preset:'season',      curveCount:11, particleCount:2200, speed:0.00045, baseSize:1.5, trailAlpha:0.09, showGuides:true,  palette:PALETTES.season      },
+};
+
+/* ── Initialise static grid cards ── */
+const GRID_MAP = [
+  { id:'swarm-coop',   preset:'cooperation', speedDefault:1   },
+  { id:'swarm-trust',  preset:'trust',       speedDefault:1   },
+  { id:'swarm-defect', preset:'defection',   speedDefault:1.8 },
+  { id:'swarm-season', preset:'season',      speedDefault:0.7 },
+];
+
+const swarmInstances = {};
+
+function initSwarms() {
+  GRID_MAP.forEach(({ id, preset, speedDefault }) => {
+    const canvas = document.getElementById(id);
+    if (!canvas) return;
+    const inst = new BezierSwarm(canvas, { ...CONFIGS[preset] });
+    inst.cfg.speedMult = speedDefault;
+    swarmInstances[id] = inst;
+    inst.start();
+  });
+
+  /* Guide toggles for grid cards */
+  document.querySelectorAll('.swarm-toggle[data-role="guides"]').forEach(btn => {
+    btn.classList.add('active');
+    btn.addEventListener('click', () => {
+      const inst = swarmInstances[btn.dataset.target];
+      if (!inst) return;
+      const on = !inst.cfg.showGuides;
+      inst.setGuides(on);
+      btn.classList.toggle('active', on);
+      btn.textContent = on ? 'Guides' : 'Guides off';
+    });
+  });
+
+  /* Speed sliders for grid cards */
+  document.querySelectorAll('input[data-role="speed"]').forEach(input => {
+    const inst = swarmInstances[input.dataset.target];
+    if (!inst) return;
+    input.value = inst.cfg.speedMult;
+    input.addEventListener('input', () => inst.setSpeed(parseFloat(input.value)));
+  });
+
+  /* Hero swarm */
+  const heroCanvas = document.getElementById('swarm-hero');
+  if (heroCanvas) {
+    const heroInst = new BezierSwarm(heroCanvas, { ...CONFIGS.cooperation, particleCount:3200, curveCount:10 });
+    swarmInstances['swarm-hero'] = heroInst;
+    heroInst.start();
+
+    /* Preset buttons */
+    document.querySelectorAll('.swarm-preset-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.swarm-preset-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const preset = btn.dataset.preset;
+        const newCfg = { ...CONFIGS[preset], particleCount:3200, curveCount: preset==='trust'?14:10 };
+        Object.assign(heroInst.cfg, newCfg);
+        heroInst.switchPreset(preset);
+        const labels = { cooperation:'Cooperation Flow', trust:'Trust Network', defection:'Defection Event', season:'Season Arc' };
+        const lbl = document.getElementById('swarm-hero-preset-label');
+        if (lbl) lbl.textContent = labels[preset] || preset;
+      });
+    });
+
+    /* Guide toggle for hero */
+    const heroGuides = document.getElementById('swarm-hero-guides');
+    if (heroGuides) {
+      heroGuides.classList.add('active');
+      heroGuides.addEventListener('click', () => {
+        const on = !heroInst.cfg.showGuides;
+        heroInst.setGuides(on);
+        heroGuides.classList.toggle('active', on);
+        heroGuides.textContent = on ? 'Guide curves: on' : 'Guide curves: off';
+      });
+    }
+
+    /* Speed slider for hero */
+    const heroSpeed = document.getElementById('swarm-hero-speed');
+    if (heroSpeed) heroSpeed.addEventListener('input', () => heroInst.setSpeed(parseFloat(heroSpeed.value)));
+  }
+}
+
+/* Wait for DOM + fonts */
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initSwarms);
+} else {
+  initSwarms();
+}
+</script>
+
 </body>
 </html>
