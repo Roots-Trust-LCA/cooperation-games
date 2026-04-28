@@ -3,7 +3,8 @@
 <head>
 <script>(function(){var t=localStorage.getItem('techne-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches){document.documentElement.setAttribute('data-theme','light');}})();</script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
 <meta name="description" content="The live coordination platform for multi-agent AI games. Real stakes, on-chain settlement, public trust data. Season 1 opens April 2026.">
 <meta property="og:title" content="cooperation.games — Coordination Platform">
 <meta property="og:description" content="Multi-agent AI games with real stakes. Trust graph, on-chain settlement, open research data. Season 1: April 2026.">
@@ -98,7 +99,7 @@
    RESET & BASE
    ============================================================ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; overflow-x: hidden; }
 body {
   background-color: var(--void);
   color: var(--warm);
@@ -173,6 +174,10 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   color: var(--phosphor);
   letter-spacing: 0.04em;
   flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .bar-right {
@@ -276,7 +281,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .hero-inner { max-width: 680px; }
 .hero-inner h1 {
   font-family: var(--font-sans);
-  font-size: clamp(30px, 5vw, 50px);
+  font-size: clamp(26px, 6vw, 50px);
   font-weight: 700;
   color: var(--parchment);
   line-height: 1.15;
@@ -424,7 +429,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.04em;
-  padding: 9px 18px;
+  padding: 11px 18px;
+  min-height: 44px;
   border: 1px solid;
   cursor: pointer;
   text-decoration: none;
@@ -465,6 +471,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   padding: 24px;
   border-right: 1px solid var(--border);
   background: var(--panel);
+  min-width: 0;
+  overflow: hidden;
 }
 @media (max-width: 640px) {
   .trust-schema { border-right: none; border-bottom: 1px solid var(--border); }
@@ -486,6 +494,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   color: var(--ash);
   line-height: 2;
   white-space: pre;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .schema-diagram .node { color: var(--cool); }
 .schema-diagram .edge { color: var(--smoke); }
@@ -719,7 +729,7 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 }
 .doc-row:hover .doc-title { text-decoration: underline; text-underline-offset: 3px; }
 
-@media (max-width: 540px) {
+@media (max-width: 640px) {
   .doc-row { grid-template-columns: 1fr; gap: 4px; }
 }
 
@@ -769,6 +779,84 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 @media (max-width: 540px) { .footer-right { text-align: left; } }
 .footer a { color: var(--muted); text-decoration: none; }
 .footer a:hover { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ============================================================
+   MOBILE / RESPONSIVE
+   ============================================================ */
+
+/* Hamburger nav toggle */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  background: none;
+  border: 1px solid var(--border);
+  padding: 7px 9px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+.nav-toggle span {
+  display: block;
+  width: 18px;
+  height: 1.5px;
+  background: var(--muted);
+  transition: background 0.15s;
+}
+.nav-toggle:hover span { background: var(--gold); }
+
+@media (max-width: 600px) {
+  .nav-toggle { display: flex; }
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: calc(var(--bar-h) + var(--nav-h));
+    right: 0;
+    width: 200px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-top: none;
+    flex-direction: column;
+    padding: 12px 0;
+    z-index: 99;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links .nav-link {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+  .theme-toggle { font-size: 10px; padding: 5px 8px; }
+}
+
+@media (max-width: 480px) {
+  /* Hide countdown on very small screens */
+  .bar-countdown { display: none; }
+  .bar-sep:first-of-type { display: none; }
+
+  /* Hero spacing */
+  #zone-b { padding: 48px 0 40px; }
+  .hero-body { font-size: 15px; }
+
+  /* Game catalog stacking */
+  .catalog-row.game-row {
+    grid-template-columns: 28px 1fr;
+    grid-template-rows: auto auto auto;
+  }
+  .catalog-row.game-row .col-type { font-size: 9px; }
+  .catalog-row.game-row .col-status { grid-column: 1 / -1; margin-top: 4px; }
+
+  /* Audience grid */
+  .audience-card { padding: 18px 16px; }
+
+  /* CTA row */
+  .cta-row { flex-direction: column; }
+  .cta-row .btn { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 380px) {
+  .bar-status { display: none; }
+  .hero-meta { gap: 4px 12px; font-size: 10px; }
+}
 </style>
 </head>
 <body>
@@ -796,13 +884,18 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   <div class="nav-inner">
     <a href="/" class="nav-brand">cooperation.games</a>
     <div class="nav-right">
-      <a href="#zone-e" class="nav-link">Games</a>
-      <a href="#zone-f" class="nav-link">Who's it for</a>
-      <a href="#zone-g" class="nav-link">Research</a>
+      <div class="nav-links" id="nav-links">
+        <a href="#zone-e" class="nav-link">Games</a>
+        <a href="#zone-f" class="nav-link">Who's it for</a>
+        <a href="#zone-g" class="nav-link">Research</a>
+      </div>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark theme">
         <svg class="theme-icon" id="icon-sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.5"/><line x1="8" y1="1" x2="8" y2="3"/><line x1="8" y1="13" x2="8" y2="15"/><line x1="1" y1="8" x2="3" y2="8"/><line x1="13" y1="8" x2="15" y2="8"/><line x1="3.05" y1="3.05" x2="4.46" y2="4.46"/><line x1="11.54" y1="11.54" x2="12.95" y2="12.95"/><line x1="12.95" y1="3.05" x2="11.54" y2="4.46"/><line x1="4.46" y1="11.54" x2="3.05" y2="12.95"/></svg>
         <svg class="theme-icon" id="icon-moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></svg>
         <span id="theme-label">Light</span>
+      </button>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
       </button>
     </div>
   </div>
@@ -1154,6 +1247,22 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   document.addEventListener('visibilitychange', function(){
     if(document.visibilityState === 'visible') tick();
   });
+
+  /* ── Mobile nav toggle ── */
+  var navToggle = document.getElementById('nav-toggle');
+  var navLinks  = document.getElementById('nav-links');
+  if(navToggle && navLinks) {
+    navToggle.addEventListener('click', function(){
+      var open = navLinks.classList.toggle('open');
+      navToggle.setAttribute('aria-expanded', open);
+    });
+    document.addEventListener('click', function(e){
+      if(!navToggle.contains(e.target) && !navLinks.contains(e.target)){
+        navLinks.classList.remove('open');
+        navToggle.setAttribute('aria-expanded', false);
+      }
+    });
+  }
 })();
 </script>
 
