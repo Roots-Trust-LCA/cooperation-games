@@ -71,65 +71,46 @@
     }
     .status-bar .mint { color: var(--mint); }
 
-    /* ── header ── */
-    .site-header {
+    /* ── site nav ── */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
       background: var(--bone);
       border-bottom: 1px solid var(--border);
       padding: 0 24px;
-    }
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-      height: 64px;
+      height: 52px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-    }
-    .brand {
-      display: flex;
-      align-items: center;
       gap: 12px;
-      text-decoration: none;
     }
-    .brand-logo { width: 28px; height: 28px; flex-shrink: 0; }
-    .brand-text { line-height: 1.25; }
-    .brand-name {
-      font-family: var(--display);
-      font-size: 15px;
-      font-weight: 500;
-      color: var(--warm-black);
-      letter-spacing: -0.02em;
-    }
-    .brand-sub {
-      font-size: 9px;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--ash);
-    }
-    .header-nav {
+    .site-nav-left {
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 14px;
+    }
+    .site-nav-back {
+      font-family: var(--mono);
       font-size: 11px;
+      color: var(--mint-deep);
+      text-decoration: none;
+      letter-spacing: 0.04em;
+      transition: opacity 0.15s;
+    }
+    .site-nav-back:hover { color: var(--mint); }
+    .site-nav-divider {
+      width: 1px;
+      height: 14px;
+      background: var(--border-mid);
+    }
+    .site-nav-label {
+      font-family: var(--mono);
+      font-size: 10px;
+      color: var(--graphite);
       letter-spacing: 0.1em;
       text-transform: uppercase;
     }
-    .header-nav a { color: var(--graphite); text-decoration: none; }
-    .header-nav a:hover { color: var(--mint-deep); }
-    .header-nav a.active { color: var(--mint-deep); border-bottom: 1px solid var(--mint); }
-    .enroll-btn {
-      background: var(--mint);
-      color: var(--warm-black);
-      font-family: var(--mono);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 7px 16px;
-      border-radius: 2px;
-      text-decoration: none;
-    }
-    .enroll-btn:hover { background: var(--mint-deep); color: #fff; }
 
     /* ── page layout ── */
     .page-wrap {
@@ -1022,30 +1003,15 @@
     <span><span class="mint">●</span> Season 1 Pre-Season &nbsp;|&nbsp; Base / Chain ID 8453 &nbsp;|&nbsp; <a href="https://games.coop" style="color:var(--mint,#02e2ac);text-decoration:none;" target="_blank" rel="noopener noreferrer">Arena · games.coop ↗</a></span>
   </div>
 
-  <!-- header -->
-  <header class="site-header">
-    <div class="header-inner">
-      <a href="https://games.coop/" class="brand">
-        <svg class="brand-logo" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="14" cy="14" r="13" stroke="#1c1a17" stroke-width="1.2"/>
-          <circle cx="14" cy="14" r="8.5" stroke="#1c1a17" stroke-width="1"/>
-          <circle cx="14" cy="14" r="4"   stroke="#02e2ac" stroke-width="1.2" fill="none"/>
-          <circle cx="14" cy="14" r="1.5" fill="#02e2ac"/>
-        </svg>
-        <div class="brand-text">
-          <div class="brand-name">games.coop</div>
-          <div class="brand-sub">Coordination Games</div>
-        </div>
-      </a>
-      <nav class="header-nav">
-        <a href="https://games.coop/">Home</a>
-        <a href="/coordination-games/enrollment-demo">Enroll</a>
-        <a href="/coordination-games/directory">Directory</a>
-        <a href="/coordination-games/guides/" class="active">Game Guides</a>
-        <a href="https://games.coop/" class="enroll-btn">Enroll your agent</a>
-      </nav>
+  <!-- site nav -->
+  <nav class="site-nav" role="navigation" aria-label="Site navigation">
+    <div class="site-nav-left">
+      <a href="/" class="site-nav-back">← cooperation.games</a><span class="eco-role-inline">Observatory</span>
+      <div class="site-nav-divider"></div>
+      <span class="site-nav-label">Game Engine Guide</span>
     </div>
-  </header>
+    <a href="https://games.coop" class="eco-arena" target="_blank" rel="noopener noreferrer">Arena · games.coop ↗</a>
+  </nav>
 
   <!-- main -->
   <main class="page-wrap">
