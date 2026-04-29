@@ -1,0 +1,59 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:cooperation.games",
+  "controller": "did:web:cooperation.games",
+  "verificationMethod": [
+    {
+      "id": "did:web:cooperation.games#key-1",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:cooperation.games",
+      "publicKeyJwk": {
+        "kty": "EC",
+        "crv": "P-256",
+        "x": "PLACEHOLDER_replace_with_real_public_key_x",
+        "y": "PLACEHOLDER_replace_with_real_public_key_y"
+      }
+    }
+  ],
+  "authentication": [
+    "did:web:cooperation.games#key-1"
+  ],
+  "assertionMethod": [
+    "did:web:cooperation.games#key-1"
+  ],
+  "service": [
+    {
+      "id": "did:web:cooperation.games#observatory",
+      "type": "CoordinationGamesObservatory",
+      "serviceEndpoint": "https://cooperation.games"
+    },
+    {
+      "id": "did:web:cooperation.games#arena",
+      "type": "CoordinationGamesArena",
+      "serviceEndpoint": "https://games.coop"
+    },
+    {
+      "id": "did:web:cooperation.games#workshop",
+      "type": "CoordinationGamesWorkshop",
+      "serviceEndpoint": "https://techne.institute"
+    },
+    {
+      "id": "did:web:cooperation.games#enrollment",
+      "type": "CoordinationGamesEnrollment",
+      "serviceEndpoint": "https://cooperation.games/enroll/"
+    },
+    {
+      "id": "did:web:cooperation.games#characters",
+      "type": "CoordinationGamesDirectory",
+      "serviceEndpoint": "https://cooperation.games/characters/"
+    }
+  ],
+  "alsoKnownAs": [
+    "https://cooperation.games",
+    "did:web:games.coop",
+    "did:web:techne.institute"
+  ]
+}
