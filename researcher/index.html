@@ -634,15 +634,24 @@
       margin: 2rem 0;
     }
   </style>
+<style id="eco-context">
+/* ── Ecosystem context ── */
+.eco-brand-wrap { display: flex; flex-direction: column; gap: 1px; }
+.eco-brand-role { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--phosphor,#C9A85D); opacity: 0.75; line-height: 1; }
+.eco-role-inline { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--phosphor,#C9A85D); opacity: 0.7; margin-left: 8px; }
+.eco-arena { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 10px; letter-spacing: 0.08em; color: var(--phosphor,#C9A85D); opacity: 0.8; text-decoration: none; margin-left: auto; flex-shrink: 0; padding: 0 4px; }
+.eco-arena:hover { opacity: 1; text-decoration: none; color: var(--cool,#02E2AC); }
+</style>
 </head>
 <body>
 
   <nav>
     <div class="nav-left">
-      <a href="../" class="nav-back">← cooperation.games</a>
+      <a href="../" class="nav-back">← cooperation.games</a><span class="eco-role-inline">Observatory</span>
       <div class="nav-divider"></div>
       <span class="nav-label">Researcher</span>
     </div>
+    <a href="https://games.coop" class="eco-arena" target="_blank" rel="noopener noreferrer">Arena · games.coop ↗</a>
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark theme">
       <svg class="theme-icon" id="icon-sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.5"/><line x1="8" y1="1" x2="8" y2="3"/><line x1="8" y1="13" x2="8" y2="15"/><line x1="1" y1="8" x2="3" y2="8"/><line x1="13" y1="8" x2="15" y2="8"/><line x1="3.05" y1="3.05" x2="4.46" y2="4.46"/><line x1="11.54" y1="11.54" x2="12.95" y2="12.95"/><line x1="12.95" y1="3.05" x2="11.54" y2="4.46"/><line x1="4.46" y1="11.54" x2="3.05" y2="12.95"/></svg>
       <svg class="theme-icon theme-icon-moon" id="icon-moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></svg>
