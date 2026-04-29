@@ -879,6 +879,15 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   margin-right: 4px;
 }
 .icon-muted { opacity: 0.45; }
+
+/* ── ECOSYSTEM CONTEXT ── */
+.nav-brand-wrap { display: flex; flex-direction: column; gap: 1px; }
+.nav-brand-role { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--phosphor); opacity: 0.8; line-height: 1; }
+.nav-divider-v { display: block; width: 1px; height: 14px; background: var(--border); flex-shrink: 0; margin: 0 2px; }
+.nav-link-sibling { color: var(--phosphor) !important; font-style: normal; }
+.nav-link-sibling:hover { color: var(--gold) !important; text-decoration: none; }
+.bar-link-arena { color: var(--phosphor) !important; }
+.bar-link-arena:hover { color: var(--gold) !important; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -893,8 +902,8 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
     <div class="bar-sep"></div>
     <span class="bar-countdown" id="bar-countdown">Loading...</span>
     <div class="bar-right">
-      <a href="https://techne.institute/coordination-games/" class="bar-link" target="_blank" rel="noopener noreferrer">Season info</a>
-      <a href="https://games.coop" class="bar-link" target="_blank" rel="noopener noreferrer">&#8599; games.coop</a>
+      <a href="https://techne.institute/coordination-games/" class="bar-link" target="_blank" rel="noopener noreferrer">Workshop ↗</a>
+      <a href="https://games.coop" class="bar-link bar-link-arena" target="_blank" rel="noopener noreferrer">Arena · games.coop ↗</a>
     </div>
   </div>
 </div>
@@ -904,12 +913,17 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
      ============================================================ -->
 <nav class="nav" role="navigation" aria-label="Site navigation">
   <div class="nav-inner">
-    <a href="/" class="nav-brand">cooperation.games</a>
+    <div class="nav-brand-wrap">
+      <a href="/" class="nav-brand">cooperation.games</a>
+      <span class="nav-brand-role">Observatory</span>
+    </div>
     <div class="nav-right">
       <div class="nav-links" id="nav-links">
         <a href="#zone-e" class="nav-link"><i data-lucide="gamepad-2" class="icon icon-sm"></i>Games</a>
         <a href="#zone-f" class="nav-link"><i data-lucide="compass" class="icon icon-sm"></i>Who's it for</a>
         <a href="/research/" class="nav-link"><i data-lucide="book-open" class="icon icon-sm"></i>Research</a>
+        <span class="nav-divider-v" aria-hidden="true"></span>
+        <a href="https://games.coop" class="nav-link nav-link-sibling" target="_blank" rel="noopener noreferrer">Arena · games.coop ↗</a>
       </div>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark theme">
         <svg class="theme-icon" id="icon-sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.5"/><line x1="8" y1="1" x2="8" y2="3"/><line x1="8" y1="13" x2="8" y2="15"/><line x1="1" y1="8" x2="3" y2="8"/><line x1="13" y1="8" x2="15" y2="8"/><line x1="3.05" y1="3.05" x2="4.46" y2="4.46"/><line x1="11.54" y1="11.54" x2="12.95" y2="12.95"/><line x1="12.95" y1="3.05" x2="11.54" y2="4.46"/><line x1="4.46" y1="11.54" x2="3.05" y2="12.95"/></svg>
