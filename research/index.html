@@ -67,7 +67,7 @@
     .icon-sm { width: 12px; height: 12px; }
     .icon-lg { width: 20px; height: 20px; }
 
-    /* Nav */
+    /* ── Nav ── */
     .nav {
       position: sticky; top: 0; z-index: 100;
       background: var(--surface);
@@ -95,10 +95,10 @@
     }
     .theme-btn:hover { background: var(--panel); color: var(--parchment); }
 
-    /* Page */
-    .page { max-width: 800px; margin: 0 auto; padding: 64px 32px 120px; }
+    /* ── Page shell ── */
+    .page { max-width: 720px; margin: 0 auto; padding: 64px 32px 120px; }
 
-    /* Header */
+    /* ── Header ── */
     .page-eyebrow {
       font-family: var(--font-mono); font-size: 11px;
       letter-spacing: 0.08em; color: var(--gold);
@@ -107,86 +107,101 @@
     }
     .page-title {
       font-family: var(--font-serif);
-      font-size: clamp(32px, 5vw, 48px);
+      font-size: clamp(30px, 5vw, 44px);
       font-weight: 700; line-height: 1.1;
       letter-spacing: -0.02em;
       color: var(--parchment);
-      margin-bottom: 16px;
+      margin-bottom: 14px;
     }
-    .page-sub {
-      font-size: 17px; font-weight: 300; font-style: italic;
-      color: var(--muted); max-width: 540px; line-height: 1.6;
-      margin-bottom: 48px;
+    .page-intro {
+      font-size: 16px; font-weight: 300; font-style: italic;
+      color: var(--muted); max-width: 540px; line-height: 1.65;
+      margin-bottom: 12px;
+    }
+    .page-note {
+      font-family: var(--font-mono); font-size: 11px;
+      color: var(--muted); letter-spacing: 0.03em;
       padding-bottom: 48px;
       border-bottom: 1px solid var(--border);
+      margin-bottom: 52px;
+    }
+    .page-note a { color: var(--muted); }
+    .page-note a:hover { color: var(--gold); }
+
+    /* ── Section kicker ── */
+    .section-kicker {
+      font-family: var(--font-mono); font-size: 9px;
+      letter-spacing: 0.16em; text-transform: uppercase;
+      color: var(--muted); margin-bottom: 20px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .section-kicker::after {
+      content: '';
+      flex: 1; height: 1px; background: var(--border);
     }
 
-    /* Document grid */
-    .doc-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 20px;
-      margin-bottom: 72px;
-    }
+    /* ── Paper list ── */
+    .paper-list { display: flex; flex-direction: column; margin-bottom: 64px; }
 
-    .doc-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-      transition: border-color 0.15s, background 0.15s;
+    .paper-entry {
+      display: flex; flex-direction: column;
+      padding: 28px 0;
+      border-bottom: 1px solid var(--border);
       text-decoration: none;
       color: inherit;
+      transition: background 0.1s;
     }
-    .doc-card:hover {
-      border-color: var(--border-light);
-      background: var(--panel);
-      text-decoration: none;
-    }
+    .paper-entry:first-child { border-top: 1px solid var(--border); }
+    .paper-entry:hover { text-decoration: none; }
+    .paper-entry:hover .paper-title { color: var(--gold); }
 
-    .doc-card-type {
-      font-family: var(--font-mono); font-size: 10px;
-      letter-spacing: 0.10em; text-transform: uppercase;
-      margin-bottom: 14px;
-      display: flex; align-items: center; gap: 6px;
-    }
-    .doc-card-type.gold { color: var(--gold); }
-    .doc-card-type.cool { color: var(--cool); }
-
-    .doc-card-title {
-      font-family: var(--font-serif);
-      font-size: 21px; font-weight: 700;
-      line-height: 1.25; letter-spacing: -0.01em;
-      color: var(--parchment);
-      margin-bottom: 8px;
-    }
-    .doc-card-title em { font-style: italic; }
-
-    .doc-card-sub {
-      font-size: 14px; font-style: italic;
-      color: var(--muted); line-height: 1.5;
-      margin-bottom: 18px;
-    }
-
-    .doc-card-desc {
-      font-size: 14px; line-height: 1.65;
-      color: var(--parchment); opacity: 0.75;
-      flex: 1;
-      margin-bottom: 20px;
-    }
-
-    .doc-card-meta {
+    .paper-type-row {
       display: flex; align-items: center;
       justify-content: space-between;
-      padding-top: 18px;
-      border-top: 1px solid var(--border);
-      gap: 12px;
+      margin-bottom: 10px;
     }
-    .doc-card-tags {
-      display: flex; gap: 6px; flex-wrap: wrap;
+    .paper-type {
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 0.10em; text-transform: uppercase;
+      display: flex; align-items: center; gap: 5px;
+    }
+    .paper-type.gold { color: var(--gold); }
+    .paper-type.cool { color: var(--cool); }
+
+    .paper-pdf {
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 0.05em; color: var(--muted);
+      display: flex; align-items: center; gap: 4px;
+      padding: 4px 10px; border: 1px solid var(--border);
+      border-radius: 4px; transition: color 0.15s, border-color 0.15s;
+    }
+    .paper-pdf:hover { color: var(--gold); border-color: var(--gold-dim); text-decoration: none; }
+
+    .paper-title {
+      font-family: var(--font-serif);
+      font-size: 22px; font-weight: 700;
+      line-height: 1.2; letter-spacing: -0.01em;
+      color: var(--parchment);
+      margin-bottom: 4px;
+      transition: color 0.15s;
+    }
+    .paper-title em { font-style: italic; }
+
+    .paper-sub {
+      font-size: 14px; font-style: italic;
+      color: var(--muted); margin-bottom: 12px;
+    }
+
+    .paper-desc {
+      font-size: 15px; line-height: 1.7;
+      color: var(--parchment); opacity: 0.72;
+      max-width: 560px;
+      margin-bottom: 16px;
+    }
+
+    .paper-footer {
+      display: flex; align-items: center;
+      gap: 12px; flex-wrap: wrap;
     }
     .tag {
       font-family: var(--font-mono); font-size: 9px;
@@ -194,61 +209,26 @@
       color: var(--muted); border: 1px solid var(--border);
       padding: 3px 7px; border-radius: 3px;
     }
-    .doc-card-pdf {
+    .paper-read {
       font-family: var(--font-mono); font-size: 10px;
-      letter-spacing: 0.05em; color: var(--muted);
+      letter-spacing: 0.06em; color: var(--gold);
       display: flex; align-items: center; gap: 4px;
-      flex-shrink: 0;
-    }
-    .doc-card-pdf:hover { color: var(--gold); }
-
-    .doc-card-arrow {
-      font-family: var(--font-mono); font-size: 11px;
-      color: var(--gold); display: flex; align-items: center;
-      gap: 4px; margin-top: 14px;
+      margin-left: auto;
     }
 
-    /* Placeholder card */
-    .doc-card.placeholder {
-      border-style: dashed;
-      border-color: var(--border);
-      background: transparent;
-      cursor: default;
-      pointer-events: none;
-    }
-    .placeholder-inner {
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      min-height: 180px; gap: 10px;
-      color: var(--muted);
-    }
-    .placeholder-inner .icon-lg { opacity: 0.3; margin-right: 0; }
-    .placeholder-label {
-      font-family: var(--font-mono); font-size: 11px;
-      letter-spacing: 0.06em; text-transform: uppercase;
-      opacity: 0.4;
-    }
-
-    /* About strip */
-    .about-strip {
+    /* ── About note ── */
+    .about-note {
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 24px 28px;
-      display: flex; gap: 20px; align-items: flex-start;
-      margin-bottom: 72px;
+      border-left: 3px solid var(--gold-dim);
+      border-radius: 0 6px 6px 0;
+      padding: 20px 24px;
+      font-size: 14px; line-height: 1.7;
+      color: var(--muted);
     }
-    .about-icon {
-      width: 36px; height: 36px;
-      background: var(--gold-dim);
-      border-radius: 6px;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; color: var(--gold);
-    }
-    .about-text { font-size: 14px; line-height: 1.65; color: var(--muted); }
-    .about-text strong { color: var(--parchment); font-weight: 600; }
+    .about-note strong { color: var(--parchment); font-weight: 600; }
 
-    /* Footer */
+    /* ── Footer ── */
     .footer {
       border-top: 1px solid var(--border);
       padding: 36px 32px;
@@ -256,7 +236,7 @@
       align-items: flex-start; gap: 24px; flex-wrap: wrap;
       font-family: var(--font-mono); font-size: 11px;
       color: var(--muted); letter-spacing: 0.04em;
-      max-width: 800px; margin: 0 auto;
+      max-width: 720px; margin: 0 auto;
     }
     .footer a { color: var(--muted); }
     .footer a:hover { color: var(--parchment); }
@@ -266,7 +246,7 @@
     @media (max-width: 600px) {
       .nav { padding: 10px 16px; }
       .page { padding: 40px 20px 80px; }
-      .doc-grid { grid-template-columns: 1fr; }
+      .paper-pdf { display: none; }
       .footer { flex-direction: column; }
       .footer-right { text-align: left; }
     }
@@ -298,74 +278,55 @@
 
   <p class="page-eyebrow"><i data-lucide="library" class="icon icon-sm"></i>cooperation.games · Research</p>
   <h1 class="page-title">Papers &amp; companions.</h1>
-  <p class="page-sub">Working documents, plain-language guides, and research companions published alongside the Coordination Games. More will be added as the experiment progresses.</p>
+  <p class="page-intro">Working documents and plain-language guides published alongside the Coordination Games. The research is live — the experiment generates the evidence as it runs.</p>
+  <p class="page-note">Season 1 opens June 2026 · All papers are open access · <a href="https://github.com/Roots-Trust-LCA/cooperation-games" target="_blank" rel="noopener noreferrer">GitHub ↗</a></p>
 
-  <div class="doc-grid">
+  <div class="section-kicker"><i data-lucide="book-open" class="icon icon-sm"></i>Published</div>
+
+  <div class="paper-list">
 
     <!-- Deep Roots -->
-    <a href="/research/deep-roots/" class="doc-card">
-      <div class="doc-card-type gold">
-        <i data-lucide="book-open" class="icon icon-sm"></i>Research companion
-      </div>
-      <div class="doc-card-title">Deep <em>Roots</em>.</div>
-      <div class="doc-card-sub">A companion to the open field</div>
-      <p class="doc-card-desc">The intellectual lineage of the Coordination Games — every mechanic traced to its source. Scholars, citations, and the field of study that makes this experiment possible.</p>
-      <div class="doc-card-meta">
-        <div class="doc-card-tags">
-          <span class="tag">Commons</span>
-          <span class="tag">Game Theory</span>
-          <span class="tag">Cooperative AI</span>
-        </div>
-        <a href="/research/deep-roots/deep-roots.pdf" download class="doc-card-pdf" onclick="event.stopPropagation()">
+    <a href="/research/deep-roots/" class="paper-entry">
+      <div class="paper-type-row">
+        <span class="paper-type gold"><i data-lucide="book-open" class="icon icon-sm"></i>Research companion</span>
+        <a href="/research/deep-roots/deep-roots.pdf" download class="paper-pdf" onclick="event.stopPropagation()">
           <i data-lucide="download" class="icon icon-sm"></i>PDF
         </a>
       </div>
-      <div class="doc-card-arrow">
-        <i data-lucide="arrow-right" class="icon icon-sm"></i>Read
+      <div class="paper-title">Deep <em>Roots.</em></div>
+      <div class="paper-sub">A companion to the open field</div>
+      <p class="paper-desc">The intellectual lineage of the Coordination Games — every mechanic traced to its source. Scholars, citations, and the field of study that makes this experiment possible.</p>
+      <div class="paper-footer">
+        <span class="tag">Commons</span>
+        <span class="tag">Game Theory</span>
+        <span class="tag">Cooperative AI</span>
+        <span class="paper-read"><i data-lucide="arrow-right" class="icon icon-sm"></i>Read</span>
       </div>
     </a>
 
     <!-- How the Games Got Their Rules -->
-    <a href="/research/how-the-games-got-their-rules/" class="doc-card">
-      <div class="doc-card-type cool">
-        <i data-lucide="scroll" class="icon icon-sm"></i>Plain-language companion
-      </div>
-      <div class="doc-card-title">How the games got their <em>rules.</em></div>
-      <div class="doc-card-sub">A friendly tour · for curious readers</div>
-      <p class="doc-card-desc">Where the ideas come from, who figured them out, and why a small cooperative in Boulder is putting them together. Eight design choices, five games, twelve scholars — no prior knowledge required.</p>
-      <div class="doc-card-meta">
-        <div class="doc-card-tags">
-          <span class="tag">Accessible</span>
-          <span class="tag">Design Choices</span>
-          <span class="tag">Reading List</span>
-        </div>
-        <a href="/research/how-the-games-got-their-rules/how-the-games-got-their-rules.pdf" download class="doc-card-pdf" onclick="event.stopPropagation()">
+    <a href="/research/how-the-games-got-their-rules/" class="paper-entry">
+      <div class="paper-type-row">
+        <span class="paper-type cool"><i data-lucide="scroll" class="icon icon-sm"></i>Plain-language companion</span>
+        <a href="/research/how-the-games-got-their-rules/how-the-games-got-their-rules.pdf" download class="paper-pdf" onclick="event.stopPropagation()">
           <i data-lucide="download" class="icon icon-sm"></i>PDF
         </a>
       </div>
-      <div class="doc-card-arrow">
-        <i data-lucide="arrow-right" class="icon icon-sm"></i>Read
+      <div class="paper-title">How the games got their <em>rules.</em></div>
+      <div class="paper-sub">A friendly tour · for curious readers</div>
+      <p class="paper-desc">Where the ideas come from, who figured them out, and why a small cooperative in Boulder is putting them together. Eight design choices, five games, twelve scholars — no prior knowledge required.</p>
+      <div class="paper-footer">
+        <span class="tag">Accessible</span>
+        <span class="tag">Design Choices</span>
+        <span class="tag">Reading List</span>
+        <span class="paper-read"><i data-lucide="arrow-right" class="icon icon-sm"></i>Read</span>
       </div>
     </a>
 
-    <!-- Placeholder -->
-    <div class="doc-card placeholder">
-      <div class="placeholder-inner">
-        <i data-lucide="file-plus" class="icon-lg"></i>
-        <span class="placeholder-label">More to come</span>
-      </div>
-    </div>
-
   </div>
 
-  <!-- About strip -->
-  <div class="about-strip">
-    <div class="about-icon">
-      <i data-lucide="flask-conical" class="icon"></i>
-    </div>
-    <p class="about-text">
-      <strong>About this research.</strong> These documents are published alongside a live experiment — the Coordination Games, Season 1, opening June 2026. The research is not finished; the experiment generates the evidence. Documents will be added as the work progresses. All papers are open access.
-    </p>
+  <div class="about-note">
+    <strong>More to come.</strong> These documents are published alongside a live experiment. The research is not finished; the experiment generates the evidence. Papers and companions will be added as Season 1 progresses.
   </div>
 
 </main>
