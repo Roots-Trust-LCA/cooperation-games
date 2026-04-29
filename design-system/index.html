@@ -1322,6 +1322,106 @@ button, .btn {
 .eco-role-inline { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--phosphor,#C9A85D); opacity: 0.7; margin-left: 8px; }
 .eco-arena { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 10px; letter-spacing: 0.08em; color: var(--phosphor,#C9A85D); opacity: 0.8; text-decoration: none; margin-left: auto; flex-shrink: 0; padding: 0 4px; }
 .eco-arena:hover { opacity: 1; text-decoration: none; color: var(--cool,#02E2AC); }
+
+
+    /* ── Site index footer ── */
+/* ── Site index footer ── */
+.sfn {
+  background: var(--surface,#252320);
+  border-top: 1px solid var(--border-dim,rgba(70,66,61,0.5));
+  padding: 44px 24px 28px;
+  font-family: var(--font-mono,'IBM Plex Mono',monospace);
+}
+.sfn-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 48px;
+  margin-bottom: 28px;
+}
+.sfn-brand-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--parchment,#FBFAF9);
+  margin-bottom: 3px;
+  text-decoration: none;
+  display: block;
+}
+.sfn-brand-name:hover { color: var(--cool,#02E2AC); text-decoration: none; }
+.sfn-brand-role {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--phosphor,#C9A85D);
+  opacity: 0.8;
+  margin-bottom: 12px;
+}
+.sfn-brand-meta {
+  font-size: 11px;
+  color: var(--dim,#6B665F);
+  line-height: 1.8;
+  margin-bottom: 14px;
+}
+.sfn-eco { display: flex; flex-direction: column; gap: 6px; }
+.sfn-eco a {
+  font-size: 10px;
+  color: var(--phosphor,#C9A85D);
+  text-decoration: none;
+  opacity: 0.75;
+  letter-spacing: 0.06em;
+  transition: opacity 0.15s;
+}
+.sfn-eco a:hover { opacity: 1; text-decoration: none; }
+.sfn-cols {
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 24px;
+}
+.sfn-col-head {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ash,#9C9790);
+  margin-bottom: 12px;
+  font-weight: 600;
+  padding-bottom: 7px;
+  border-bottom: 1px solid var(--border-dim,rgba(70,66,61,0.4));
+}
+.sfn-link {
+  display: block;
+  font-size: 11px;
+  color: var(--muted,#9C9790);
+  text-decoration: none;
+  margin-bottom: 9px;
+  line-height: 1.35;
+  transition: color 0.15s;
+}
+.sfn-link:hover { color: var(--cool,#02E2AC); text-decoration: none; }
+.sfn-bottom {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-dim,rgba(70,66,61,0.3));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  color: var(--dim,#6B665F);
+  letter-spacing: 0.04em;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.sfn-bottom a { color: var(--dim,#6B665F); text-decoration: none; }
+.sfn-bottom a:hover { color: var(--cool,#02E2AC); }
+@media (max-width: 820px) {
+  .sfn-inner { grid-template-columns: 1fr; gap: 24px; }
+  .sfn-cols { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 480px) {
+  .sfn-cols { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .sfn-bottom { flex-direction: column; align-items: flex-start; }
+}
 </style>
 </head>
 <body>
@@ -1362,6 +1462,7 @@ button, .btn {
       <a href="#motion">Motion</a>
       <a href="#tokens">Token reference</a>
       <a href="#particle-systems">Particle Systems</a>
+      <a href="#ecosystem">Ecosystem</a>
     </nav>
   </section>
 
@@ -2168,108 +2269,51 @@ button, .btn {
   </section>
 
 
+<!-- ============================================================
+       ECOSYSTEM CONTEXT
+       ============================================================ -->
+  <section class="section" id="ecosystem">
+    <p class="section-kicker">Navigation</p>
+    <h2 class="section-title">Ecosystem context</h2>
+    <p class="section-body">cooperation.games is one of three interconnected properties in the Coordination Games ecosystem. Every page surfaces this structure in its navigation so visitors always know where they are and where to go next.</p>
+
+    <div style="margin:24px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div style="padding:20px;border:1px solid var(--border);border-left:3px solid var(--cool);background:var(--panel);">
+        <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--cool);margin-bottom:8px;">Observatory</div>
+        <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">cooperation.games</div>
+        <div style="font-family:var(--font-serif);font-size:12px;color:var(--text-muted);line-height:1.5;">Research infrastructure. Live trust graphs, open datasets, public attestation records. Where the data lives.</div>
+      </div>
+      <div style="padding:20px;border:1px solid var(--border);border-left:3px solid var(--phosphor);background:var(--panel);">
+        <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--phosphor);margin-bottom:8px;">Arena</div>
+        <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">games.coop</div>
+        <div style="font-family:var(--font-serif);font-size:12px;color:var(--text-muted);line-height:1.5;">Competitive participation. Register agents, submit game mechanics, play seasons. Where the action happens.</div>
+      </div>
+      <div style="padding:20px;border:1px solid var(--border);border-left:3px solid var(--border);background:var(--panel);">
+        <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;">Workshop</div>
+        <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">techne.institute/coordination-games</div>
+        <div style="font-family:var(--font-serif);font-size:12px;color:var(--text-muted);line-height:1.5;">Institutional documentation. Decisions, reasoning, architecture. How everything is built and why.</div>
+      </div>
+    </div>
+
+    <p class="section-body">The nav treatment on cooperation.games reflects this:</p>
+    <ul style="font-family:var(--font-serif);font-size:14px;color:var(--text-muted);line-height:2;margin:12px 0 20px 20px;">
+      <li>Homepage nav brand: stacked <code style="font-family:var(--font-mono);font-size:12px;color:var(--text)">cooperation.games</code> / <code style="font-family:var(--font-mono);font-size:12px;color:var(--phosphor)">OBSERVATORY</code> label</li>
+      <li>Status bar right: <code style="font-family:var(--font-mono);font-size:12px;color:var(--text)">Workshop ↗</code> and <code style="font-family:var(--font-mono);font-size:12px;color:var(--phosphor)">Arena · games.coop ↗</code></li>
+      <li>Subpage navs: inline <code style="font-family:var(--font-mono);font-size:12px;color:var(--phosphor)">· Observatory</code> label after backlink + Arena link pushed right</li>
+    </ul>
+
+    <div style="margin-top:24px;">
+      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:12px;">Ecosystem nav CSS classes</p>
+      <div style="background:var(--panel);border:1px solid var(--border);padding:16px 20px;font-family:var(--font-mono);font-size:12px;color:var(--text-muted);line-height:2;white-space:pre-wrap;">.eco-brand-wrap   — flex column wrapper for stacked brand + role label
+.eco-brand-role   — "OBSERVATORY" label (phosphor, 9px, uppercase, mono)
+.eco-role-inline  — inline sibling span after backlink on subpages
+.eco-arena        — "Arena · games.coop ↗" link (phosphor, margin-left:auto)</div>
+    </div>
+  </section>
+
 </div>
 
 <!-- FOOTER -->
-<style id="site-index-footer-css">
-/* ── Site index footer ── */
-.sfn {
-  background: var(--surface,#252320);
-  border-top: 1px solid var(--border-dim,rgba(70,66,61,0.5));
-  padding: 44px 24px 28px;
-  font-family: var(--font-mono,'IBM Plex Mono',monospace);
-}
-.sfn-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 200px 1fr;
-  gap: 48px;
-  margin-bottom: 28px;
-}
-.sfn-brand-name {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--parchment,#FBFAF9);
-  margin-bottom: 3px;
-  text-decoration: none;
-  display: block;
-}
-.sfn-brand-name:hover { color: var(--cool,#02E2AC); text-decoration: none; }
-.sfn-brand-role {
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--phosphor,#C9A85D);
-  opacity: 0.8;
-  margin-bottom: 12px;
-}
-.sfn-brand-meta {
-  font-size: 11px;
-  color: var(--dim,#6B665F);
-  line-height: 1.8;
-  margin-bottom: 14px;
-}
-.sfn-eco { display: flex; flex-direction: column; gap: 6px; }
-.sfn-eco a {
-  font-size: 10px;
-  color: var(--phosphor,#C9A85D);
-  text-decoration: none;
-  opacity: 0.75;
-  letter-spacing: 0.06em;
-  transition: opacity 0.15s;
-}
-.sfn-eco a:hover { opacity: 1; text-decoration: none; }
-.sfn-cols {
-  display: grid;
-  grid-template-columns: repeat(4,1fr);
-  gap: 24px;
-}
-.sfn-col-head {
-  font-size: 9px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ash,#9C9790);
-  margin-bottom: 12px;
-  font-weight: 600;
-  padding-bottom: 7px;
-  border-bottom: 1px solid var(--border-dim,rgba(70,66,61,0.4));
-}
-.sfn-link {
-  display: block;
-  font-size: 11px;
-  color: var(--muted,#9C9790);
-  text-decoration: none;
-  margin-bottom: 9px;
-  line-height: 1.35;
-  transition: color 0.15s;
-}
-.sfn-link:hover { color: var(--cool,#02E2AC); text-decoration: none; }
-.sfn-bottom {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding-top: 16px;
-  border-top: 1px solid var(--border-dim,rgba(70,66,61,0.3));
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 10px;
-  color: var(--dim,#6B665F);
-  letter-spacing: 0.04em;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-.sfn-bottom a { color: var(--dim,#6B665F); text-decoration: none; }
-.sfn-bottom a:hover { color: var(--cool,#02E2AC); }
-@media (max-width: 820px) {
-  .sfn-inner { grid-template-columns: 1fr; gap: 24px; }
-  .sfn-cols { grid-template-columns: repeat(2,1fr); }
-}
-@media (max-width: 480px) {
-  .sfn-cols { grid-template-columns: 1fr 1fr; gap: 16px; }
-  .sfn-bottom { flex-direction: column; align-items: flex-start; }
-}
-</style>
 <footer class="sfn" role="contentinfo">
   <div class="sfn-inner">
     <div class="sfn-brand">
@@ -2310,7 +2354,7 @@ button, .btn {
   <div class="sfn-bottom">
     <span>Season 1 · June 2026 · Settlement: Base (Chain ID 8453)</span>
     <span>
-      <a href="https://github.com/Roots-Trust-LCA/coordination-games" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <a href="https://github.com/Roots-Trust-LCA/cooperation-games" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
     </span>
   </div>
 </footer>
@@ -3045,49 +3089,6 @@ function initSwarms() {
 /* initSwarms is a no-op — flock canvases are self-initialising via IntersectionObserver */
 function initSwarms() {}
 </script>
-
-
-  <!-- ============================================================
-       ECOSYSTEM CONTEXT
-       ============================================================ -->
-  <section class="section" id="ecosystem">
-    <p class="section-kicker">Navigation</p>
-    <h2 class="section-title">Ecosystem context</h2>
-    <p class="section-body">cooperation.games is one of three interconnected properties in the Coordination Games ecosystem. Every page surfaces this structure in its navigation so visitors always know where they are and where to go next.</p>
-
-    <div style="margin:24px 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
-      <div style="padding:20px;border:1px solid var(--border);border-left:3px solid var(--cool);background:var(--panel);">
-        <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--cool);margin-bottom:8px;">Observatory</div>
-        <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">cooperation.games</div>
-        <div style="font-family:var(--font-serif);font-size:12px;color:var(--text-muted);line-height:1.5;">Research infrastructure. Live trust graphs, open datasets, public attestation records. Where the data lives.</div>
-      </div>
-      <div style="padding:20px;border:1px solid var(--border);border-left:3px solid var(--phosphor);background:var(--panel);">
-        <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--phosphor);margin-bottom:8px;">Arena</div>
-        <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">games.coop</div>
-        <div style="font-family:var(--font-serif);font-size:12px;color:var(--text-muted);line-height:1.5;">Competitive participation. Register agents, submit game mechanics, play seasons. Where the action happens.</div>
-      </div>
-      <div style="padding:20px;border:1px solid var(--border);border-left:3px solid var(--border);background:var(--panel);">
-        <div style="font-family:var(--font-mono);font-size:9px;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-dim);margin-bottom:8px;">Workshop</div>
-        <div style="font-family:var(--font-mono);font-size:13px;font-weight:600;color:var(--text);margin-bottom:6px;">techne.institute/coordination-games</div>
-        <div style="font-family:var(--font-serif);font-size:12px;color:var(--text-muted);line-height:1.5;">Institutional documentation. Decisions, reasoning, architecture. How everything is built and why.</div>
-      </div>
-    </div>
-
-    <p class="section-body">The nav treatment on cooperation.games reflects this:</p>
-    <ul style="font-family:var(--font-serif);font-size:14px;color:var(--text-muted);line-height:2;margin:12px 0 20px 20px;">
-      <li>Homepage nav brand: stacked <code style="font-family:var(--font-mono);font-size:12px;color:var(--text)">cooperation.games</code> / <code style="font-family:var(--font-mono);font-size:12px;color:var(--phosphor)">OBSERVATORY</code> label</li>
-      <li>Status bar right: <code style="font-family:var(--font-mono);font-size:12px;color:var(--text)">Workshop ↗</code> and <code style="font-family:var(--font-mono);font-size:12px;color:var(--phosphor)">Arena · games.coop ↗</code></li>
-      <li>Subpage navs: inline <code style="font-family:var(--font-mono);font-size:12px;color:var(--phosphor)">· Observatory</code> label after backlink + Arena link pushed right</li>
-    </ul>
-
-    <div style="margin-top:24px;">
-      <p style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-dim);margin-bottom:12px;">Ecosystem nav CSS classes</p>
-      <div style="background:var(--panel);border:1px solid var(--border);padding:16px 20px;font-family:var(--font-mono);font-size:12px;color:var(--text-muted);line-height:2;white-space:pre-wrap;">.eco-brand-wrap   — flex column wrapper for stacked brand + role label
-.eco-brand-role   — "OBSERVATORY" label (phosphor, 9px, uppercase, mono)
-.eco-role-inline  — inline sibling span after backlink on subpages
-.eco-arena        — "Arena · games.coop ↗" link (phosphor, margin-left:auto)</div>
-    </div>
-  </section>
 
 </body>
 </html>
