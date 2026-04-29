@@ -99,12 +99,6 @@
     .page { max-width: 720px; margin: 0 auto; padding: 64px 32px 120px; }
 
     /* ── Header ── */
-    .page-eyebrow {
-      font-family: var(--font-mono); font-size: 11px;
-      letter-spacing: 0.08em; color: var(--gold);
-      text-transform: uppercase; margin-bottom: 18px;
-      display: flex; align-items: center; gap: 6px;
-    }
     .page-title {
       font-family: var(--font-serif);
       font-size: clamp(30px, 5vw, 44px);
@@ -113,35 +107,18 @@
       color: var(--parchment);
       margin-bottom: 14px;
     }
-    .page-intro {
-      font-size: 16px; font-weight: 300; font-style: italic;
-      color: var(--muted); max-width: 540px; line-height: 1.65;
-      margin-bottom: 12px;
-    }
-    .page-note {
+    .page-meta {
       font-family: var(--font-mono); font-size: 11px;
       color: var(--muted); letter-spacing: 0.03em;
-      padding-bottom: 48px;
+      padding-bottom: 40px;
       border-bottom: 1px solid var(--border);
-      margin-bottom: 52px;
+      margin-bottom: 44px;
     }
-    .page-note a { color: var(--muted); }
-    .page-note a:hover { color: var(--gold); }
-
-    /* ── Section kicker ── */
-    .section-kicker {
-      font-family: var(--font-mono); font-size: 9px;
-      letter-spacing: 0.16em; text-transform: uppercase;
-      color: var(--muted); margin-bottom: 20px;
-      display: flex; align-items: center; gap: 8px;
-    }
-    .section-kicker::after {
-      content: '';
-      flex: 1; height: 1px; background: var(--border);
-    }
+    .page-meta a { color: var(--muted); }
+    .page-meta a:hover { color: var(--gold); }
 
     /* ── Paper list ── */
-    .paper-list { display: flex; flex-direction: column; margin-bottom: 64px; }
+    .paper-list { display: flex; flex-direction: column; margin-bottom: 48px; }
 
     .paper-entry {
       display: flex; flex-direction: column;
@@ -149,7 +126,6 @@
       border-bottom: 1px solid var(--border);
       text-decoration: none;
       color: inherit;
-      transition: background 0.1s;
     }
     .paper-entry:first-child { border-top: 1px solid var(--border); }
     .paper-entry:hover { text-decoration: none; }
@@ -182,15 +158,10 @@
       font-size: 22px; font-weight: 700;
       line-height: 1.2; letter-spacing: -0.01em;
       color: var(--parchment);
-      margin-bottom: 4px;
+      margin-bottom: 10px;
       transition: color 0.15s;
     }
     .paper-title em { font-style: italic; }
-
-    .paper-sub {
-      font-size: 14px; font-style: italic;
-      color: var(--muted); margin-bottom: 12px;
-    }
 
     .paper-desc {
       font-size: 15px; line-height: 1.7;
@@ -216,17 +187,53 @@
       margin-left: auto;
     }
 
-    /* ── About note ── */
-    .about-note {
-      background: var(--surface);
+    /* ── Guides bridge card ── */
+    .bridge-card {
       border: 1px solid var(--border);
-      border-left: 3px solid var(--gold-dim);
+      border-left: 3px solid var(--cool);
       border-radius: 0 6px 6px 0;
-      padding: 20px 24px;
-      font-size: 14px; line-height: 1.7;
-      color: var(--muted);
+      background: var(--surface);
+      padding: 24px 28px;
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 24px;
     }
-    .about-note strong { color: var(--parchment); font-weight: 600; }
+    .bridge-kicker {
+      font-family: var(--font-mono); font-size: 9px;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--cool); opacity: 0.8;
+      margin-bottom: 8px;
+    }
+    .bridge-title {
+      font-family: var(--font-serif);
+      font-size: 18px; font-weight: 700;
+      color: var(--parchment); margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    .bridge-desc {
+      font-size: 13px; line-height: 1.65;
+      color: var(--muted); max-width: 420px;
+    }
+    .bridge-actions {
+      display: flex; flex-direction: column;
+      gap: 8px; align-items: flex-end; flex-shrink: 0;
+      padding-top: 4px;
+    }
+    .bridge-btn-primary {
+      font-family: var(--font-mono); font-size: 11px;
+      letter-spacing: 0.05em;
+      padding: 8px 16px;
+      background: var(--cool); color: #0a1a14;
+      border-radius: 4px; text-decoration: none;
+      white-space: nowrap; font-weight: 600;
+      transition: opacity 0.15s;
+    }
+    .bridge-btn-primary:hover { opacity: 0.85; text-decoration: none; }
+    .bridge-btn-secondary {
+      font-family: var(--font-mono); font-size: 10px;
+      letter-spacing: 0.05em; color: var(--muted);
+      text-decoration: none; white-space: nowrap;
+    }
+    .bridge-btn-secondary:hover { color: var(--cool); }
 
     /* ── Footer ── */
     .footer {
@@ -249,8 +256,10 @@
       .paper-pdf { display: none; }
       .footer { flex-direction: column; }
       .footer-right { text-align: left; }
+      .bridge-card { flex-direction: column; }
+      .bridge-actions { align-items: flex-start; }
     }
-  </style>
+    </style>
 <style id="eco-context">
 /* ── Ecosystem context ── */
 .eco-brand-wrap { display: flex; flex-direction: column; gap: 1px; }
@@ -276,12 +285,8 @@
 
 <main class="page">
 
-  <p class="page-eyebrow"><i data-lucide="library" class="icon icon-sm"></i>cooperation.games · Research</p>
   <h1 class="page-title">Papers &amp; companions.</h1>
-  <p class="page-intro">Working documents and plain-language guides published alongside the Coordination Games. The research is live — the experiment generates the evidence as it runs.</p>
-  <p class="page-note">Season 1 opens June 2026 · All papers are open access · <a href="https://github.com/Roots-Trust-LCA/cooperation-games" target="_blank" rel="noopener noreferrer">GitHub ↗</a></p>
-
-  <div class="section-kicker"><i data-lucide="book-open" class="icon icon-sm"></i>Published</div>
+  <p class="page-meta">Season 1 opens June 2026 · Open access · <a href="https://github.com/Roots-Trust-LCA/cooperation-games" target="_blank" rel="noopener noreferrer">GitHub ↗</a></p>
 
   <div class="paper-list">
 
@@ -294,8 +299,7 @@
         </a>
       </div>
       <div class="paper-title">Deep <em>Roots.</em></div>
-      <div class="paper-sub">A companion to the open field</div>
-      <p class="paper-desc">The intellectual lineage of the Coordination Games — every mechanic traced to its source. Scholars, citations, and the field of study that makes this experiment possible.</p>
+      <p class="paper-desc">The intellectual lineage of the Coordination Games — every mechanic traced to its source. Fifty years of commons research, behavioral game theory, and cooperative AI, assembled into a provenance record for the design.</p>
       <div class="paper-footer">
         <span class="tag">Commons</span>
         <span class="tag">Game Theory</span>
@@ -313,7 +317,6 @@
         </a>
       </div>
       <div class="paper-title">How the games got their <em>rules.</em></div>
-      <div class="paper-sub">A friendly tour · for curious readers</div>
       <p class="paper-desc">Where the ideas come from, who figured them out, and why a small cooperative in Boulder is putting them together. Eight design choices, five games, twelve scholars — no prior knowledge required.</p>
       <div class="paper-footer">
         <span class="tag">Accessible</span>
@@ -325,8 +328,17 @@
 
   </div>
 
-  <div class="about-note">
-    <strong>More to come.</strong> These documents are published alongside a live experiment. The research is not finished; the experiment generates the evidence. Papers and companions will be added as Season 1 progresses.
+  <!-- Guides bridge card -->
+  <div class="bridge-card">
+    <div class="bridge-body">
+      <div class="bridge-kicker">Observatory → Arena</div>
+      <div class="bridge-title">Game Engine Guide</div>
+      <p class="bridge-desc">Research explains the intellectual lineage. The Guide explains how to actually play — mechanics, trust bands, scoring, and what happens inside a live game. From here (cooperation.games, the Observatory) to there (games.coop, the Arena).</p>
+    </div>
+    <div class="bridge-actions">
+      <a href="/guides/" class="bridge-btn-primary">Read the Guide →</a>
+      <a href="https://games.coop" target="_blank" rel="noopener" class="bridge-btn-secondary">Enter the Arena ↗</a>
+    </div>
   </div>
 
 </main>
@@ -485,3 +497,4 @@
 </script>
 </body>
 </html>
+
