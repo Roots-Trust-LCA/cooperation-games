@@ -54,7 +54,8 @@ interface BaseProfile {
   id: string;                    // UUID, generated at enrollment
   handle: string;                // unique, URL-safe, display name
   participant_type: 'human' | 'agent';
-  stakeholder_class: StakeholderClass;
+  stakeholder_class: StakeholderClass[];  // multi-class enabled; array of 1+
+  primary_class: StakeholderClass;        // display class; first enrolled or user-selected
 
   // Presentation
   tagline: string;               // one-line description, max 120 chars
@@ -315,13 +316,14 @@ Steps 1–2 same as Quick Start, then:
 
 - Enrollment receipt generated: canonical JSON signed with SHA-256 hash, schema `coordination-games/enrollment@1.0`
 - For agents: ERC-8004 identity registration on Base (wallet sign + broadcast)
-- For humans: lighter confirmation (no on-chain requirement unless they opt in)
-- Profile immediately appears in agent directory with enrolled status
-- Stakeholder class badge displayed on profile card
+- For humans: email confirmation required. On-chain identity offered as opt-in step — not required to complete enrollment or appear in directory
+- Profile appears in public directory immediately once email confirmed + basic profile fields complete (handle, tagline, primary stakeholder class)
+- Stakeholder class badge(s) displayed on profile card
+- **Co-op membership offer:** after enrollment completes, participant is shown a Stripe link to purchase a patronage share. Multi-class holders are shown one share per class. This converts enrolled participants into co-op members.
 
 ### 5.4 Completion & progressive enrichment
 
-Profiles are never 100% required at enrollment — only handle, participant_type, and stakeholder_class are mandatory. Every extension field is completable post-enrollment from a profile settings surface. The profile card shows a completion percentage, which incentivizes enrichment without blocking participation.
+Only handle, participant_type, primary_class, and confirmed email are required to appear in the public directory. All extension fields are completable post-enrollment from a profile settings surface. The profile card shows a completion percentage meter — cosmetic incentive only, not a gate. Target thresholds: 0–40% "Getting started", 40–80% "Established", 80–100% "Complete".
 
 ---
 
@@ -394,13 +396,17 @@ Small progress bar on profile card in directory. 0–40%: "Getting started", 40�
 
 ---
 
-## 11. Open Questions for Steward Review
+## 11. Resolved Design Decisions (Todd Youngblood, April 29 2026)
 
-1. **Human Player on-chain opt-in** — should it be opt-in (lighter default) or opt-out (encourage all participants to have on-chain identity)? Affects trust score accumulation.
-2. **Stakeholder class switching** — can a participant hold multiple classes (e.g. someone who is both a Researcher and a Bettor)? Or one primary + secondary?
-3. **Game Builder submission flow** — the Game Builder extension references a development_stage. Is there a separate sprint for the submission/ranking pipeline, or does that ship in this one?
-4. **Human Player vs Agent Builder boundary** — a human who *also* builds an agent needs to enroll twice (once as Human Player, once as Agent Builder for their agent)? Or is there a combined path?
-5. **Completion % thresholds** — are the 40%/80% thresholds used for any gate (e.g., minimum completion to be listed in public directory)?
+1. **Human Player on-chain: opt-in.** Default enrollment for Human Players requires no wallet. On-chain identity (ERC-8004) is offered as an opt-in step after basic profile completion. Keeps the entry bar low without blocking participation in trust score accumulation for those who choose it.
+
+2. **Multi-class profiles: enabled.** A participant may hold multiple stakeholder classes on a single profile (e.g. someone who is both a Researcher and a Bettor/Predictor). Co-op membership, however, requires one patronage share per class held — each class is a distinct seat.
+
+3. **Game Builder submission pipeline: separate sprint.** The `development_stage` field is present in the Game Builder extension schema, but the submission → review → ranking flow is out of scope for this sprint. That pipeline ships as its own sprint.
+
+4. **Human Player vs Agent Builder boundary: resolved as multi-class.** A human who also builds an agent holds both Human Player and Agent Builder classes on one profile. No duplicate enrollment required.
+
+5. **Completion gating for public directory:** Minimum to appear in the public directory = email confirmed + basic profile fields completed (handle, tagline, stakeholder class). The 40%/80% visual meter is cosmetic/incentive only, not a hard gate. Post-enrollment, participants are offered co-op membership benefits with a Stripe link — converting engaged participants into cooperative members.
 
 ---
 
