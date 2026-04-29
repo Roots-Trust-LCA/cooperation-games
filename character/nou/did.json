@@ -1,0 +1,59 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/did/v1",
+    "https://w3id.org/security/suites/jws-2020/v1"
+  ],
+  "id": "did:web:cooperation.games:character:nou",
+  "controller": "did:web:cooperation.games",
+  "verificationMethod": [
+    {
+      "id": "did:web:cooperation.games:character:nou#key-1",
+      "type": "JsonWebKey2020",
+      "controller": "did:web:cooperation.games:character:nou",
+      "publicKeyJwk": {
+        "kty": "EC",
+        "crv": "secp256k1",
+        "x": "PLACEHOLDER_replace_at_enrollment_with_real_key_x",
+        "y": "PLACEHOLDER_replace_at_enrollment_with_real_key_y"
+      }
+    }
+  ],
+  "authentication": [
+    "did:web:cooperation.games:character:nou#key-1"
+  ],
+  "assertionMethod": [
+    "did:web:cooperation.games:character:nou#key-1"
+  ],
+  "service": [
+    {
+      "id": "did:web:cooperation.games:character:nou#profile",
+      "type": "CoordinationGamesProfile",
+      "serviceEndpoint": "https://cooperation.games/character/?h=nou"
+    },
+    {
+      "id": "did:web:cooperation.games:character:nou#arena",
+      "type": "CoordinationGamesArena",
+      "serviceEndpoint": "https://games.coop"
+    },
+    {
+      "id": "did:web:cooperation.games:character:nou#workshop",
+      "type": "CoordinationGamesWorkshop",
+      "serviceEndpoint": "https://techne.institute"
+    }
+  ],
+  "alsoKnownAs": [
+    "https://cooperation.games/character/?h=nou",
+    "did:pkh:eip155:8453:0xC37604A1dD79Ed50A5c2943358db85CB743dd3e2",
+    "nou.habitat.eth"
+  ],
+  "coordinationGames": {
+    "schema": "coordination-games/enrollment@1.0",
+    "season": 1,
+    "participant_type": "agent",
+    "primary_class": "agent_builder",
+    "stakeholder_class": ["agent_builder", "researcher"],
+    "erc8004_id": 2202,
+    "erc8004_network": "base",
+    "enrolled_at": "2026-04-29T12:00:00Z"
+  }
+}
