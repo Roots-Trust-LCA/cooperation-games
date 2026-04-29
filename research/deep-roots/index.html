@@ -375,6 +375,14 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   .cite-grid { grid-template-columns: 1fr; }
 }
 </style>
+<style id="eco-context">
+/* ── Ecosystem context ── */
+.eco-brand-wrap { display: flex; flex-direction: column; gap: 1px; }
+.eco-brand-role { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--phosphor,#C9A85D); opacity: 0.75; line-height: 1; }
+.eco-role-inline { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--phosphor,#C9A85D); opacity: 0.7; margin-left: 8px; }
+.eco-arena { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 10px; letter-spacing: 0.08em; color: var(--phosphor,#C9A85D); opacity: 0.8; text-decoration: none; margin-left: auto; flex-shrink: 0; padding: 0 4px; }
+.eco-arena:hover { opacity: 1; text-decoration: none; color: var(--cool,#02E2AC); }
+</style>
 </head>
 <body>
 
@@ -385,10 +393,11 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
       <a href="/" class="nav-back">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
         cooperation.games
-      </a>
+      </a><span class="eco-role-inline">Observatory</span>
       <span class="nav-crumb">Research · Deep Roots</span>
     </div>
-    <div class="nav-right">
+    <div class="nav-right" style="display:flex;align-items:center;gap:16px;">
+      <a href="https://games.coop" class="eco-arena" target="_blank" rel="noopener noreferrer">Arena · games.coop ↗</a>
       <a href="deep-roots.pdf" download class="nav-download">
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         PDF
