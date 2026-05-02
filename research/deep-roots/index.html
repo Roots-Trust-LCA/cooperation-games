@@ -161,24 +161,17 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 /* ── DOWNLOAD CARD ── */
 .download-card {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 20px; flex-wrap: wrap;
-  margin: 40px 0;
-  padding: 24px 28px;
+  gap: 16px; flex-wrap: wrap;
+  margin: 32px 0 0;
+  padding: 16px 20px;
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-left: 3px solid var(--gold);
 }
-.download-left { display: flex; align-items: center; gap: 16px; }
-.download-icon {
-  width: 44px; height: 44px; flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  background: var(--gold-dim); border: 1px solid rgba(201,168,93,0.25);
-  border-radius: 8px;
-}
-.download-icon svg { width: 20px; height: 20px; stroke: var(--gold); fill: none; stroke-width: 1.5; }
+.download-left { display: flex; align-items: center; gap: 12px; }
 .download-info {}
 .download-name {
-  font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
   color: var(--parchment); margin-bottom: 2px;
 }
 .download-details {
@@ -186,15 +179,15 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   color: var(--dim); letter-spacing: 0.04em;
 }
 .download-btn {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 10px 18px; border-radius: 6px;
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 8px 14px;
   background: var(--gold); color: #1A1814;
-  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
+  font-family: var(--font-mono); font-size: 10px; font-weight: 600;
   letter-spacing: 0.06em; text-transform: uppercase;
-  transition: all 0.15s; flex-shrink: 0;
+  transition: opacity 0.15s; flex-shrink: 0;
 }
-.download-btn:hover { background: #ddb96a; text-decoration: none; color: #1A1814; }
-.download-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
+.download-btn:hover { opacity: 0.85; text-decoration: none; color: #1A1814; }
+.download-btn svg { width: 11px; height: 11px; stroke: currentColor; fill: none; stroke-width: 2; }
 
 /* ── INTRO TEXT ── */
 .intro-block {
@@ -339,6 +332,40 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   color: var(--muted); line-height: 1.85; max-width: 640px;
 }
 
+/* ── COMPANION CARD ── */
+.companion-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-left: 3px solid var(--cool);
+  padding: 24px 28px; margin-bottom: 48px;
+  display: flex; align-items: flex-start; gap: 20px;
+}
+.companion-icon {
+  width: 36px; height: 36px;
+  background: var(--cool-dim);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: var(--cool);
+}
+.companion-info {}
+.companion-label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--cool); margin-bottom: 6px;
+  display: flex; align-items: center; gap: 5px;
+}
+.companion-title {
+  font-family: var(--font-serif); font-size: 17px; font-weight: 600;
+  color: var(--parchment); margin-bottom: 6px;
+}
+.companion-desc {
+  font-size: 14px; line-height: 1.6; color: var(--muted);
+}
+.companion-link {
+  display: inline-flex; align-items: center; gap: 5px;
+  margin-top: 12px; font-family: var(--font-mono); font-size: 11px;
+  color: var(--cool);
+}
+.companion-link:hover { text-decoration: underline; }
+
 /* ── FOOTER ── */
 .footer {
   border-top: 1px solid var(--border-dim);
@@ -378,52 +405,10 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 <style id="eco-context">
 /* ── Ecosystem context ── */
 .eco-brand-wrap { display: flex; flex-direction: column; gap: 1px; }
-.eco-brand-role { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--phosphor,#C9A85D); opacity: 0.75; line-height: 1; }
-.eco-role-inline { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--phosphor,#C9A85D); opacity: 0.7; margin-left: 8px; }
-.eco-arena { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 10px; letter-spacing: 0.08em; color: var(--phosphor,#C9A85D); opacity: 0.8; text-decoration: none; margin-left: auto; flex-shrink: 0; padding: 0 4px; }
+.eco-brand-role { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 9px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold,#C9A85D); opacity: 0.75; line-height: 1; }
+.eco-role-inline { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold,#C9A85D); opacity: 0.7; margin-left: 8px; }
+.eco-arena { font-family: var(--font-mono,'IBM Plex Mono',monospace); font-size: 10px; letter-spacing: 0.08em; color: var(--gold,#C9A85D); opacity: 0.8; text-decoration: none; margin-left: auto; flex-shrink: 0; padding: 0 4px; }
 .eco-arena:hover { opacity: 1; text-decoration: none; color: var(--cool,#02E2AC); }
-
-/* ── PDF Viewer ── */
-.pdf-viewer {
-  margin: 36px 0 48px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  overflow: hidden;
-}
-.pdf-viewer-bar {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 9px 14px;
-  background: var(--panel);
-  border-bottom: 1px solid var(--border);
-  font-family: var(--font-mono, 'IBM Plex Mono', monospace); font-size: 11px;
-  letter-spacing: 0.04em;
-}
-.pdf-viewer-name { color: var(--muted, rgba(242,237,228,0.45)); }
-.pdf-viewer-actions { display: flex; align-items: center; gap: 10px; }
-.pdf-viewer-actions a {
-  color: var(--muted, rgba(242,237,228,0.45)); text-decoration: none;
-  transition: color 0.15s;
-}
-.pdf-viewer-actions a:hover { color: var(--gold, #C9A85D); }
-.pdf-embed {
-  width: 100%; height: 82vh; min-height: 500px;
-  display: block; border: none; background: var(--surface, #252320);
-}
-.pdf-mobile-fallback {
-  display: none;
-  padding: 32px 24px; text-align: center;
-  font-size: 14px; color: var(--muted, rgba(242,237,228,0.45));
-  background: var(--panel, #2E2B27);
-}
-.pdf-mobile-fallback a {
-  display: inline-block; margin-top: 14px;
-  padding: 10px 20px; background: var(--gold, #C9A85D); color: #1A1814;
-  border-radius: 4px; font-weight: 600; text-decoration: none; font-size: 13px;
-}
-@media (max-width: 640px) {
-  .pdf-embed { display: none; }
-  .pdf-mobile-fallback { display: block; }
-}
 </style>
 </head>
 <body>
@@ -444,7 +429,9 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
         <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         PDF
       </a>
-      <button class="theme-btn" id="theme-btn">Light</button>
+      <button class="theme-btn" id="theme-btn" aria-label="Toggle theme">
+        <i data-lucide="sun" class="icon icon-sm"></i>
+      </button>
     </div>
   </div>
 </nav>
@@ -467,37 +454,17 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   <!-- DOWNLOAD CARD -->
   <div class="download-card">
     <div class="download-left">
-      <div class="download-icon">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-      </div>
       <div class="download-info">
         <div class="download-name">deep-roots.pdf</div>
-        <div class="download-details">118 KB · PDF · RegenHub, LCA · 2026</div>
+        <div class="download-details">118 KB · Research companion · RegenHub, LCA · 2026</div>
       </div>
     </div>
     <a href="deep-roots.pdf" download class="download-btn">
       <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Download
+      Download PDF
     </a>
   </div>
 
-
-  <!-- PDF EMBED -->
-  <div class="pdf-viewer">
-    <div class="pdf-viewer-bar">
-      <span class="pdf-viewer-name">deep-roots.pdf</span>
-      <span class="pdf-viewer-actions">
-        <a href="deep-roots.pdf" target="_blank" rel="noopener">Open in tab ↗</a>
-        <a href="deep-roots.pdf" download>Download ↓</a>
-      </span>
-    </div>
-    <object data="deep-roots.pdf" type="application/pdf" class="pdf-embed">
-      <div class="pdf-mobile-fallback">
-        PDF preview not available in this browser.
-        <br><a href="deep-roots.pdf" download>Download PDF</a>
-      </div>
-    </object>
-  </div>
 
   <!-- INTRO -->
   <div class="intro-block">
@@ -677,56 +644,39 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
   </div>
 
   <!-- COMPANION CARD -->
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:24px 28px;margin-bottom:48px;display:flex;align-items:flex-start;gap:20px;">
-    <div style="width:40px;height:40px;background:rgba(2,226,172,0.10);border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:var(--cool);">
-      <i data-lucide="scroll" class="icon" style="width:18px;height:18px;"></i>
+  <div class="companion-card">
+    <div class="companion-icon">
+      <i data-lucide="scroll" class="icon-lg"></i>
     </div>
-    <div>
-      <div style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--cool);margin-bottom:6px;"><i data-lucide="link" class="icon icon-sm"></i>Plain-language companion</div>
-      <div style="font-family:var(--font-serif);font-size:17px;font-weight:600;color:var(--parchment);margin-bottom:6px;">How the Games Got Their Rules</div>
-      <div style="font-size:14px;line-height:1.6;color:var(--muted);">The accessible companion — each design choice in the games matched to the person who inspired it. For curious readers, no prior knowledge required.</div>
-      <a href="/research/how-the-games-got-their-rules/" style="display:inline-flex;align-items:center;gap:5px;margin-top:12px;font-family:var(--font-mono);font-size:11px;color:var(--cool);">
+    <div class="companion-info">
+      <p class="companion-label"><i data-lucide="link" class="icon icon-sm"></i>Plain-language companion</p>
+      <p class="companion-title">How the Games Got Their Rules</p>
+      <p class="companion-desc">The accessible companion — each design choice in the games matched to the person who inspired it. For curious readers, no prior knowledge required.</p>
+      <a href="/research/how-the-games-got-their-rules/" class="companion-link">
         <i data-lucide="arrow-right" class="icon icon-sm"></i>Read companion
       </a>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    <div class="footer-inner">
-      <div class="footer-text">
-        <div><strong>cooperation.games</strong> · Research</div>
-        <div>Steward: <a href="https://techne.institute">RegenHub, LCA</a></div>
-        <div>Boulder, Colorado · 2026</div>
-      </div>
-      <div class="footer-text footer-right">
-        <div><a href="deep-roots.pdf" download>Download PDF →</a></div>
-        <div><a href="/">← cooperation.games</a></div>
-        <div><a href="https://games.coop" target="_blank" rel="noopener noreferrer">games.coop ↗</a></div>
-      </div>
-    </div>
-  </div>
 
 </div><!-- /page -->
 
-<script>
-(function(){
-  var btn = document.getElementById('theme-btn');
-  var html = document.documentElement;
-  function apply(t){
-    html.setAttribute('data-theme', t);
-    try { localStorage.setItem('techne-theme', t); } catch(e){}
-    btn.textContent = t === 'dark' ? 'Light' : 'Dark';
-  }
-  apply(html.getAttribute('data-theme') || 'dark');
-  if(btn) btn.addEventListener('click', function(){
-    apply(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
-  });
-})();
-</script>
-
 <script src="https://cdn.jsdelivr.net/npm/lucide@0.469.0/dist/umd/lucide.min.js"></script>
-<script>if(window.lucide)lucide.createIcons();</script>
+<script>
+  if(window.lucide) lucide.createIcons();
+  (function(){
+    var btn = document.getElementById('theme-btn');
+    var html = document.documentElement;
+    function apply(t){
+      html.setAttribute('data-theme', t);
+      try { localStorage.setItem('techne-theme', t); } catch(e){}
+      if(window.lucide) lucide.createIcons();
+    }
+    if(btn) btn.addEventListener('click', function(){
+      apply(html.getAttribute('data-theme') === 'light' ? 'dark' : 'light');
+    });
+  })();
+</script>
 
 <style id="site-index-footer-css">
 /* ── Site index footer ── */
