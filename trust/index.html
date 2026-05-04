@@ -115,29 +115,65 @@
     /* ── body layout ── */
     .body-layout { display: grid; grid-template-columns: 188px 1fr; gap: 2.5rem; align-items: start; }
 
-    /* ── TOC ── */
-    .toc {
-      position: sticky; top: 72px;
-      background: var(--surface); border: 1px solid var(--border);
-      border-radius: 4px; overflow: hidden;
+    /* ── Side navigation ─────────────────────────────────────────────────────── */
+    .sidenav {
+      position: sticky;
+      top: 89px; /* status-bar 29px + header 60px */
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
     }
-    .toc-head {
-      font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
-      color: var(--dim); padding: 10px 13px;
+    .sidenav-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 13px;
       border-bottom: 1px solid var(--border);
     }
-    .toc a {
-      display: block; padding: 7px 13px;
-      font-size: 11px; color: var(--graphite);
-      text-decoration: none; border-left: 2px solid transparent;
-      transition: color 0.1s, border-color 0.1s, background 0.1s;
+    .sidenav-title {
+      font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--dim);
+    }
+    .sidenav-toggle {
+      display: none; background: transparent; border: none;
+      color: var(--graphite); font-size: 13px; cursor: pointer;
+      padding: 0 2px; line-height: 1; font-family: var(--mono);
+    }
+    .sidenav-toggle:hover { color: var(--cool); }
+    .sidenav-group {
+      border-bottom: 1px solid var(--border);
+    }
+    .sidenav-group:last-child { border-bottom: none; }
+    .sidenav-link {
+      display: flex; align-items: baseline; gap: 8px;
+      padding: 8px 13px;
+      font-family: var(--mono); font-size: 11px;
+      color: var(--graphite); text-decoration: none;
+      border-left: 2px solid transparent;
+      transition: color 0.12s, border-color 0.12s, background 0.12s;
       line-height: 1.35;
     }
-    .toc a:hover { color: var(--chalk); background: rgba(2,226,172,0.04); }
-    .toc a.active { color: var(--cool); border-left-color: var(--cool); background: var(--cool-bg); }
-    .toc a.sub { padding-left: 22px; font-size: 10px; color: var(--dim); }
-    .toc a.sub.active { color: var(--cool); }
-    .toc-sep { height: 1px; background: var(--border); margin: 4px 0; }
+    .sidenav-link:hover {
+      color: var(--chalk); background: rgba(2,226,172,0.04);
+      text-decoration: none;
+    }
+    .sidenav-link.is-active {
+      color: var(--cool); border-left-color: var(--cool);
+      background: var(--cool-bg);
+    }
+    .sidenav-num {
+      font-size: 9px; color: var(--dim); flex-shrink: 0;
+      letter-spacing: 0.04em; min-width: 18px;
+    }
+    .sidenav-link.is-active .sidenav-num { color: var(--cool); opacity: 0.7; }
+    .sidenav-link--sub {
+      padding-left: 26px; font-size: 10px;
+      color: var(--dim); border-left-color: transparent;
+    }
+    .sidenav-link--sub:hover { color: var(--chalk); }
+    .sidenav-link--sub.is-active {
+      color: var(--cool); border-left-color: var(--cool);
+      background: var(--cool-bg);
+    }
+    .sidenav-body.is-collapsed { display: none; }
 
     /* ── content sections ── */
     .content { min-width: 0; }
@@ -266,7 +302,8 @@
     /* ── responsive ── */
     @media (max-width: 720px) {
       .body-layout { grid-template-columns: 1fr; }
-      .toc { display: none; }
+      .sidenav { position: relative; top: 0; margin-bottom: 24px; }
+      .sidenav-toggle { display: block; }
       .role-grid { grid-template-columns: 1fr; }
       .signal-item { grid-template-columns: 1fr; gap: 3px; }
       .page-wrap { padding: 28px 16px 60px; }
@@ -323,28 +360,66 @@
 
   <div class="body-layout">
 
-    <!-- TOC -->
-    <nav class="toc" id="toc">
-      <div class="toc-head">On this page</div>
-      <a class="toc active" href="#what-trust-is">What trust is here</a>
-      <a class="toc sub" href="#why-it-matters">Why it matters</a>
-      <div class="toc-sep"></div>
-      <a class="toc" href="#how-it-flows">How attestations flow</a>
-      <div class="toc-sep"></div>
-      <a class="toc" href="#trust-card">The trust card</a>
-      <div class="toc-sep"></div>
-      <a class="toc" href="#observatory-role">Your view as Observatory</a>
-      <a class="toc sub" href="#for-spectators">Spectators</a>
-      <a class="toc sub" href="#for-researchers">Researchers</a>
-      <a class="toc sub" href="#for-predictors">Predictors</a>
-      <div class="toc-sep"></div>
-      <a class="toc" href="#data-streams">Available data streams</a>
-      <div class="toc-sep"></div>
-      <a class="toc" href="#identity">Identity anchor</a>
-      <div class="toc-sep"></div>
-      <a class="toc" href="#what-agents-know">What agents know</a>
-      <div class="toc-sep"></div>
-      <a class="toc" href="#architecture-link">Full architecture</a>
+    <!-- Side navigation -->
+    <nav class="sidenav" id="sidenav" aria-label="Page sections">
+      <div class="sidenav-header">
+        <span class="sidenav-title">On this page</span>
+        <button class="sidenav-toggle" id="sidenav-toggle" aria-expanded="true" aria-controls="sidenav-body">&#x25BE;</button>
+      </div>
+      <div class="sidenav-body" id="sidenav-body">
+        <div class="sidenav-group">
+          <a class="sidenav-link is-active" href="#what-trust-is">
+            <span class="sidenav-num">01</span>
+            <span>What trust is here</span>
+          </a>
+          <a class="sidenav-link sidenav-link--sub" href="#why-it-matters">Why it matters</a>
+        </div>
+        <div class="sidenav-group">
+          <a class="sidenav-link" href="#how-it-flows">
+            <span class="sidenav-num">02</span>
+            <span>How attestations flow</span>
+          </a>
+        </div>
+        <div class="sidenav-group">
+          <a class="sidenav-link" href="#trust-card">
+            <span class="sidenav-num">03</span>
+            <span>The trust card</span>
+          </a>
+        </div>
+        <div class="sidenav-group">
+          <a class="sidenav-link" href="#observatory-role">
+            <span class="sidenav-num">04</span>
+            <span>Your view as Observatory</span>
+          </a>
+          <a class="sidenav-link sidenav-link--sub" href="#for-spectators">Spectators</a>
+          <a class="sidenav-link sidenav-link--sub" href="#for-researchers">Researchers</a>
+          <a class="sidenav-link sidenav-link--sub" href="#for-predictors">Predictors</a>
+        </div>
+        <div class="sidenav-group">
+          <a class="sidenav-link" href="#data-streams">
+            <span class="sidenav-num">05</span>
+            <span>Available data streams</span>
+          </a>
+        </div>
+        <div class="sidenav-group">
+          <a class="sidenav-link" href="#identity">
+            <span class="sidenav-num">06</span>
+            <span>Identity anchor</span>
+          </a>
+        </div>
+        <div class="sidenav-group">
+          <a class="sidenav-link" href="#what-agents-know">
+            <span class="sidenav-num">07</span>
+            <span>What agents know</span>
+          </a>
+        </div>
+        <div class="sidenav-group">
+          <a class="sidenav-link" href="#architecture-link">
+            <span class="sidenav-num">08</span>
+            <span>Full architecture</span>
+          </a>
+        </div>
+      </div>
     </nav>
 
     <!-- content -->
@@ -730,20 +805,60 @@
 </div><!-- /page-wrap -->
 
 <script>
-  // TOC scroll highlighting
-  var sections=document.querySelectorAll('.csection,[id]');
-  var tocLinks=document.querySelectorAll('.toc a');
-  var idMap={};
-  tocLinks.forEach(function(a){var h=a.getAttribute('href');if(h)idMap[h.slice(1)]=a;});
-  var obs=new IntersectionObserver(function(entries){
-    entries.forEach(function(e){
-      if(e.isIntersecting&&idMap[e.target.id]){
-        tocLinks.forEach(function(a){a.classList.remove('active');});
-        idMap[e.target.id].classList.add('active');
-      }
+(function () {
+  // ── Scroll spy ───────────────────────────────────────────────────────────
+  var navLinks = Array.from(document.querySelectorAll('.sidenav-link'));
+
+  // Build id → link map
+  var linkMap = {};
+  navLinks.forEach(function (a) {
+    var href = a.getAttribute('href');
+    if (href && href.charAt(0) === '#') linkMap[href.slice(1)] = a;
+  });
+
+  // Find the non-sub parent link in the same group
+  function parentLink(link) {
+    if (!link.classList.contains('sidenav-link--sub')) return null;
+    var group = link.closest('.sidenav-group');
+    return group ? group.querySelector('.sidenav-link:not(.sidenav-link--sub)') : null;
+  }
+
+  function setActive(id) {
+    navLinks.forEach(function (a) { a.classList.remove('is-active'); });
+    var link = linkMap[id];
+    if (!link) return;
+    link.classList.add('is-active');
+    var parent = parentLink(link);
+    if (parent) parent.classList.add('is-active');
+  }
+
+  // Observe every element that has a matching sidenav link
+  var ids = Object.keys(linkMap);
+  var observer = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (e.isIntersecting) setActive(e.target.id);
     });
-  },{rootMargin:'-80px 0px -55% 0px',threshold:0});
-  sections.forEach(function(s){if(s.id)obs.observe(s);});
+  }, { rootMargin: '-89px 0px -52% 0px', threshold: 0 });
+
+  ids.forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) observer.observe(el);
+  });
+
+  // Set initial active state
+  setActive('what-trust-is');
+
+  // ── Mobile toggle ─────────────────────────────────────────────────────────
+  var toggle = document.getElementById('sidenav-toggle');
+  var body   = document.getElementById('sidenav-body');
+  if (toggle && body) {
+    toggle.addEventListener('click', function () {
+      var collapsed = body.classList.toggle('is-collapsed');
+      toggle.setAttribute('aria-expanded', String(!collapsed));
+      toggle.textContent = collapsed ? '▸' : '▾';
+    });
+  }
+})();
 </script>
 </body>
 </html>
