@@ -107,11 +107,12 @@ a:hover { text-decoration: underline; }
   display: flex; align-items: center; justify-content: space-between;
   width: 100%; max-width: var(--max-w); margin: 0 auto; padding: 0 var(--sp-5);
 }
-.nav-brand-wrap { display: flex; flex-direction: column; gap: 1px; }
-.nav-parent {
+.eco-brand-wrap { display: flex; flex-direction: column; gap: 1px; }
+.eco-brand-role {
   font-family: var(--font-mono); font-size: 9px; font-weight: 400;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--synthesis);
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--phosphor);
 }
+.eco-brand-role.synthesis { color: var(--synthesis); }
 .nav-brand {
   font-family: var(--font-mono); font-size: 13px; font-weight: 600;
   letter-spacing: -0.01em; color: var(--text); text-decoration: none;
@@ -363,20 +364,22 @@ p { color: var(--text-muted); line-height: 1.65; }
 /* ── Footer ─────────────────────────────────────────────────────── */
 .sfn { background: var(--surface); border-top: 1px solid var(--border-dim); padding: 44px var(--sp-5) 28px; }
 .sfn-inner {
-  display: grid; grid-template-columns: 220px 1fr;
+  display: grid; grid-template-columns: 200px 1fr;
   gap: var(--sp-8); max-width: var(--max-w); margin: 0 auto var(--sp-6);
 }
 .sfn-brand { display: flex; flex-direction: column; gap: var(--sp-2); }
-.sfn-domain {
+.sfn-brand-name {
   font-family: var(--font-mono); font-size: 13px; font-weight: 600;
-  color: var(--synthesis); display: block; margin-bottom: var(--sp-1);
+  color: var(--text); display: block; margin-bottom: var(--sp-2); text-decoration: none;
 }
-.sfn-parent {
+.sfn-brand-name:hover { color: var(--cool); text-decoration: none; }
+.sfn-brand-name.synthesis { color: var(--synthesis); }
+.sfn-brand-role {
   font-family: var(--font-mono); font-size: 9px; font-weight: 400;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim);
   display: block; margin-bottom: var(--sp-3);
 }
-.sfn-meta { font-size: 11px; color: var(--text-dim); line-height: 1.8; margin-bottom: var(--sp-4); }
+.sfn-brand-meta { font-size: 11px; color: var(--text-dim); line-height: 1.8; margin-bottom: var(--sp-4); }
 .sfn-eco { display: flex; flex-direction: column; gap: 6px; }
 .sfn-eco a { font-size: 11px; color: var(--phosphor); opacity: 0.8; }
 .sfn-eco a:hover { opacity: 1; text-decoration: none; }
@@ -432,8 +435,8 @@ p { color: var(--text-muted); line-height: 1.65; }
 
 <nav class="nav" role="navigation" aria-label="Site navigation">
   <div class="nav-inner">
-    <div class="nav-brand-wrap">
-      <span class="nav-parent">synthesis.md · experiment</span>
+    <div class="eco-brand-wrap">
+      <span class="eco-brand-role synthesis">synthesis.md · experiment</span>
       <a href="/" class="nav-brand">games.synthesis.md</a>
     </div>
     <div class="nav-right">
@@ -753,9 +756,9 @@ p { color: var(--text-muted); line-height: 1.65; }
 <footer class="sfn" role="contentinfo">
   <div class="sfn-inner">
     <div class="sfn-brand">
-      <span class="sfn-domain">games.synthesis.md</span>
-      <span class="sfn-parent">A Synthesis Experiment</span>
-      <div class="sfn-meta">Operated by: RegenHub, LCA<br>Boulder, Colorado · Season 1 · 2026</div>
+      <a href="/" class="sfn-brand-name synthesis">cooperation.games</a>
+      <span class="sfn-brand-role">Partners · Synthesis Experiment</span>
+      <div class="sfn-brand-meta">Operated by: RegenHub, LCA<br>Boulder, Colorado · Season 1 · 2026</div>
       <div class="sfn-eco">
         <a href="https://synthesis.md" target="_blank" rel="noopener noreferrer">synthesis.md ↗</a>
         <a href="https://games.coop" target="_blank" rel="noopener noreferrer">Arena · games.coop ↗</a>
