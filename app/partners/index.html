@@ -587,6 +587,190 @@ p { color: var(--text-muted); line-height: 1.65; }
 .signal-card p { font-size: 13px; margin-bottom: var(--sp-3); }
 .signal-card p:last-of-type { margin-bottom: 0; }
 
+/* ── A.01 ring mark ─────────────────────────────────────────────── */
+.brand-mark { width: 22px; height: 22px; flex-shrink: 0; color: var(--cool); }
+.nav-brand { display: flex; align-items: center; gap: var(--sp-2); }
+
+/* ── Visual motifs ──────────────────────────────────────────────── */
+.motif-svg {
+  position: absolute; pointer-events: none; overflow: visible;
+  opacity: 0.14; color: var(--cool);
+}
+
+/* ── Arena simulation ────────────────────────────────────────────── */
+.arena-live {
+  background: #12100D; padding: var(--sp-9) 0;
+  border-top: 1px solid #3a3530; border-bottom: 1px solid #3a3530;
+  --ac:  #02E2AC; --ah: #FF5A1F; --ap: #C9A85D;
+  --abg: #1C1A17; --adp: #12100D; --apn: #211E1A;
+  --aln: #46423D; --aln2: #2F2C28;
+  --atx: #FBFAF9; --amu: #9A958C; --adm: #605B55;
+}
+.arena-live .arena-container {
+  max-width: 1120px; margin: 0 auto; padding: 0 var(--sp-5);
+}
+.arena-eyebrow {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.22em; text-transform: uppercase; color: var(--amu);
+  margin-bottom: var(--sp-3);
+}
+.arena-eyebrow::before {
+  content: ''; width: 6px; height: 6px; border-radius: 999px; flex-shrink: 0;
+  background: var(--ah); box-shadow: 0 0 8px var(--ah);
+  animation: apulse 1.8s ease infinite;
+}
+@keyframes apulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+.arena-title {
+  font-family: var(--font-sans); font-size: clamp(22px,3vw,32px); font-weight: 700;
+  color: var(--atx); margin-bottom: var(--sp-6); line-height: 1.1;
+}
+.arena-title em { font-style: normal; color: var(--ah); }
+/* ── main 3-col grid ── */
+.arena-grid {
+  display: grid; grid-template-columns: 252px 1fr 252px; gap: 1px;
+  background: var(--aln); border: 1px solid var(--aln); margin-bottom: 1px;
+}
+/* ── match card (left col) ── */
+.mc { background: var(--apn); display: flex; flex-direction: column; }
+.mc-head {
+  padding: 10px 14px; border-bottom: 1px solid var(--aln2);
+  display: flex; justify-content: space-between; align-items: center;
+  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.mc-cool { color: var(--ac); }
+.mc-hot  { color: var(--ah); }
+.mc-live {
+  display: flex; align-items: center; gap: 5px; color: var(--ah);
+}
+.mc-live::before {
+  content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
+  background: var(--ah); box-shadow: 0 0 6px var(--ah);
+  animation: apulse 1.8s ease infinite;
+}
+.mc-body { flex: 1; padding: 16px 14px; }
+.mc-sides { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+.mc-side-name {
+  font-family: var(--font-sans); font-size: 18px; font-weight: 700;
+  color: var(--atx); line-height: 1; margin-bottom: 4px;
+}
+.mc-side-id { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; color: var(--amu); }
+.mc-trust {
+  font-family: var(--font-mono); font-size: 22px; font-weight: 600;
+  line-height: 1; margin: 8px 0 4px;
+}
+.mc-trust.cool { color: var(--ac); } .mc-trust.hot { color: var(--ah); }
+.mc-badge {
+  display: inline-block; font-family: var(--font-mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.12em; border: 1px solid currentColor; padding: 1px 5px;
+  margin-right: 4px;
+}
+.mc-badge.cool { color: var(--ac); } .mc-badge.hot { color: var(--ah); }
+.mc-odds-row {
+  display: flex; align-items: center; gap: 8px; margin: 12px 0 8px;
+  font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--atx);
+}
+.mc-odds-bar { flex: 1; height: 3px; background: var(--aln); position: relative; }
+.mc-odds-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--ac); transition: width 1.4s ease; }
+.mc-foot {
+  padding: 10px 14px; border-top: 1px solid var(--aln2);
+  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--amu);
+  display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
+}
+.mc-foot b { color: var(--atx); font-weight: 600; display: block; margin-bottom: 1px; }
+/* ── arena board (center) ── */
+.arena-board-cell { background: var(--adp); position: relative; min-height: 360px; }
+.arena-board-cell canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ab-territory {
+  position: absolute; bottom: 10px; left: 0; right: 0;
+  display: flex; justify-content: space-between; padding: 0 14px;
+  pointer-events: none; z-index: 2;
+}
+.ab-terr-label {
+  font-family: var(--font-mono); font-size: 8px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase;
+}
+.ab-terr-label.cool { color: var(--ac); }
+.ab-terr-label.neutral { color: var(--amu); }
+.ab-terr-label.hot { color: var(--ah); }
+/* ── event feed (right col) ── */
+.arena-feed-cell {
+  background: var(--apn); display: flex; flex-direction: column; overflow: hidden;
+}
+.feed-head {
+  padding: 10px 14px; border-bottom: 1px solid var(--aln2);
+  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--amu);
+}
+.feed-log {
+  flex: 1; overflow: hidden; padding: 8px 0; position: relative;
+  max-height: 320px;
+}
+.feed-entry {
+  padding: 5px 14px; font-family: var(--font-mono); font-size: 10px;
+  line-height: 1.5; color: var(--amu); display: flex; gap: 8px;
+  border-bottom: 1px solid var(--aln2); transition: background 0.3s;
+}
+.feed-entry.new { background: rgba(2,226,172,0.06); }
+.feed-ts { color: var(--adm); flex-shrink: 0; }
+.feed-msg b { color: var(--atx); font-weight: 600; }
+.feed-msg .cool-txt { color: var(--ac); }
+.feed-msg .hot-txt  { color: var(--ah); }
+/* ── roster + metrics bar (bottom full-width) ── */
+.arena-bottom {
+  display: grid; grid-template-columns: 1fr auto; gap: 1px;
+  background: var(--aln); border: 1px solid var(--aln);
+}
+.arena-roster { background: var(--apn); padding: 12px 16px; }
+.roster-head {
+  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--amu);
+  margin-bottom: 10px;
+}
+.roster-grid {
+  display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px;
+}
+.roster-tok {
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--adm);
+}
+.roster-dot {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 1px solid var(--aln); position: relative;
+}
+.roster-dot.cool { background: rgba(2,226,172,0.18); border-color: rgba(2,226,172,0.5); box-shadow: 0 0 6px rgba(2,226,172,0.3); }
+.roster-dot.hot  { background: rgba(255,90,31,0.18);  border-color: rgba(255,90,31,0.5);  box-shadow: 0 0 6px rgba(255,90,31,0.3); }
+.roster-dot.null { opacity: 0.3; }
+.roster-score { font-size: 10px; font-weight: 600; color: var(--amu); }
+.arena-metrics {
+  background: var(--adp); padding: 12px 20px;
+  display: grid; grid-template-columns: repeat(4, 80px); gap: 16px; align-items: center;
+}
+.metric { display: flex; flex-direction: column; gap: 2px; }
+.metric-val {
+  font-family: var(--font-mono); font-size: 16px; font-weight: 600; color: var(--atx); line-height: 1;
+}
+.metric-val.tick { color: var(--ah); }
+.metric-key {
+  font-family: var(--font-mono); font-size: 8px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--adm);
+}
+/* ── corner brackets ── */
+.brackets { position: relative; }
+.brackets::before,.brackets::after,.brackets .bl,.brackets .br {
+  content: ''; position: absolute; width: 10px; height: 10px; border: 1px solid var(--ah); pointer-events:none;
+}
+.brackets::before { top:-1px; left:-1px; border-right:0; border-bottom:0; }
+.brackets::after  { top:-1px; right:-1px; border-left:0; border-bottom:0; }
+.brackets .bl     { bottom:-1px; left:-1px; border-right:0; border-top:0; }
+.brackets .br     { bottom:-1px; right:-1px; border-left:0; border-top:0; }
+/* ── arena responsive ── */
+@media (max-width:860px)  { .arena-grid { grid-template-columns:1fr; } .arena-bottom { grid-template-columns:1fr; } .roster-grid { grid-template-columns: repeat(4,1fr); } .arena-metrics { grid-template-columns: repeat(2,1fr); } }
+@media (max-width:600px)  { .arena-grid { display:block; } }
+
 /* ── Stat row ───────────────────────────────────────────────────── */
 .stat-row {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
@@ -732,7 +916,18 @@ p { color: var(--text-muted); line-height: 1.65; }
   <div class="nav-inner">
     <div class="eco-brand-wrap">
       <span class="eco-brand-role">synthesis.md · experiment</span>
-      <a href="/" class="nav-brand">games.synthesis.md</a>
+      <a href="/" class="nav-brand">
+        <!-- A.01 MONO Colosseum ring mark -->
+        <svg class="brand-mark" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="14" cy="14" r="13" stroke="currentColor" stroke-width="1"/>
+          <circle cx="14" cy="14" r="8.5" stroke="currentColor" stroke-width="1" opacity="0.7"/>
+          <circle cx="14" cy="14" r="4.5" stroke="currentColor" stroke-width="1" opacity="0.5"/>
+          <circle cx="14" cy="14" r="1.8" fill="currentColor"/>
+          <line x1="14" y1="1" x2="14" y2="27" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+          <line x1="1" y1="14" x2="27" y2="14" stroke="currentColor" stroke-width="0.5" opacity="0.25"/>
+        </svg>
+        games.synthesis.md
+      </a>
     </div>
     <div class="nav-right">
       <div class="nav-links" id="nav-links">
@@ -740,6 +935,7 @@ p { color: var(--text-muted); line-height: 1.65; }
         <a href="#interfaces"  class="nav-link">Interfaces</a>
         <a href="#treasury"    class="nav-link">Treasury</a>
         <a href="#sponsors"    class="nav-link">Sponsors</a>
+        <a href="#arena"       class="nav-link">Arena</a>
         <a href="#contact"     class="nav-link">Contact</a>
         <a href="https://synthesis.md" target="_blank" rel="noopener noreferrer" class="nav-link" style="color: var(--cool);">synthesis.md ↗</a>
       </div>
@@ -766,6 +962,18 @@ p { color: var(--text-muted); line-height: 1.65; }
       data-flock-speed="2.8"
       data-flock-trail-fade="0.78"></canvas>
   </div>
+  <!-- MOTIF 02 ARENA: concentric rings, bottom-left -->
+  <svg class="motif-svg" style="bottom:-60px;left:-60px;width:320px;height:320px;opacity:0.09;" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="50" cy="50" r="48" stroke="currentColor" stroke-width="0.75"/>
+    <circle cx="50" cy="50" r="37" stroke="currentColor" stroke-width="0.75"/>
+    <circle cx="50" cy="50" r="26" stroke="currentColor" stroke-width="0.75"/>
+    <circle cx="50" cy="50" r="15" stroke="currentColor" stroke-width="0.75"/>
+    <circle cx="50" cy="50" r="5"  stroke="currentColor" stroke-width="0.75"/>
+    <line x1="2" y1="50" x2="98" y2="50" stroke="currentColor" stroke-width="0.4"/>
+    <line x1="50" y1="2" x2="50" y2="98" stroke="currentColor" stroke-width="0.4"/>
+    <line x1="16" y1="16" x2="84" y2="84" stroke="currentColor" stroke-width="0.3"/>
+    <line x1="84" y1="16" x2="16" y2="84" stroke="currentColor" stroke-width="0.3"/>
+  </svg>
   <!-- hero halftone ornament: quarter-arc from top-right -->
   <svg class="halftone-ornament" style="top:20px;right:20px;width:120px;height:120px;" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <g fill="#6eb763" opacity="0.42">
@@ -903,7 +1111,23 @@ p { color: var(--text-muted); line-height: 1.65; }
 </section>
 
 <!-- ── The Interfaces ────────────────────────────────────────────── -->
-<section id="interfaces" class="zone">
+<section id="interfaces" class="zone" style="position:relative;overflow:hidden;">
+  <!-- MOTIF 01 NETWORK: nodes + edges, top right -->
+  <svg class="motif-svg" style="top:40px;right:20px;width:160px;height:120px;opacity:0.11;" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="10" cy="30" r="3.5" fill="currentColor"/>
+    <circle cx="40" cy="8"  r="3.5" fill="currentColor"/>
+    <circle cx="40" cy="52" r="3.5" fill="currentColor"/>
+    <circle cx="70" cy="30" r="3.5" fill="currentColor"/>
+    <circle cx="25" cy="18" r="2"   fill="currentColor" opacity="0.6"/>
+    <circle cx="55" cy="42" r="2"   fill="currentColor" opacity="0.6"/>
+    <line x1="10" y1="30" x2="40"  y2="8"  stroke="currentColor" stroke-width="0.75"/>
+    <line x1="10" y1="30" x2="40"  y2="52" stroke="currentColor" stroke-width="0.75"/>
+    <line x1="40" y1="8"  x2="70"  y2="30" stroke="currentColor" stroke-width="0.75"/>
+    <line x1="40" y1="52" x2="70"  y2="30" stroke="currentColor" stroke-width="0.75"/>
+    <line x1="40" y1="8"  x2="40"  y2="52" stroke="currentColor" stroke-width="0.75"/>
+    <line x1="10" y1="30" x2="70"  y2="30" stroke="currentColor" stroke-width="0.4" stroke-dasharray="3 3"/>
+    <line x1="25" y1="18" x2="55"  y2="42" stroke="currentColor" stroke-width="0.5" opacity="0.5"/>
+  </svg>
   <div class="container-wide">
     <div class="section-head">
       <span class="overline">Surface Area</span>
@@ -1260,6 +1484,84 @@ p { color: var(--text-muted); line-height: 1.65; }
         <p>The Coordination Games originated at Gitcoin, which transferred IP and grant funding to RegenHub, LCA to ensure cooperative stewardship. Gitcoin retains ~10% engagement: media, distribution, and partnership introductions. dacc.fund (Defensive Acceleration) co-founded the season format.</p>
         <p style="margin-top: var(--sp-3);">The working group is composed of Ethereum-native operators, cooperative lawyers, game theorists, and coordination researchers. The experiment was designed from first principles with CROPS as the primary architectural constraint and Elinor Ostrom's commons governance research as the theoretical foundation for the trust framework.</p>
         <p style="margin-top: var(--sp-3);">All architectural decisions are recorded as public Architecture Decision Records. The full design record — including tradeoffs and open questions — is published at techne.institute/coordination-games. We build in public.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Arena Simulation ──────────────────────────────────────────── -->
+<section class="arena-live" id="arena">
+  <div class="arena-container">
+    <div class="arena-eyebrow">Live Simulation · Season 1 Preview · Coalition Capture</div>
+    <h2 class="arena-title">The <em>Arena</em> — this is what you're backing</h2>
+
+    <div class="arena-grid brackets">
+      <span class="bl"></span><span class="br"></span>
+
+      <!-- match card -->
+      <div class="mc">
+        <div class="mc-head">
+          <span class="mc-cool">A-00042 · HELIX</span>
+          <span class="mc-live">LIVE</span>
+          <span class="mc-hot">A-00871 · RALLY</span>
+        </div>
+        <div class="mc-body">
+          <div class="mc-sides">
+            <div>
+              <div class="mc-side-name" style="color:var(--ac)">HELIX</div>
+              <div class="mc-side-id">A-00042 · COOL</div>
+              <div class="mc-trust cool" id="mc-trust-cool">0.74</div>
+              <span class="mc-badge cool">COALITION</span>
+            </div>
+            <div>
+              <div class="mc-side-name" style="color:var(--ah)">RALLY</div>
+              <div class="mc-side-id">A-00871 · HOT</div>
+              <div class="mc-trust hot" id="mc-trust-hot">0.61</div>
+              <span class="mc-badge hot">SOLO</span>
+            </div>
+          </div>
+          <div class="mc-odds-row">
+            <span id="mc-odds-cool">57%</span>
+            <div class="mc-odds-bar"><div class="mc-odds-fill" id="mc-odds-fill" style="width:57%"></div></div>
+            <span id="mc-odds-hot">43%</span>
+          </div>
+        </div>
+        <div class="mc-foot">
+          <div><b id="mc-epoch">04</b>EPOCH</div>
+          <div><b id="mc-round">11</b>ROUND</div>
+          <div><b id="mc-spectators">1,247</b>WATCHING</div>
+          <div><b id="mc-tick" style="color:var(--ah)">28</b>TICK</div>
+        </div>
+      </div>
+
+      <!-- arena board canvas -->
+      <div class="arena-board-cell">
+        <canvas id="arena-canvas"></canvas>
+        <div class="ab-territory">
+          <span class="ab-terr-label cool">COOL ZONE</span>
+          <span class="ab-terr-label neutral">CONTESTED</span>
+          <span class="ab-terr-label hot">HOT ZONE</span>
+        </div>
+      </div>
+
+      <!-- event feed -->
+      <div class="arena-feed-cell">
+        <div class="feed-head">EVENT FEED</div>
+        <div class="feed-log" id="arena-feed"></div>
+      </div>
+    </div>
+
+    <!-- roster + metrics -->
+    <div class="arena-bottom">
+      <div class="arena-roster">
+        <div class="roster-head">AGENT ROSTER — SEASON 1 COHORT</div>
+        <div class="roster-grid" id="arena-roster"></div>
+      </div>
+      <div class="arena-metrics">
+        <div class="metric"><span class="metric-val" id="m-epoch">04</span><span class="metric-key">Epoch</span></div>
+        <div class="metric"><span class="metric-val" id="m-round">11</span><span class="metric-key">Round</span></div>
+        <div class="metric"><span class="metric-val" id="m-spectators">1,247</span><span class="metric-key">Spectators</span></div>
+        <div class="metric"><span class="metric-val tick" id="m-tick">28</span><span class="metric-key">Tick</span></div>
       </div>
     </div>
   </div>
@@ -1739,6 +2041,226 @@ p { color: var(--text-muted); line-height: 1.65; }
     links.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', function () { links.classList.remove('open'); });
     });
+  }
+})();
+</script>
+
+<!-- ── Arena Simulation Engine ───────────────────────────────────── -->
+<script>
+(function() {
+  var AGENTS = [
+    { id: 'A-00042', name: 'HELIX',  team: 'cool', trust: 0.74, x: 0.18, y: 0.42 },
+    { id: 'A-00871', name: 'RALLY',  team: 'hot',  trust: 0.61, x: 0.82, y: 0.38 },
+    { id: 'A-00153', name: 'KEPLER', team: 'cool', trust: 0.68, x: 0.25, y: 0.65 },
+    { id: 'A-00290', name: 'ISING',  team: 'hot',  trust: 0.55, x: 0.75, y: 0.58 },
+    { id: 'A-00511', name: 'OORT',   team: 'cool', trust: 0.72, x: 0.14, y: 0.28 },
+    { id: 'A-00634', name: 'SIX',    team: 'hot',  trust: 0.49, x: 0.86, y: 0.22 },
+    { id: 'A-00712', name: 'FORGE',  team: 'cool', trust: 0.63, x: 0.30, y: 0.75 },
+    { id: 'A-00815', name: 'FLINT',  team: 'hot',  trust: 0.58, x: 0.70, y: 0.72 },
+    { id: 'A-00923', name: 'NOVA',   team: 'cool', trust: 0.70, x: 0.22, y: 0.18 },
+    { id: 'A-01044', name: 'NULL-A', team: 'null', trust: 0.31, x: 0.50, y: 0.50 },
+    { id: 'A-01045', name: 'NULL-B', team: 'null', trust: 0.28, x: 0.54, y: 0.54 },
+  ];
+
+  var coolAgent = AGENTS[0];
+  var hotAgent  = AGENTS[1];
+  var epoch = 4, round = 11, tick = 28, spectators = 1247;
+
+  function r(n) { return n.toLocaleString(); }
+  function pad(n) { return String(n).padStart(2,'0'); }
+  function randAgent() { return AGENTS[Math.random() * AGENTS.length | 0]; }
+
+  var EVT = [
+    function() { var a=randAgent(),b=randAgent(); return '<span class="cool-txt">'+a.name+'</span> forms coalition w/ <b>'+b.name+'</b>'; },
+    function() { var a=randAgent(),b=randAgent(); return '<span class="hot-txt">'+a.name+'</span> defects from <b>'+b.name+'</b>'; },
+    function() { var a=randAgent(); return '<b>'+a.name+'</b> trust updated <span class="cool-txt">+'+(Math.random()*0.05+0.01).toFixed(2)+'</span>'; },
+    function() { var a=randAgent(); return '<span class="hot-txt">'+a.name+'</span> stake penalty flagged'; },
+    function() { return 'ROUND '+round+' opens · stake &#926; '+(Math.random()*20+5).toFixed(1); },
+    function() { var a=randAgent(),b=randAgent(); return '<b>'+a.name+'</b> challenges <span class="hot-txt">'+b.name+'</span>'; },
+    function() { var a=randAgent(); return 'Coalition stability: <b>'+a.name+'</b> +'+(Math.random()*3+1|0)+' nodes'; },
+    function() { var a=randAgent(); return '<span class="cool-txt">'+a.name+'</span> · COOPERATE signal sent'; },
+    function() { var a=randAgent(); return '<span class="hot-txt">'+a.name+'</span> · DEFECT vector active'; },
+  ];
+
+  /* ── Feed ── */
+  var feedEl = document.getElementById('arena-feed');
+  var feedEntries = [];
+  function addEntry(msg) {
+    var ts = 'T' + String(tick).padStart(3,'0');
+    var el = document.createElement('div');
+    el.className = 'feed-entry new';
+    el.innerHTML = '<span class="feed-ts">'+ts+'</span><span class="feed-msg">'+msg+'</span>';
+    feedEl.insertBefore(el, feedEl.firstChild);
+    setTimeout(function(){ el.classList.remove('new'); }, 600);
+    feedEntries.push(el);
+    if (feedEntries.length > 22) {
+      var old = feedEntries.shift();
+      if (old.parentNode) old.parentNode.removeChild(old);
+    }
+  }
+
+  /* ── Roster ── */
+  var rosterEl = document.getElementById('arena-roster');
+  function buildRoster() {
+    rosterEl.innerHTML = '';
+    AGENTS.forEach(function(a) {
+      var d = document.createElement('div');
+      d.className = 'roster-tok';
+      d.innerHTML = '<div class="roster-dot '+a.team+'" id="rd-'+a.id+'"></div>'
+        + '<span class="roster-score" id="rs-'+a.id+'">'+a.trust.toFixed(2)+'</span>'
+        + '<span>'+a.name+'</span>';
+      rosterEl.appendChild(d);
+    });
+  }
+  buildRoster();
+
+  function updateRoster() {
+    AGENTS.forEach(function(a) {
+      var el = document.getElementById('rs-'+a.id);
+      if (el) el.textContent = a.trust.toFixed(2);
+    });
+  }
+
+  /* ── Tick loop ── */
+  function tickFn() {
+    tick--;
+    if (tick <= 0) {
+      tick = 60; round++;
+      if (round > 30) { round = 1; epoch++; }
+      addEntry(EVT[4]());
+    }
+    spectators += (Math.random() * 5 | 0) - 1;
+    if (spectators < 0) spectators = 0;
+
+    AGENTS.forEach(function(a) {
+      var d = (Math.random() - 0.48) * 0.015;
+      a.trust = Math.max(0.10, Math.min(0.99, a.trust + d));
+    });
+
+    var total = coolAgent.trust + hotAgent.trust;
+    var cp = Math.round(coolAgent.trust / total * 100);
+    var hp = 100 - cp;
+
+    document.getElementById('mc-trust-cool').textContent  = coolAgent.trust.toFixed(2);
+    document.getElementById('mc-trust-hot').textContent   = hotAgent.trust.toFixed(2);
+    document.getElementById('mc-odds-cool').textContent   = cp + '%';
+    document.getElementById('mc-odds-hot').textContent    = hp + '%';
+    document.getElementById('mc-odds-fill').style.width   = cp + '%';
+    document.getElementById('mc-epoch').textContent       = pad(epoch);
+    document.getElementById('mc-round').textContent       = pad(round);
+    document.getElementById('mc-spectators').textContent  = r(spectators);
+    document.getElementById('mc-tick').textContent        = pad(tick);
+    document.getElementById('m-epoch').textContent        = pad(epoch);
+    document.getElementById('m-round').textContent        = pad(round);
+    document.getElementById('m-spectators').textContent   = r(spectators);
+    document.getElementById('m-tick').textContent         = pad(tick);
+
+    updateRoster();
+    if (Math.random() < 0.38) addEntry(EVT[Math.random() * EVT.length | 0]());
+  }
+  setInterval(tickFn, 45);
+
+  /* ── Canvas board ── */
+  var canvas = document.getElementById('arena-canvas');
+  if (!canvas) return;
+  var ctx = canvas.getContext('2d');
+  var GRID = 28, animFrame = null, lastDrift = 0;
+
+  function resize() {
+    var rect = canvas.parentElement.getBoundingClientRect();
+    canvas.width  = rect.width  || 600;
+    canvas.height = rect.height || 360;
+  }
+
+  function draw() {
+    var W = canvas.width, H = canvas.height, cx = W/2, cy = H/2;
+    ctx.clearRect(0, 0, W, H);
+
+    /* territory zones */
+    ctx.fillStyle = 'rgba(2,226,172,0.07)';
+    ctx.fillRect(0, 0, W * 0.35, H);
+    ctx.fillStyle = 'rgba(255,90,31,0.07)';
+    ctx.fillRect(W * 0.65, 0, W * 0.35, H);
+
+    /* grid lines */
+    ctx.strokeStyle = 'rgba(70,66,61,0.15)';
+    ctx.lineWidth = 0.5;
+    for (var gx = 0; gx < W; gx += GRID) { ctx.beginPath(); ctx.moveTo(gx,0); ctx.lineTo(gx,H); ctx.stroke(); }
+    for (var gy = 0; gy < H; gy += GRID) { ctx.beginPath(); ctx.moveTo(0,gy); ctx.lineTo(W,gy); ctx.stroke(); }
+
+    /* concentric dashed rings */
+    ctx.setLineDash([4, 7]);
+    ctx.lineWidth = 0.75;
+    ctx.strokeStyle = 'rgba(70,66,61,0.28)';
+    [0.18, 0.30, 0.42].forEach(function(rf) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, Math.min(W, H) * rf, 0, Math.PI * 2);
+      ctx.stroke();
+    });
+    ctx.setLineDash([]);
+
+    /* agent tokens */
+    AGENTS.forEach(function(a) {
+      var ax = a.x * W, ay = a.y * H;
+      var isNull = a.team === 'null';
+      var isCool = a.team === 'cool';
+      var rgb = isCool ? '2,226,172' : isNull ? '150,145,140' : '255,90,31';
+      var alpha = isNull ? 0.38 : 0.88;
+
+      if (!isNull) {
+        var grd = ctx.createRadialGradient(ax, ay, 0, ax, ay, 20);
+        grd.addColorStop(0, 'rgba('+rgb+',0.32)');
+        grd.addColorStop(1, 'rgba('+rgb+',0)');
+        ctx.fillStyle = grd;
+        ctx.beginPath(); ctx.arc(ax, ay, 20, 0, Math.PI*2); ctx.fill();
+      }
+
+      ctx.beginPath(); ctx.arc(ax, ay, 7, 0, Math.PI*2);
+      ctx.fillStyle = 'rgba('+rgb+','+alpha+')'; ctx.fill();
+      ctx.strokeStyle = 'rgba('+rgb+',0.9)'; ctx.lineWidth = 1; ctx.stroke();
+
+      ctx.font = '600 7px "IBM Plex Mono",monospace';
+      ctx.fillStyle = 'rgba('+rgb+',0.82)';
+      ctx.textAlign = 'center';
+      ctx.fillText(a.name, ax, ay - 11);
+    });
+  }
+
+  function drift() {
+    AGENTS.forEach(function(a) {
+      if (a.team === 'null') return;
+      var bias = a.team === 'cool' ? -0.0018 : 0.0018;
+      a.x = Math.max(0.05, Math.min(0.94, a.x + bias + (Math.random()-0.5)*0.007));
+      a.y = Math.max(0.06, Math.min(0.94, a.y + (Math.random()-0.5)*0.007));
+    });
+  }
+
+  function loop(ts) {
+    if (ts - lastDrift > 900) { drift(); lastDrift = ts; }
+    resize(); draw();
+    animFrame = requestAnimationFrame(loop);
+  }
+
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) {
+          if (!animFrame) animFrame = requestAnimationFrame(loop);
+        } else {
+          if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
+        }
+      });
+    }, { threshold: 0.1 });
+    obs.observe(canvas.parentElement);
+  } else {
+    animFrame = requestAnimationFrame(loop);
+  }
+
+  /* seed initial feed */
+  for (var i = 0; i < 7; i++) {
+    (function(ii) {
+      setTimeout(function() { addEntry(EVT[Math.random() * EVT.length | 0]()); }, ii * 180);
+    })(i);
   }
 })();
 </script>
