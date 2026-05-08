@@ -88,7 +88,7 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { background: var(--bg); color: var(--text); scroll-behavior: smooth; }
 body {
-  font-family: var(--font-sans); font-size: 14px; line-height: 1.6;
+  font-family: var(--font-sans); font-size: 15px; line-height: 1.6;
   background: var(--bg); color: var(--text);
   padding-top: var(--nav-h); overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
@@ -168,12 +168,12 @@ a:hover { text-decoration: underline; }
   display: block; margin-bottom: var(--sp-4);
 }
 h1 {
-  font-family: var(--font-serif); font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-family: var(--font-serif); font-size: clamp(36px, 5vw, 56px);
   font-weight: 700; line-height: 1.1; letter-spacing: -0.02em;
   color: var(--text); margin-bottom: var(--sp-5);
 }
 h2 {
-  font-family: var(--font-serif); font-size: clamp(1.5rem, 3vw, 2rem);
+  font-family: var(--font-serif); font-size: clamp(22px, 3vw, 32px);
   font-weight: 700; line-height: 1.2; letter-spacing: -0.015em;
   color: var(--text); margin-bottom: var(--sp-4);
 }
@@ -310,7 +310,7 @@ p { color: var(--text-muted); line-height: 1.65; }
 
 /* ── Signal card ────────────────────────────────────────────────── */
 .signal-card {
-  border-left: 2px solid var(--phosphor); padding: var(--sp-5);
+  border-left: 2px solid var(--hot); padding: var(--sp-5);
   background: var(--surface);
 }
 .signal-card.synthesis { border-left-color: var(--synthesis); }
@@ -414,6 +414,7 @@ p { color: var(--text-muted); line-height: 1.65; }
   .sfn-cols     { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 600px) {
+  .btn { min-height: 44px; padding: 10px 20px; }
   .nav-links {
     display: none; flex-direction: column; position: absolute;
     top: var(--nav-h); left: 0; right: 0; background: var(--bg);
