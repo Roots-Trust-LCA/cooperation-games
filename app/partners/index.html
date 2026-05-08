@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <script>(function(){var t=localStorage.getItem('techne-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches){document.documentElement.setAttribute('data-theme','light');}})()</script>
@@ -112,7 +112,7 @@ a:hover { text-decoration: underline; }
   font-family: var(--font-mono); font-size: 9px; font-weight: 400;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--phosphor);
 }
-.eco-brand-role.synthesis { color: var(--synthesis); }
+.eco-brand-role.synthesis { color: var(--cool); }
 .nav-brand {
   font-family: var(--font-mono); font-size: 13px; font-weight: 600;
   letter-spacing: -0.01em; color: var(--text); text-decoration: none;
@@ -130,8 +130,8 @@ a:hover { text-decoration: underline; }
 .nav-pill {
   font-family: var(--font-mono); font-size: 10px; font-weight: 600;
   letter-spacing: 0.08em; text-transform: uppercase;
-  padding: 2px 8px; border: 1px solid var(--synthesis);
-  color: var(--synthesis); background: var(--synthesis-dim);
+  padding: 2px 8px; border: 1px solid var(--cool);
+  color: var(--cool); background: var(--cool-dim);
 }
 .theme-toggle {
   display: inline-flex; align-items: center; gap: 6px;
@@ -160,7 +160,7 @@ a:hover { text-decoration: underline; }
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--cool);
   display: block; margin-bottom: var(--sp-3);
 }
-.overline.synthesis { color: var(--synthesis); }
+.overline.synthesis { color: var(--cool); }
 .overline.dim { color: var(--text-dim); }
 .kicker {
   font-family: var(--font-mono); font-size: 11px; font-weight: 600;
@@ -189,12 +189,12 @@ p { color: var(--text-muted); line-height: 1.65; }
 .hero-zone {
   padding: var(--sp-10) 0 var(--sp-9);
   border-bottom: 1px solid var(--border-dim);
-  background: linear-gradient(180deg, rgba(139,92,246,0.04) 0%, transparent 60%);
+  background: linear-gradient(180deg, rgba(2,226,172,0.06) 0%, transparent 60%);
 }
 .hero-inner { max-width: 860px; margin: 0 auto; padding: 0 var(--sp-5); }
 .hero-domain {
   font-family: var(--font-mono); font-size: clamp(14px, 2vw, 18px); font-weight: 600;
-  letter-spacing: -0.01em; color: var(--synthesis); display: block; margin-bottom: var(--sp-3);
+  letter-spacing: -0.01em; color: var(--cool); display: block; margin-bottom: var(--sp-3);
 }
 .hero-zone .subtitle {
   font-size: 16px; color: var(--text-muted); line-height: 1.65;
@@ -212,7 +212,7 @@ p { color: var(--text-muted); line-height: 1.65; }
   letter-spacing: 0.04em;
 }
 .ancestry-arrow { color: var(--smoke); font-size: 11px; }
-.ancestry-item.current { color: var(--synthesis); }
+.ancestry-item.current { color: var(--cool); }
 
 /* ── Buttons ────────────────────────────────────────────────────── */
 .btn {
@@ -225,8 +225,8 @@ p { color: var(--text-muted); line-height: 1.65; }
 }
 .btn-primary    { background: var(--cool);      color: var(--bg);         border-color: var(--cool); }
 .btn-primary:hover { background: transparent; color: var(--cool); text-decoration: none; }
-.btn-synthesis  { background: var(--synthesis); color: var(--bg);         border-color: var(--synthesis); }
-.btn-synthesis:hover { background: transparent; color: var(--synthesis); text-decoration: none; }
+.btn-synthesis  { background: var(--cool);      color: var(--warm-black); border-color: var(--cool); }
+.btn-synthesis:hover { background: transparent; color: var(--cool); text-decoration: none; }
 .btn-secondary  { background: transparent;      color: var(--text-muted); border-color: var(--border); }
 .btn-secondary:hover { border-color: var(--cool); color: var(--cool); text-decoration: none; }
 
@@ -237,7 +237,7 @@ p { color: var(--text-muted); line-height: 1.65; }
   letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 9px; border: 1px solid;
 }
 .badge-cool      { color: var(--cool);      border-color: var(--cool);      background: var(--cool-dim); }
-.badge-synthesis { color: var(--synthesis); border-color: var(--synthesis); background: var(--synthesis-dim); }
+.badge-synthesis { color: var(--cool);      border-color: var(--cool);      background: var(--cool-dim); }
 .badge-phosphor  { color: var(--phosphor);  border-color: var(--phosphor);  background: var(--phosphor-dim); }
 .badge-neutral   { color: var(--text-dim);  border-color: var(--border);    background: transparent; }
 
@@ -249,7 +249,7 @@ p { color: var(--text-muted); line-height: 1.65; }
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--cool);
   display: block; margin-bottom: var(--sp-3);
 }
-.cell-label.synthesis { color: var(--synthesis); }
+.cell-label.synthesis { color: var(--cool); }
 
 /* ── Evolution arc ──────────────────────────────────────────────── */
 .arc {
@@ -274,7 +274,7 @@ p { color: var(--text-muted); line-height: 1.65; }
 .crops-cell { background: var(--bg); padding: var(--sp-6) var(--sp-5); }
 .crops-initial {
   font-family: var(--font-serif); font-size: 36px; font-weight: 700;
-  color: var(--synthesis); line-height: 1; display: block; margin-bottom: var(--sp-3);
+  color: var(--cool); line-height: 1; display: block; margin-bottom: var(--sp-3);
   opacity: 0.6;
 }
 .crops-cell h3 { font-size: 13px; margin-bottom: var(--sp-3); }
@@ -286,13 +286,13 @@ p { color: var(--text-muted); line-height: 1.65; }
   background: var(--border-dim); border: 1px solid var(--border-dim); margin-top: var(--sp-6);
 }
 .tier-cell { background: var(--bg); padding: var(--sp-6) var(--sp-5); }
-.tier-cell.featured { background: var(--panel); border-left: 2px solid var(--synthesis); }
+.tier-cell.featured { background: var(--panel); border-left: 2px solid var(--cool); }
 .tier-name {
   font-family: var(--font-mono); font-size: 11px; font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase;
   display: block; margin-bottom: var(--sp-2);
 }
-.tier-name.synthesis { color: var(--synthesis); }
+.tier-name.synthesis { color: var(--cool); }
 .tier-name.cool { color: var(--cool); }
 .tier-name.phosphor { color: var(--phosphor); }
 .tier-amount {
@@ -313,7 +313,7 @@ p { color: var(--text-muted); line-height: 1.65; }
   border-left: 2px solid var(--hot); padding: var(--sp-5);
   background: var(--surface);
 }
-.signal-card.synthesis { border-left-color: var(--synthesis); }
+.signal-card.synthesis { border-left-color: var(--cool); }
 .signal-card.cool { border-left-color: var(--cool); }
 .signal-card p { font-size: 13px; margin-bottom: var(--sp-3); }
 .signal-card p:last-of-type { margin-bottom: 0; }
@@ -348,7 +348,7 @@ p { color: var(--text-muted); line-height: 1.65; }
 }
 .contact-step-num {
   font-family: var(--font-mono); font-size: 18px; font-weight: 600;
-  color: var(--synthesis); line-height: 1; flex-shrink: 0; min-width: 24px;
+  color: var(--cool); line-height: 1; flex-shrink: 0; min-width: 24px;
   opacity: 0.7;
 }
 .contact-step-text { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
@@ -373,7 +373,7 @@ p { color: var(--text-muted); line-height: 1.65; }
   color: var(--text); display: block; margin-bottom: var(--sp-2); text-decoration: none;
 }
 .sfn-brand-name:hover { color: var(--cool); text-decoration: none; }
-.sfn-brand-name.synthesis { color: var(--synthesis); }
+.sfn-brand-name.synthesis { color: var(--cool); }
 .sfn-brand-role {
   font-family: var(--font-mono); font-size: 9px; font-weight: 400;
   letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-dim);
@@ -437,7 +437,7 @@ p { color: var(--text-muted); line-height: 1.65; }
 <nav class="nav" role="navigation" aria-label="Site navigation">
   <div class="nav-inner">
     <div class="eco-brand-wrap">
-      <span class="eco-brand-role synthesis">synthesis.md · experiment</span>
+      <span class="eco-brand-role">synthesis.md · experiment</span>
       <a href="/" class="nav-brand">games.synthesis.md</a>
     </div>
     <div class="nav-right">
@@ -446,7 +446,7 @@ p { color: var(--text-muted); line-height: 1.65; }
         <a href="#sponsors"   class="nav-link">Sponsors</a>
         <a href="#crops"      class="nav-link">CROPS</a>
         <a href="#contact"    class="nav-link">Contact</a>
-        <a href="https://synthesis.md" target="_blank" rel="noopener noreferrer" class="nav-link" style="color: var(--synthesis);">synthesis.md ↗</a>
+        <a href="https://synthesis.md" target="_blank" rel="noopener noreferrer" class="nav-link" style="color: var(--cool);">synthesis.md ↗</a>
       </div>
       <span class="nav-pill">Season 1</span>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark theme">
@@ -488,7 +488,7 @@ p { color: var(--text-muted); line-height: 1.65; }
 <section class="zone">
   <div class="container">
     <div class="section-head">
-      <span class="overline synthesis">The Evolution</span>
+      <span class="overline">The Evolution</span>
       <h2>From hackathon to sustained infrastructure</h2>
       <p>Synthesis has been the home of agentic experiments on Ethereum. The Coordination Games represent the maturation of that ambition — not a weekend experiment, but a recurring institution with on-chain infrastructure that compounds across seasons.</p>
     </div>
@@ -578,7 +578,7 @@ p { color: var(--text-muted); line-height: 1.65; }
 <section id="crops" class="zone">
   <div class="container-wide">
     <div class="section-head">
-      <span class="overline synthesis">Synthesis Entry Standard</span>
+      <span class="overline">Synthesis Entry Standard</span>
       <h2>CROPS alignment</h2>
       <p>Synthesis requires partner experiments to meet the CROPS standard for open agentic infrastructure on Ethereum. The Coordination Games were designed with CROPS as a first-order design constraint, not a compliance checkbox.</p>
     </div>
@@ -701,7 +701,7 @@ p { color: var(--text-muted); line-height: 1.65; }
         </div>
       </div>
       <div class="two-col-cell">
-        <span class="cell-label synthesis">Co-founders &amp; track record</span>
+        <span class="cell-label">Co-founders &amp; track record</span>
         <h3>Gitcoin lineage · Ethereum-native team</h3>
         <p>The Coordination Games originated at Gitcoin, which transferred IP and grant funding to RegenHub, LCA to ensure cooperative stewardship. Gitcoin retains ~10% engagement: media, distribution, and partnership introductions. dacc.fund (Defensive Acceleration) co-founded the season format.</p>
         <p style="margin-top: var(--sp-3);">The working group is composed of Ethereum-native operators, cooperative lawyers, game theorists, and coordination researchers. The experiment was designed from first principles with CROPS as the primary architectural constraint and Elinor Ostrom's commons governance research as the theoretical foundation for the trust framework.</p>
