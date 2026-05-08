@@ -440,6 +440,105 @@ p { color: var(--text-muted); line-height: 1.65; }
   transition: width 0.6s var(--ease-out);
 }
 
+/* ── Founders bar (hero) ─────────────────────────────────────────── */
+.founders-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-3) 0 0;
+  margin-top: var(--sp-4);
+  border-top: 1px solid var(--border-dim);
+  flex-wrap: wrap;
+}
+.founders-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+.founders-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--text);
+}
+.founders-sep { color: var(--text-dim); font-size: 10px; }
+.founders-amount {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: var(--cool);
+  margin-left: auto;
+}
+
+/* ── Founding backers callout (sponsors section) ─────────────────── */
+.founding-card {
+  margin-bottom: var(--sp-6);
+  padding: var(--sp-5) var(--sp-6);
+  border: 1px solid var(--cool-dim);
+  background: var(--cool-dim);
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--sp-4) var(--sp-6);
+  align-items: start;
+}
+.founding-card-body {}
+.founding-card-names {
+  display: flex;
+  gap: var(--sp-3);
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-3);
+}
+.founding-card-name {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--cool);
+}
+.founding-card-name + .founding-card-name::before {
+  content: '+';
+  margin: 0 var(--sp-2);
+  color: var(--text-dim);
+  font-weight: 400;
+}
+.founding-card p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.65;
+  margin: 0;
+  max-width: 500px;
+}
+.founding-card-amount {
+  text-align: right;
+  flex-shrink: 0;
+}
+.founding-card-amount-num {
+  font-family: var(--font-serif);
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--text);
+  line-height: 1;
+  display: block;
+}
+.founding-card-amount-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cool);
+  display: block;
+  margin-top: 5px;
+}
+@media (max-width: 640px) {
+  .founding-card { grid-template-columns: 1fr; }
+  .founding-card-amount { text-align: left; }
+}
+
 /* ── Responsive: interfaces + treasury ──────────────────────────── */
 @media (max-width: 700px) {
   .interface-grid { grid-template-columns: 1fr; }
@@ -760,6 +859,13 @@ p { color: var(--text-muted); line-height: 1.65; }
       <a href="#sponsors" class="btn btn-synthesis">Sponsor the experiment</a>
       <a href="#experiment" class="btn btn-secondary">How it works</a>
     </div>
+    <div class="founders-bar">
+      <span class="founders-label">Seeded by</span>
+      <span class="founders-name">Gitcoin</span>
+      <span class="founders-sep">+</span>
+      <span class="founders-name">dacc.fund</span>
+      <span class="founders-amount">$50K treasury · IP transferred to cooperative stewardship</span>
+    </div>
     <div class="ancestry">
       <span class="ancestry-item">games.coop</span>
       <span class="ancestry-arrow">·</span>
@@ -961,7 +1067,7 @@ p { color: var(--text-muted); line-height: 1.65; }
     <div class="section-head">
       <span class="overline">The Treasury</span>
       <h2>$50K seeded. Open for co-investment.</h2>
-      <p>Two buckets — infrastructure and prize pool — each seeded by Gitcoin and dacc.fund, each with a different leverage dynamic.</p>
+      <p>Gitcoin and dacc.fund seeded the Season 1 treasury with $50K — enough to run a real experiment, attract serious agents, and produce research-grade behavioral data. Infrastructure and prize pool, each open for named co-investors.</p>
     </div>
 
     <div class="treasury-split">
@@ -1075,6 +1181,20 @@ p { color: var(--text-muted); line-height: 1.65; }
       <span class="overline">Sponsor</span>
       <h2>Back the experiment</h2>
       <p>Funds prize pools, app development, and Games Guild infrastructure. Sponsors are credited in public documentation and trust graph provenance.</p>
+    </div>
+
+    <div class="founding-card">
+      <div class="founding-card-body">
+        <div class="founding-card-names">
+          <span class="founding-card-name">Gitcoin</span>
+          <span class="founding-card-name">dacc.fund</span>
+        </div>
+        <p>You're not going first. Gitcoin originated the Coordination Games and transferred the IP and grant funding to RegenHub, LCA for cooperative stewardship. dacc.fund co-founded the season format. Together they seeded a $50K treasury and committed to the cooperative governance structure.</p>
+      </div>
+      <div class="founding-card-amount">
+        <span class="founding-card-amount-num">$50K</span>
+        <span class="founding-card-amount-label">Treasury seeded</span>
+      </div>
     </div>
 
     <div class="signal-card synthesis" style="margin-bottom: var(--sp-7);">
