@@ -302,18 +302,7 @@ p { color: var(--text-muted); line-height: 1.65; }
   max-width: 580px; margin-bottom: var(--sp-7);
 }
 .hero-actions { display: flex; gap: var(--sp-3); flex-wrap: wrap; margin-bottom: var(--sp-8); }
-.ancestry {
-  display: flex; align-items: center; gap: var(--sp-3); flex-wrap: wrap;
-  padding: var(--sp-4) var(--sp-5);
-  border: 1px solid var(--border-dim); background: var(--surface);
-  max-width: 560px;
-}
-.ancestry-item {
-  font-family: var(--font-mono); font-size: 11px; color: var(--text-dim);
-  letter-spacing: 0.04em;
-}
-.ancestry-arrow { color: var(--smoke); font-size: 11px; }
-.ancestry-item.current { color: var(--cool); }
+
 
 /* ── Buttons ────────────────────────────────────────────────────── */
 .btn {
@@ -814,12 +803,7 @@ p { color: var(--text-muted); line-height: 1.65; }
   --boid-rgb: 110, 183, 99;
   --collision-rgb: 201, 168, 93;
 }
-.stat-canvas-wrap {
-  position: absolute; inset: 0; pointer-events: none;
-  --boid-rgb: 110, 183, 99;
-  --collision-rgb: 201, 168, 93;
-}
-.stat-row { position: relative; }
+
 
 </style>
 <script src="https://unpkg.com/lucide@0.474.0/dist/umd/lucide.min.js"></script>
@@ -877,13 +861,7 @@ p { color: var(--text-muted); line-height: 1.65; }
       <span class="founders-name">dacc.fund</span>
       <span class="founders-amount">$50K treasury · IP transferred to cooperative stewardship</span>
     </div>
-    <div class="ancestry">
-      <span class="ancestry-item">games.coop</span>
-      <span class="ancestry-arrow">·</span>
-      <span class="ancestry-item">cooperation.games</span>
-      <span class="ancestry-arrow">·</span>
-      <span class="ancestry-item current">techne.coop</span>
-    </div>
+
   </div><!-- /.hero-inner -->
 </section>
 
@@ -958,16 +936,7 @@ p { color: var(--text-muted); line-height: 1.65; }
     </div>
 
     <div class="stat-row">
-      <div class="flock-stage stat-canvas-wrap" data-flock-stage>
-        <canvas class="flock-canvas" id="flock-partners-stats"
-          data-flock-count="200"
-          data-flock-perception="90"
-          data-flock-separation="16"
-          data-flock-alignment="1.1"
-          data-flock-cohesion="0.9"
-          data-flock-speed="2.2"
-          data-flock-trail-fade="0.83"></canvas>
-      </div>
+
       <div class="stat-cell">
         <i data-lucide="award" class="icon-stat" aria-hidden="true"></i>
         <span class="stat-value">$25K+</span>
