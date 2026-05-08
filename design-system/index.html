@@ -3,7 +3,7 @@
 <head>
 <script>(function(){var t=localStorage.getItem('techne-theme');if(t==='light'||t==='dark'){document.documentElement.setAttribute('data-theme',t);}else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches){document.documentElement.setAttribute('data-theme','light');}})()</script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="description" content="Design system for cooperation.games — color tokens, typography, components, and visual motifs.">
 <link rel="canonical" href="https://cooperation.games/design-system/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -188,7 +188,7 @@ a:hover {
 .nav-right {
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: var(--sp-5);
 }
 
 .nav-link {
@@ -197,7 +197,7 @@ a:hover {
   color: var(--text-dim);
   text-decoration: none;
   letter-spacing: 0.03em;
-  transition: color var(--dur-fast);
+  transition: color var(--dur-fast) var(--ease-out);
 }
 
 .nav-link:hover {
@@ -1132,6 +1132,43 @@ button, .btn {
 }
 
 /* ============================================================
+   MOBILE NAV
+   ============================================================ */
+.nav-toggle {
+  display: none;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  padding: 5px 8px;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+}
+
+@media (max-width: 600px) {
+  .nav-links {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    background: var(--bg);
+    padding: var(--sp-4) var(--sp-5);
+    gap: var(--sp-4);
+    border-bottom: 1px solid var(--border-dim);
+    z-index: 99;
+  }
+  .nav-links.open { display: flex; }
+  .nav-toggle { display: block; }
+  .nav-pill { display: none; }
+}
+
+@media (max-width: 400px) {
+  .page { padding: 0 var(--sp-4) var(--sp-10); }
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 .footer {
@@ -1431,14 +1468,17 @@ button, .btn {
   <div class="nav-inner">
     <div class="eco-brand-wrap"><a href="/" class="nav-brand">cooperation.games</a><span class="eco-brand-role">Observatory</span></div>
     <div class="nav-right">
-      <a href="/design-system/" class="nav-link" aria-current="page">design system</a>
-      <a href="https://games.coop" class="nav-link" style="color:var(--phosphor,#C9A85D)" target="_blank" rel="noopener noreferrer">Arena · games.coop ↗</a>
+      <div class="nav-links" id="nav-links">
+        <a href="/design-system/" class="nav-link" aria-current="page">design system</a>
+        <a href="https://games.coop" class="nav-link" style="color:var(--phosphor,#C9A85D)" target="_blank" rel="noopener noreferrer">Arena · games.coop ↗</a>
+      </div>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light/dark theme">
         <svg class="theme-icon" id="icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="3.5"/><line x1="8" y1="1" x2="8" y2="3"/><line x1="8" y1="13" x2="8" y2="15"/><line x1="1" y1="8" x2="3" y2="8"/><line x1="13" y1="8" x2="15" y2="8"/><line x1="3.05" y1="3.05" x2="4.46" y2="4.46"/><line x1="11.54" y1="11.54" x2="12.95" y2="12.95"/><line x1="12.95" y1="3.05" x2="11.54" y2="4.46"/><line x1="4.46" y1="11.54" x2="3.05" y2="12.95"/></svg>
         <svg class="theme-icon" id="icon-moon" viewBox="0 0 16 16" fill="currentColor" stroke="none" aria-hidden="true"><path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/></svg>
         <span id="theme-label">Light</span>
       </button>
       <span class="nav-pill">v1</span>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
     </div>
   </div>
 </nav>
