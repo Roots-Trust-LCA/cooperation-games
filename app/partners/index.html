@@ -388,33 +388,112 @@ p { color: var(--text-muted); line-height: 1.65; }
 .crops-cell h3 { font-size: 13px; margin-bottom: var(--sp-3); }
 .crops-cell p  { font-size: 12px; }
 
-/* ── Sponsor tiers ──────────────────────────────────────────────── */
-.tier-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
-  background: var(--border-dim); border: 1px solid var(--border-dim); margin-top: var(--sp-6);
+/* ── NFT Tier Cards ─────────────────────────────────────────────── */
+.nft-grid {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4);
+  margin-top: var(--sp-6);
 }
-.tier-cell { background: var(--bg); padding: var(--sp-6) var(--sp-5); }
-.tier-cell.featured { background: var(--panel); border-top: 2px solid var(--cool); }
-.tier-name {
+/* gradient border wrapper */
+.nft-card {
+  padding: 2px; position: relative;
+  display: flex; flex-direction: column;
+}
+.nft-card-inner {
+  background: var(--bg); padding: var(--sp-6) var(--sp-5);
+  display: flex; flex-direction: column; height: 100%; position: relative; overflow: hidden;
+}
+/* per-rarity border gradients */
+.nft-common     { background: linear-gradient(160deg, #7A746E 0%, #AEA89F 50%, #7A746E 100%); }
+.nft-uncommon   { background: linear-gradient(160deg, #C9A85D 0%, #E8C97A 50%, #A07C2A 100%); }
+.nft-rare       { background: linear-gradient(160deg, #009B76 0%, #02E2AC 50%, #006B52 100%); }
+.nft-legendary  {
+  background: linear-gradient(135deg, #FF5A1F 0%, #C9A85D 25%, #02E2AC 50%, #4A8FD9 75%, #FF5A1F 100%);
+  background-size: 300% 300%;
+  animation: holo 5s ease infinite;
+}
+@keyframes holo {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* inner shimmer strip for legendary */
+.nft-legendary .nft-card-inner::before {
+  content: '';
+  position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
+  animation: shimmer 3.5s ease infinite;
+  pointer-events: none;
+}
+@keyframes shimmer {
+  0%   { left: -100%; }
+  100% { left: 200%; }
+}
+/* card header row */
+.nft-card-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-bottom: var(--sp-4);
+}
+.nft-rarity {
+  font-family: var(--font-mono); font-size: 9px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  padding: 2px 6px; border: 1px solid currentColor;
+}
+.nft-common   .nft-rarity { color: #7A746E; }
+.nft-uncommon .nft-rarity { color: var(--phosphor); }
+.nft-rare     .nft-rarity { color: var(--cool); }
+.nft-legendary .nft-rarity {
+  background: linear-gradient(90deg, #FF5A1F, #C9A85D, #02E2AC);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; border-color: var(--phosphor);
+}
+.nft-seats {
+  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.08em; color: var(--text-dim);
+}
+/* name and amount */
+.nft-tier-name {
   font-family: var(--font-mono); font-size: 11px; font-weight: 600;
-  letter-spacing: 0.1em; text-transform: uppercase;
+  letter-spacing: 0.12em; text-transform: uppercase;
   display: block; margin-bottom: var(--sp-2);
 }
-.tier-name.synthesis { color: var(--cool); }
-.tier-name.cool { color: var(--cool); }
-.tier-name.phosphor { color: var(--phosphor); }
-.tier-amount {
-  font-family: var(--font-serif); font-size: clamp(18px, 2vw, 26px); font-weight: 700;
+.nft-common   .nft-tier-name { color: #9B948D; }
+.nft-uncommon .nft-tier-name { color: var(--phosphor); }
+.nft-rare     .nft-tier-name { color: var(--cool); }
+.nft-legendary .nft-tier-name { color: var(--hot); }
+.nft-amount {
+  font-family: var(--font-serif); font-size: clamp(20px, 2.2vw, 28px); font-weight: 700;
   color: var(--text); display: block; margin-bottom: var(--sp-5); line-height: 1.1;
 }
-.tier-cell h3 { font-size: 13px; margin-bottom: var(--sp-4); }
-.tier-list { list-style: none; display: flex; flex-direction: column; gap: var(--sp-2); }
-.tier-list li {
-  font-size: 12px; color: var(--text-muted); padding-left: var(--sp-4); position: relative;
+/* co-op share panel */
+.nft-share {
+  margin-bottom: var(--sp-5); padding: var(--sp-3);
+  border: 1px solid var(--border-dim); background: var(--surface);
 }
-.tier-list li::before {
-  content: '–'; position: absolute; left: 0; color: var(--text-dim);
+.nft-share-title {
+  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);
+  display: block; margin-bottom: var(--sp-1);
 }
+.nft-share-body {
+  font-size: 11px; color: var(--text-muted); line-height: 1.5;
+}
+.nft-share-body strong { color: var(--text); font-weight: 600; }
+/* benefits list */
+.nft-benefits {
+  list-style: none; display: flex; flex-direction: column; gap: var(--sp-2);
+  margin-top: auto; padding-top: var(--sp-4); border-top: 1px solid var(--border-dim);
+}
+.nft-benefits li {
+  font-size: 11px; color: var(--text-muted); padding-left: var(--sp-4); position: relative;
+  line-height: 1.45;
+}
+.nft-common   .nft-benefits li::before { content: '—'; position: absolute; left: 0; color: #7A746E; font-size: 10px; }
+.nft-uncommon .nft-benefits li::before { content: '◆'; position: absolute; left: 0; color: var(--phosphor); font-size: 7px; top: 3px; }
+.nft-rare     .nft-benefits li::before { content: '→'; position: absolute; left: 0; color: var(--cool); font-size: 10px; top: 1px; }
+.nft-legendary .nft-benefits li::before { content: '★'; position: absolute; left: 0; color: var(--hot); font-size: 8px; top: 2px; }
+/* responsive */
+@media (max-width: 1100px) { .nft-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px)  { .nft-grid { grid-template-columns: 1fr; } }
 
 /* ── Signal card ────────────────────────────────────────────────── */
 .signal-card {
@@ -511,13 +590,9 @@ p { color: var(--text-muted); line-height: 1.65; }
 .sfn-bottom a:hover { color: var(--cool); text-decoration: none; }
 
 /* ── Mobile ─────────────────────────────────────────────────────── */
-@media (max-width: 1100px) {
-  .tier-grid    { grid-template-columns: repeat(2, 1fr); }
-}
 @media (max-width: 860px) {
   .arc          { grid-template-columns: 1fr; }
   .crops-grid   { grid-template-columns: repeat(2, 1fr); }
-  .tier-grid    { grid-template-columns: 1fr; }
   .two-col      { grid-template-columns: 1fr; }
   .contact-block{ grid-template-columns: 1fr; }
   .stat-row     { grid-template-columns: repeat(2, 1fr); }
@@ -945,66 +1020,107 @@ p { color: var(--text-muted); line-height: 1.65; }
     </div>
 
     <div class="signal-card synthesis" style="margin-bottom: var(--sp-7);">
-      <h3>What your sponsorship produces</h3>
-      <p>Prize pools attract serious agent builders and researchers. Larger pools produce richer behavioral data — more agents willing to enter under real stakes, more varied play, higher-quality trust attestations. The data is the public good. Your sponsorship is the direct mechanism that creates it.</p>
-      <p>The experiment is designed to compound: Season 1 data informs Season 2 game design. Trust records from Season 1 carry into Season 2. The infrastructure you fund in Season 1 is not rebuilt from scratch for Season 2. Sponsorship at this stage is founding-level participation in a public institution, not a one-off event.</p>
+      <h3>Every tier includes a co-op class share</h3>
+      <p>All sponsorship tiers include a <strong>$250 one-time Games Guild Co-op class share</strong> — a member seat in the cooperative that governs the experiment's game library and prize pool parameters. One member, one vote. Entity partners receive seats on a cost curve: additional seats require proportionally more investment, preserving cooperative governance against capture by any single organization.</p>
+      <p>This is not a token. It is a legal membership interest in a Colorado LCA with a public benefit purpose. The governance it grants is real, bounded, and designed to outlast any individual season.</p>
     </div>
 
-    <div class="tier-grid">
-      <div class="tier-cell">
-        <span class="tier-name phosphor">Community Backer</span>
-        <span class="tier-amount">$250–$500</span>
-        <h3>Signal your support. Named in the record.</h3>
-        <ul class="tier-list">
-          <li>Named in Season 1 public documentation</li>
-          <li>Logo in the games.synthesis.md sponsor section</li>
-          <li>Listed in the Synthesis experiment directory</li>
-          <li>Credited in the season-end trust graph publication</li>
-          <li>Invitation to season-end debrief</li>
-        </ul>
+    <div class="nft-grid">
+
+      <!-- Common -->
+      <div class="nft-card nft-common">
+        <div class="nft-card-inner">
+          <div class="nft-card-header">
+            <span class="nft-rarity">Common</span>
+            <span class="nft-seats">1 governance seat</span>
+          </div>
+          <span class="nft-tier-name">Community Backer</span>
+          <span class="nft-amount">$250–$500</span>
+          <div class="nft-share">
+            <span class="nft-share-title">Games Guild Co-op class share</span>
+            <div class="nft-share-body"><strong>$250 one-time</strong> · 1 member seat · program-level governance access · one member, one vote</div>
+          </div>
+          <ul class="nft-benefits">
+            <li>Named in all Season 1 documentation</li>
+            <li>Logo in the Synthesis experiment directory</li>
+            <li>Credited in the season-end trust graph publication</li>
+            <li>Season-end debrief invitation</li>
+          </ul>
+        </div>
       </div>
-      <div class="tier-cell">
-        <span class="tier-name phosphor">Season Supporter</span>
-        <span class="tier-amount">$1,000–$2,500</span>
-        <h3>Named co-funder. Visible in the arena.</h3>
-        <ul class="tier-list">
-          <li>All Community Backer benefits</li>
-          <li>Logo in games.coop app onboarding and game lobby</li>
-          <li>Named in the prize pool co-funder credit in all game materials</li>
-          <li>Featured in synthesis.md experiment directory</li>
-          <li>Access to anonymized season-end behavioral dataset</li>
-          <li>Builder spotlight in Synthesis channels</li>
-        </ul>
+
+      <!-- Uncommon -->
+      <div class="nft-card nft-uncommon">
+        <div class="nft-card-inner">
+          <div class="nft-card-header">
+            <span class="nft-rarity">Uncommon</span>
+            <span class="nft-seats">1 governance seat</span>
+          </div>
+          <span class="nft-tier-name">Season Supporter</span>
+          <span class="nft-amount">$1,000–$2,500</span>
+          <div class="nft-share">
+            <span class="nft-share-title">Games Guild Co-op class share</span>
+            <div class="nft-share-body"><strong>$250 one-time</strong> · 1 member seat · program-level governance access · one member, one vote</div>
+          </div>
+          <ul class="nft-benefits">
+            <li>All Community Backer benefits</li>
+            <li>Logo in games.coop app onboarding and game lobby</li>
+            <li>Prize pool co-funder credit in all game materials</li>
+            <li>Featured placement in the Synthesis directory</li>
+            <li>Season-end behavioral dataset access</li>
+          </ul>
+        </div>
       </div>
-      <div class="tier-cell featured">
-        <span class="tier-name synthesis">Season Partner</span>
-        <span class="tier-amount">$5,000–$10,000</span>
-        <h3>Infrastructure co-funder. In the provenance record.</h3>
-        <ul class="tier-list">
-          <li>All Season Supporter benefits</li>
-          <li>Named in the ERC-8004 attestation provenance record</li>
-          <li>Named co-funder in architecture decision records (public)</li>
-          <li>Early access to research findings before public release</li>
-          <li>Seat at the working-group table for Season 2 scoping</li>
-          <li>Structured dataset access and research partnership</li>
-          <li>Custom attestation schema extension (if aligned with CROPS)</li>
-        </ul>
+
+      <!-- Rare -->
+      <div class="nft-card nft-rare">
+        <div class="nft-card-inner">
+          <div class="nft-card-header">
+            <span class="nft-rarity">Rare</span>
+            <span class="nft-seats">2 governance seats</span>
+          </div>
+          <span class="nft-tier-name">Season Partner</span>
+          <span class="nft-amount">$5,000–$10,000</span>
+          <div class="nft-share">
+            <span class="nft-share-title">Games Guild Co-op class share</span>
+            <div class="nft-share-body"><strong>$250 one-time</strong> · 2 member seats · cost-curve pricing on additional shares to preserve one-member, one-vote governance</div>
+          </div>
+          <ul class="nft-benefits">
+            <li>All Season Supporter benefits</li>
+            <li>Named in ERC-8004 attestation provenance record</li>
+            <li>Named co-funder in public architecture decision records</li>
+            <li>Early access to research findings before release</li>
+            <li>Working-group seat for Season 2 scoping</li>
+            <li>Custom attestation schema extension option</li>
+          </ul>
+        </div>
       </div>
-      <div class="tier-cell">
-        <span class="tier-name cool">Founding Partner</span>
-        <span class="tier-amount">$25,000–$50,000</span>
-        <h3>Matches Gitcoin and dacc.fund. Institutional co-steward.</h3>
-        <ul class="tier-list">
-          <li>All Season Partner benefits</li>
-          <li>Named institutional co-steward of the experiment</li>
-          <li>Co-branding on games.synthesis.md and all experiment materials</li>
-          <li>First right to co-present Season 1 findings publicly</li>
-          <li>Participation in Season 2 governance decisions</li>
-          <li>Structured multi-season relationship with the cooperative</li>
-          <li>Recognition alongside Gitcoin and dacc.fund as founding co-investors</li>
-        </ul>
+
+      <!-- Legendary -->
+      <div class="nft-card nft-legendary">
+        <div class="nft-card-inner">
+          <div class="nft-card-header">
+            <span class="nft-rarity">Legendary</span>
+            <span class="nft-seats">up to 5 governance seats</span>
+          </div>
+          <span class="nft-tier-name">Founding Partner</span>
+          <span class="nft-amount">$25,000–$50,000</span>
+          <div class="nft-share">
+            <span class="nft-share-title">Games Guild Co-op class share</span>
+            <div class="nft-share-body"><strong>$250 one-time</strong> · up to 5 member seats · cost-curve pricing defends the cooperative against capture by any single entity</div>
+          </div>
+          <ul class="nft-benefits">
+            <li>All Season Partner benefits</li>
+            <li>Named institutional co-steward alongside Gitcoin and dacc.fund</li>
+            <li>Co-branding on games.synthesis.md and all experiment materials</li>
+            <li>First right to co-present Season 1 findings publicly</li>
+            <li>Season 2 governance participation</li>
+            <li>Structured multi-season cooperative relationship</li>
+          </ul>
+        </div>
       </div>
-    </div>
+
+    </div><!-- /.nft-grid -->
 
     <div style="margin-top: var(--sp-6);">
       <div class="signal-card">
