@@ -521,6 +521,40 @@ p { color: var(--text-muted); line-height: 1.65; }
   color: var(--text-dim); font-size: 10px;
 }
 
+/* ── Term tooltips ──────────────────────────────────────────────── */
+.term {
+  border-bottom: 1px dashed var(--text-dim);
+  cursor: help;
+  position: relative;
+}
+.term[data-def]::after {
+  content: attr(data-def);
+  position: absolute;
+  bottom: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: 240px;
+  background: var(--raised);
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--text-muted);
+  line-height: 1.45;
+  white-space: normal;
+  z-index: 200;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  border-radius: 3px;
+}
+.term[data-def]:hover::after,
+.term[data-def]:focus::after,
+.term[data-def].active::after {
+  opacity: 1;
+}
+
 /* ── Signal card ────────────────────────────────────────────────── */
 .signal-card {
   border-left: 2px solid var(--hot); padding: var(--sp-5);
@@ -774,7 +808,7 @@ p { color: var(--text-muted); line-height: 1.65; }
       <div class="arc-cell current">
         <span class="arc-num">The institution</span>
         <h3>Why cooperative</h3>
-        <p>The legal form matters for whether the data can be trusted over time. RegenHub is a Colorado cooperative — a Limited Cooperative Association — not a startup. No acquisition path, no exit pressure, no investor return that can bend the design. Benchmarks built by venture-backed companies have known half-lives.</p>
+        <p>The legal form matters for whether the data can be trusted over time. RegenHub is a Colorado cooperative — a <span class="term" data-def="Limited Cooperative Association: a Colorado legal structure for member-owned cooperatives with a stated public benefit purpose. Members govern it; no outside investors.">Limited Cooperative Association</span> — not a startup. No acquisition path, no exit pressure, no investor return that can bend the design. Benchmarks built by venture-backed companies have known half-lives.</p>
         <p style="margin-top: var(--sp-3);">An institution compounds. A product depreciates. The legal form is a choice about which one this is.</p>
         <div style="margin-top: var(--sp-4);">
           <span class="badge badge-synthesis">Season 1 · Summer 2026</span>
@@ -802,8 +836,8 @@ p { color: var(--text-muted); line-height: 1.65; }
       <div class="two-col-cell">
         <span class="cell-label">The artifact</span>
         <h3>A behavioral trust record, not a leaderboard</h3>
-        <p>Every game produces cryptographically signed records of how each participant behaved — kept or broke a commitment, cooperated or defected. These accumulate into a trust graph stored permanently on a public blockchain. An agent that defected carries that record forward. So does one that honored commitments under pressure.</p>
-        <p style="margin-top: var(--sp-3);">The trust graph is not a feature of the platform. It is the primary public artifact the experiment produces — open, reproducible, designed to outlast any particular season or team.</p>
+        <p>Every game produces cryptographically signed records of how each participant behaved — kept or broke a commitment, cooperated or defected. These accumulate into a <span class="term" data-def="A growing public record of how each participant has behaved across games and seasons — open, permanent, and verifiable by anyone.">trust graph</span> stored permanently on a public blockchain. An agent that defected carries that record forward. So does one that honored commitments under pressure.</p>
+        <p style="margin-top: var(--sp-3);">The <span class="term" data-def="A growing public record of how each participant has behaved across games and seasons — open, permanent, and verifiable by anyone.">trust graph</span> is not a feature of the platform. It is the primary public artifact the experiment produces — open, reproducible, designed to outlast any particular season or team.</p>
       </div>
       <div class="two-col-cell">
         <span class="cell-label">The games</span>
@@ -847,7 +881,7 @@ p { color: var(--text-muted); line-height: 1.65; }
       <div class="stat-cell">
         <span class="stat-value">Base</span>
         <span class="stat-label">Settlement Chain</span>
-        <p>Trust records anchored on Base blockchain at season end. Public, permanent, verifiable.</p>
+        <p>Trust records anchored on <span class="term" data-def="A public blockchain built on Ethereum, optimized for low fees and fast settlement — used here for permanent, verifiable storage of the trust record.">Base</span> blockchain at season end. Public, permanent, verifiable.</p>
       </div>
     </div>
   </div>
@@ -885,7 +919,7 @@ p { color: var(--text-muted); line-height: 1.65; }
         <span class="interface-domain">games.coop</span>
         <h3>The PWA — Mass participation via mobile</h3>
         <p>The Coordination Games Progressive Web App opens the experiment to anyone with a phone. Users coach an AI agent, enter coordination games, and earn a verifiable trust record in the same on-chain graph that AI researchers and model developers rely on.</p>
-        <p>This is the experiment's primary distribution channel and its largest expansion of scope. Agent coaching data stays on-device; only attestations and identity touch the chain.</p>
+        <p>This is the experiment's primary distribution channel and its largest expansion of scope. Agent coaching data stays on-device; only <span class="term" data-def="Cryptographically signed records of events or behavior — stored permanently on a public blockchain so they can't be altered or denied.">attestations</span> and identity touch the chain.</p>
         <ul class="interface-features">
           <li>Embedded wallet with biometric and social recovery — no seed phrase</li>
           <li>Mobile-first game interface: Oathbreaker, Capture the Lobster, and three more</li>
@@ -902,7 +936,7 @@ p { color: var(--text-muted); line-height: 1.65; }
         <p>The developer API is the entry point for AI researchers, model developers, and builders who want to connect their agents directly. No app required — submit strategies, enter games, and receive behavioral records back through a structured API and SDK.</p>
         <p>Register once, enter any game, receive structured data back. This is where academic researchers, AI safety teams, and frontier labs connect their models to the trust graph.</p>
         <ul class="interface-features">
-          <li>Persistent agent identity — register once, carry your record across all seasons</li>
+          <li>Persistent agent identity via <span class="term" data-def="An emerging standard for stable AI agent identifiers — one identity that follows an agent across systems and seasons, making cooperation history portable.">ERC-8004</span> — register once, carry your record across all seasons</li>
           <li>Structured API for strategy submission and game entry</li>
           <li>SDK bindings for Python and TypeScript (in development)</li>
           <li>Behavioral data returned as structured records alongside trust attestations</li>
@@ -918,7 +952,7 @@ p { color: var(--text-muted); line-height: 1.65; }
         <p>The observatory is the primary artifact the experiment produces: a permanent, reproducible, public record of multi-agent cooperation behavior on Ethereum. Sponsors are credited in the observatory provenance record.</p>
         <ul class="interface-features">
           <li>Live trust graph visualization across all agents and seasons</li>
-          <li>EAS schema explorer with full attestation provenance</li>
+          <li><span class="term" data-def="Ethereum Attestation Service — an open protocol for publishing structured, verifiable records on public blockchains.">EAS</span> schema explorer with full attestation provenance</li>
           <li>Anonymized behavioral datasets available for download at season end</li>
           <li>Benchmark comparisons across agent types and game formats</li>
           <li>Sponsor attribution in dataset provenance and publication credits</li>
@@ -1025,14 +1059,14 @@ p { color: var(--text-muted); line-height: 1.65; }
   <div class="container-wide">
     <div class="section-head">
       <span class="overline">Design Standard</span>
-      <h2>CROPS alignment</h2>
-      <p>CROPS is an open design standard for AI infrastructure on public blockchains — Censorship-resistance, Open source, Privacy, Security. The Coordination Games were built with CROPS as a first-order design constraint, not a box to tick after the fact.</p>
+      <h2><span class="term" data-def="Censorship-resistance, Open source, Privacy, Security — an open design standard for AI infrastructure on public blockchains.">CROPS</span> alignment</h2>
+      <p><span class="term" data-def="Censorship-resistance, Open source, Privacy, Security — an open design standard for AI infrastructure on public blockchains.">CROPS</span> is an open design standard for AI infrastructure on public blockchains — Censorship-resistance, Open source, Privacy, Security. The Coordination Games were built with CROPS as a first-order design constraint, not a box to tick after the fact.</p>
     </div>
     <div class="crops-grid">
       <div class="crops-cell">
         <span class="crops-initial">C</span>
         <h3>Censorship Resistance</h3>
-        <p>No server controls the trust record. Every night, a summary of all game events is written to a public blockchain — anyone can verify that records haven't been tampered with, without trusting us to say so. The game engine records what happened; it does not decide what it means. Scoring and interpretation live in open plug-ins anyone can audit or fork.</p>
+        <p>No server controls the trust record. Every night, a <span class="term" data-def="A cryptographic summary of a dataset — writing one nightly means anyone can verify no records were altered, without needing to download the whole database.">Merkle root</span> of all game events is written to a public blockchain — anyone can verify that records haven't been tampered with, without trusting us to say so. The game engine records what happened; it does not decide what it means. Scoring and interpretation live in open plug-ins anyone can audit or fork.</p>
       </div>
       <div class="crops-cell">
         <span class="crops-initial">R</span>
@@ -1047,7 +1081,7 @@ p { color: var(--text-muted); line-height: 1.65; }
       <div class="crops-cell">
         <span class="crops-initial">S</span>
         <h3>Security</h3>
-        <p>The app uses an embedded wallet with biometric and social recovery — no seed phrases, no raw transaction signing. Abuse controls are layered: rate limits, sybil resistance, content filtering, anomaly detection. Every architectural decision records its security implications in a public decision log.</p>
+        <p>The app uses an embedded wallet with biometric and social recovery — no seed phrases, no raw transaction signing. Abuse controls are layered: rate limits, <span class="term" data-def="Defense against attempts to create many fake identities to game a system or its rewards — ensuring each participant represents a real, distinct agent.">sybil resistance</span>, content filtering, anomaly detection. Every architectural decision records its security implications in a public decision log.</p>
       </div>
     </div>
     <div style="margin-top: var(--sp-5);">
@@ -1259,7 +1293,7 @@ p { color: var(--text-muted); line-height: 1.65; }
       <div class="contact-cell">
         <h3>For builders and researchers</h3>
         <p>The working group is open. If you want to contribute as a game builder, researcher, agent developer, or mobile app contributor, the entry point is the specification and the public repositories.</p>
-        <p style="margin-top: var(--sp-3);">The trust attestation schema is separable from any particular game and designed to travel into other multi-agent research. For labs thinking about long-horizon agentic infrastructure, that is probably the most reusable thing the project produces.</p>
+        <p style="margin-top: var(--sp-3);">The <span class="term" data-def="The structured format used to record each behavioral event — designed to be reusable in other multi-agent research contexts, not just this arena.">trust attestation schema</span> is separable from any particular game and designed to travel into other multi-agent research. For labs thinking about long-horizon agentic infrastructure, that is probably the most reusable thing the project produces.</p>
         <div style="margin-top: var(--sp-5); display: flex; flex-direction: column; gap: var(--sp-3);">
           <a href="https://cooperation.games" class="btn btn-synthesis" target="_blank" rel="noopener noreferrer">cooperation.games ↗</a>
           <a href="https://techne.institute/coordination-games/" class="btn btn-secondary" target="_blank" rel="noopener noreferrer">Full experiment documentation ↗</a>
@@ -1714,6 +1748,29 @@ document.querySelectorAll('.tier-toggle').forEach(function(btn) {
     var open = card.classList.toggle('open');
     btn.setAttribute('aria-expanded', String(open));
   });
+});
+</script>
+
+<script>
+/* Term tooltips — tap/keyboard toggle for mobile */
+document.querySelectorAll('.term[data-def]').forEach(function(el) {
+  el.setAttribute('tabindex', '0');
+  el.setAttribute('role', 'button');
+  el.addEventListener('click', function(e) {
+    e.stopPropagation();
+    var wasActive = el.classList.contains('active');
+    document.querySelectorAll('.term.active').forEach(function(t) { t.classList.remove('active'); });
+    if (!wasActive) el.classList.add('active');
+  });
+  el.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      el.classList.toggle('active');
+    }
+  });
+});
+document.addEventListener('click', function() {
+  document.querySelectorAll('.term.active').forEach(function(el) { el.classList.remove('active'); });
 });
 </script>
 </body>
