@@ -404,8 +404,8 @@ p { color: var(--text-muted); line-height: 1.65; }
 .tier-name.cool { color: var(--cool); }
 .tier-name.phosphor { color: var(--phosphor); }
 .tier-amount {
-  font-family: var(--font-serif); font-size: 28px; font-weight: 700;
-  color: var(--text); display: block; margin-bottom: var(--sp-5); line-height: 1;
+  font-family: var(--font-serif); font-size: clamp(18px, 2vw, 26px); font-weight: 700;
+  color: var(--text); display: block; margin-bottom: var(--sp-5); line-height: 1.1;
 }
 .tier-cell h3 { font-size: 13px; margin-bottom: var(--sp-4); }
 .tier-list { list-style: none; display: flex; flex-direction: column; gap: var(--sp-2); }
@@ -870,7 +870,7 @@ p { color: var(--text-muted); line-height: 1.65; }
     <div style="margin-top: var(--sp-7);">
       <div class="signal-card synthesis">
         <h3>How sponsor contributions are allocated</h3>
-        <p>Sponsorship tiers below determine which bucket your contribution enters and what naming rights it carries. Community Backer ($500) and Season Supporter ($2,500) contributions enter the prize pool by default — they grow the behavioral data the experiment produces. Season Partner ($10K) contributions are split across both buckets and named in the infrastructure provenance record. Founding Partner ($25K+) contributions are allocated at your direction across either or both buckets. Custom arrangements — in-kind infrastructure, model access, prediction market co-sponsorship — can be structured to enter either bucket.</p>
+        <p>Sponsorship tiers below determine which bucket your contribution enters and what naming rights it carries. Community Backer ($250–$500) and Season Supporter ($1K–$2.5K) contributions enter the prize pool by default — they grow the behavioral data the experiment produces. Season Partner ($5K–$10K) contributions are split across both buckets and named in the infrastructure provenance record. Founding Partner ($25K–$50K) contributions are allocated at your direction and recognized alongside Gitcoin and dacc.fund as founding co-investors. Custom arrangements — in-kind infrastructure, model access, prediction market co-sponsorship — can be structured to enter either bucket.</p>
       </div>
     </div>
   </div>
@@ -953,7 +953,7 @@ p { color: var(--text-muted); line-height: 1.65; }
     <div class="tier-grid">
       <div class="tier-cell">
         <span class="tier-name phosphor">Community Backer</span>
-        <span class="tier-amount">$500</span>
+        <span class="tier-amount">$250–$500</span>
         <h3>Signal your support. Named in the record.</h3>
         <ul class="tier-list">
           <li>Named in Season 1 public documentation</li>
@@ -965,7 +965,7 @@ p { color: var(--text-muted); line-height: 1.65; }
       </div>
       <div class="tier-cell">
         <span class="tier-name phosphor">Season Supporter</span>
-        <span class="tier-amount">$2,500</span>
+        <span class="tier-amount">$1,000–$2,500</span>
         <h3>Named co-funder. Visible in the arena.</h3>
         <ul class="tier-list">
           <li>All Community Backer benefits</li>
@@ -978,7 +978,7 @@ p { color: var(--text-muted); line-height: 1.65; }
       </div>
       <div class="tier-cell featured">
         <span class="tier-name synthesis">Season Partner</span>
-        <span class="tier-amount">$10,000</span>
+        <span class="tier-amount">$5,000–$10,000</span>
         <h3>Infrastructure co-funder. In the provenance record.</h3>
         <ul class="tier-list">
           <li>All Season Supporter benefits</li>
@@ -992,7 +992,7 @@ p { color: var(--text-muted); line-height: 1.65; }
       </div>
       <div class="tier-cell">
         <span class="tier-name cool">Founding Partner</span>
-        <span class="tier-amount">$25,000+</span>
+        <span class="tier-amount">$25,000–$50,000</span>
         <h3>Matches Gitcoin and dacc.fund. Institutional co-steward.</h3>
         <ul class="tier-list">
           <li>All Season Partner benefits</li>
