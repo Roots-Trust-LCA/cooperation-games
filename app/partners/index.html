@@ -68,17 +68,17 @@
 }
 
 [data-theme="light"] {
-  --bg:          #F2EFE9;
+  --bg:          #FAFAF8;
   --surface:     #FFFFFF;
-  --panel:       #ECEAE5;
-  --raised:      #E4E0D9;
+  --panel:       #F3F2EF;
+  --raised:      #ECEAE6;
   --border:      rgba(70, 66, 61, 0.2);
   --border-dim:  rgba(70, 66, 61, 0.1);
   --text:        #1A1814;
   --text-muted:  #2E2A25;
   --text-dim:    #5A5650;
-  --cool:        #009B76;
-  --cool-dim:    rgba(0, 155, 118, 0.12);
+  --cool:        #6eb763;
+  --cool-dim:    rgba(110, 183, 99, 0.14);
   --hot:         #CC4700;
   --phosphor:    #9B7A3A;
   --synthesis:   #7C3AED;
@@ -189,15 +189,15 @@ p { color: var(--text-muted); line-height: 1.65; }
 .hero-zone {
   padding: var(--sp-10) 0 var(--sp-9);
   border-bottom: 1px solid var(--border-dim);
-  background: linear-gradient(180deg, rgba(2,226,172,0.06) 0%, transparent 60%);
+  background: linear-gradient(180deg, rgba(110,183,99,0.08) 0%, transparent 60%);
 }
 /* ── Halftone grain on hero ─────────────────────────────────── */
 .hero-zone::after {
   content: '';
   position: absolute;
   inset: 0;
-  background-image: radial-gradient(circle, rgba(70,66,61,0.09) 1px, transparent 1px);
-  background-size: 18px 18px;
+  background-image: radial-gradient(circle, rgba(70,66,61,0.18) 1.2px, transparent 1.2px);
+  background-size: 15px 15px;
   pointer-events: none;
   z-index: 0;
 }
@@ -405,9 +405,9 @@ p { color: var(--text-muted); line-height: 1.65; }
 /* per-rarity border gradients */
 .nft-common     { background: linear-gradient(160deg, #7A746E 0%, #AEA89F 50%, #7A746E 100%); }
 .nft-uncommon   { background: linear-gradient(160deg, #C9A85D 0%, #E8C97A 50%, #A07C2A 100%); }
-.nft-rare       { background: linear-gradient(160deg, #009B76 0%, #02E2AC 50%, #006B52 100%); }
+.nft-rare       { background: linear-gradient(160deg, #4a9e40 0%, #6eb763 50%, #3a7d31 100%); }
 .nft-legendary  {
-  background: linear-gradient(135deg, #FF5A1F 0%, #C9A85D 25%, #02E2AC 50%, #4A8FD9 75%, #FF5A1F 100%);
+  background: linear-gradient(135deg, #FF5A1F 0%, #C9A85D 25%, #6eb763 50%, #4A8FD9 75%, #FF5A1F 100%);
   background-size: 300% 300%;
   animation: holo 5s ease infinite;
 }
@@ -442,7 +442,7 @@ p { color: var(--text-muted); line-height: 1.65; }
 .nft-uncommon .nft-rarity { color: var(--phosphor); }
 .nft-rare     .nft-rarity { color: var(--cool); }
 .nft-legendary .nft-rarity {
-  background: linear-gradient(90deg, #FF5A1F, #C9A85D, #02E2AC);
+  background: linear-gradient(90deg, #FF5A1F, #C9A85D, #6eb763);
   -webkit-background-clip: text; -webkit-text-fill-color: transparent;
   background-clip: text; border-color: var(--phosphor);
 }
@@ -632,12 +632,12 @@ p { color: var(--text-muted); line-height: 1.65; }
 .hero-zone { position: relative; overflow: hidden; }
 .hero-canvas-wrap {
   position: absolute; inset: 0; pointer-events: none;
-  --boid-rgb: 2, 226, 172;
+  --boid-rgb: 110, 183, 99;
   --collision-rgb: 201, 168, 93;
 }
 .stat-canvas-wrap {
   position: absolute; inset: 0; pointer-events: none;
-  --boid-rgb: 2, 226, 172;
+  --boid-rgb: 110, 183, 99;
   --collision-rgb: 201, 168, 93;
 }
 .stat-row { position: relative; }
@@ -678,15 +678,15 @@ p { color: var(--text-muted); line-height: 1.65; }
 <section class="hero-zone">
   <div class="flock-stage hero-canvas-wrap" data-flock-stage>
     <canvas class="flock-canvas" id="flock-partners-hero"
-      data-flock-count="240"
+      data-flock-count="360"
       data-flock-perception="80"
-      data-flock-separation="16"
-      data-flock-speed="2.2"
-      data-flock-trail-fade="0.86"></canvas>
+      data-flock-separation="15"
+      data-flock-speed="2.8"
+      data-flock-trail-fade="0.78"></canvas>
   </div>
   <!-- hero halftone ornament: quarter-arc from top-right -->
-  <svg class="halftone-ornament" style="top:20px;right:20px;width:96px;height:96px;" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <g fill="#009B76" opacity="0.20">
+  <svg class="halftone-ornament" style="top:20px;right:20px;width:120px;height:120px;" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="#6eb763" opacity="0.42">
       <circle cx="88" cy="8" r="2.2"/><circle cx="78" cy="8" r="2.2"/><circle cx="68" cy="8" r="2.2"/>
       <circle cx="58" cy="8" r="2.2"/><circle cx="48" cy="8" r="2.2"/><circle cx="38" cy="8" r="2.2"/>
       <circle cx="28" cy="8" r="2.2"/><circle cx="88" cy="18" r="2.2"/><circle cx="78" cy="18" r="2.2"/>
@@ -788,13 +788,13 @@ p { color: var(--text-muted); line-height: 1.65; }
     <div class="stat-row">
       <div class="flock-stage stat-canvas-wrap" data-flock-stage>
         <canvas class="flock-canvas" id="flock-partners-stats"
-          data-flock-count="140"
+          data-flock-count="200"
           data-flock-perception="90"
-          data-flock-separation="18"
+          data-flock-separation="16"
           data-flock-alignment="1.1"
           data-flock-cohesion="0.9"
-          data-flock-speed="1.8"
-          data-flock-trail-fade="0.90"></canvas>
+          data-flock-speed="2.2"
+          data-flock-trail-fade="0.83"></canvas>
       </div>
       <div class="stat-cell">
         <span class="stat-value">$25K+</span>
@@ -954,8 +954,8 @@ p { color: var(--text-muted); line-height: 1.65; }
 <!-- ── CROPS Alignment ────────────────────────────────────────────── -->
 <section id="crops" class="zone" style="position:relative;overflow:hidden;">
   <!-- CROPS halftone ornament: radial cluster from bottom-left -->
-  <svg class="halftone-ornament" style="bottom:-4px;left:0;width:108px;height:108px;" viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <g fill="#009B76" opacity="0.18">
+  <svg class="halftone-ornament" style="bottom:-4px;left:0;width:140px;height:140px;" viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="#6eb763" opacity="0.40">
       <circle cx="6" cy="102" r="2.2"/><circle cx="16" cy="102" r="2.2"/><circle cx="26" cy="102" r="2.2"/>
       <circle cx="36" cy="102" r="2.2"/><circle cx="46" cy="102" r="2.2"/><circle cx="56" cy="102" r="2.2"/>
       <circle cx="66" cy="102" r="2.2"/><circle cx="76" cy="102" r="2.2"/>
@@ -1134,8 +1134,8 @@ p { color: var(--text-muted); line-height: 1.65; }
 <!-- ── The Steward ────────────────────────────────────────────────── -->
 <section class="zone" style="position:relative;overflow:hidden;">
   <!-- steward halftone ornament: dot grid top-right -->
-  <svg class="halftone-ornament" style="top:28px;right:0;width:96px;height:72px;" viewBox="0 0 88 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <g fill="#46423D" opacity="0.13">
+  <svg class="halftone-ornament" style="top:28px;right:0;width:130px;height:100px;" viewBox="0 0 88 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="#46423D" opacity="0.28">
       <circle cx="8"  cy="8"  r="2"/><circle cx="20" cy="8"  r="2"/><circle cx="32" cy="8"  r="2"/>
       <circle cx="44" cy="8"  r="2"/><circle cx="56" cy="8"  r="2"/><circle cx="68" cy="8"  r="2"/>
       <circle cx="80" cy="8"  r="2"/>
@@ -1293,7 +1293,7 @@ p { color: var(--text-muted); line-height: 1.65; }
     collisionDistance: 2, collisionFlashDuration: 900,
     maxSpeed: 1.5, maxForce: 0.05,
     alignmentWeight: 0.95, cohesionWeight: 0.6, separationWeight: 1.2,
-    mouseRadius: 120, mouseWeight: 1.5, trailFadeAlpha: 0.93,
+    mouseRadius: 180, mouseWeight: 3.5, trailFadeAlpha: 0.93,
   };
   const maxParticleCount = 2000;
 
@@ -1496,10 +1496,10 @@ p { color: var(--text-muted); line-height: 1.65; }
       const collisionRgb=stageVariable(stage,'--collision-rgb');
       ctx.beginPath();
       for(const b of circleBoids)b.addCircleToPath();
-      if(circleBoids.length){ctx.fillStyle=`rgba(${boidRgb},0.48)`;ctx.fill();}
+      if(circleBoids.length){ctx.fillStyle=`rgba(${boidRgb},0.68)`;ctx.fill();}
       ctx.beginPath();
       for(const b of lineBoids)b.addLineToPath();
-      if(lineBoids.length){ctx.lineWidth=2;ctx.lineCap='round';ctx.strokeStyle=`rgba(${boidRgb},0.48)`;ctx.stroke();}
+      if(lineBoids.length){ctx.lineWidth=2;ctx.lineCap='round';ctx.strokeStyle=`rgba(${boidRgb},0.68)`;ctx.stroke();}
       for(const b of boids){
         if(b.collisionFlash===0)continue;
         const alpha=easeOutCubic(b.collisionFlash);
@@ -1513,9 +1513,10 @@ p { color: var(--text-muted); line-height: 1.65; }
     function stopAnimation(){isVisible=false;cancelAnimationFrame(animFrame);}
 
     window.addEventListener('resize',resizeCanvas);
-    stage.addEventListener('pointerenter',e=>{const r=canvas.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;mouse.active=true;});
-    stage.addEventListener('pointermove', e=>{const r=canvas.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;mouse.active=true;});
-    stage.addEventListener('pointerleave',()=>{mouse.active=false;});
+    // Use parent section for mouse events — stage has pointer-events:none
+    const mouseTarget = stage.closest('section') || stage.parentElement || stage;
+    mouseTarget.addEventListener('pointermove',e=>{const r=canvas.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;mouse.active=true;});
+    mouseTarget.addEventListener('pointerleave',()=>{mouse.active=false;});
 
     resizeCanvas();
     updateConfigFromDataset();
@@ -1540,8 +1541,8 @@ p { color: var(--text-muted); line-height: 1.65; }
   if (!svgEl) return;
 
   var NS = 'http://www.w3.org/2000/svg';
-  var SPACING = 22, RADIUS_BASE = 1.8, RADIUS_LIT = 3.8;
-  var PROX_RADIUS = 90, DECAY = 0.028;
+  var SPACING = 18, RADIUS_BASE = 2.2, RADIUS_LIT = 5.0;
+  var PROX_RADIUS = 130, DECAY = 0.022;
   var dots = [], mouse = { x: -999, y: -999, active: false };
 
   function build() {
@@ -1557,8 +1558,8 @@ p { color: var(--text-muted); line-height: 1.65; }
         el.setAttribute('cx', cx);
         el.setAttribute('cy', cy);
         el.setAttribute('r', RADIUS_BASE);
-        el.setAttribute('fill', '#009B76');
-        el.setAttribute('fill-opacity', '0.055');
+        el.setAttribute('fill', '#6eb763');
+        el.setAttribute('fill-opacity', '0.13');
         svgEl.appendChild(el);
         dots.push({ el: el, cx: cx, cy: cy, brightness: 0 });
       }
@@ -1579,7 +1580,7 @@ p { color: var(--text-muted); line-height: 1.65; }
       }
       if (d.brightness > 0) {
         d.brightness = Math.max(0, d.brightness - DECAY);
-        var op = 0.055 + d.brightness * 0.52;
+        var op = 0.13 + d.brightness * 0.68;
         var rad = RADIUS_BASE + d.brightness * (RADIUS_LIT - RADIUS_BASE);
         d.el.setAttribute('fill-opacity', op.toFixed(3));
         d.el.setAttribute('r', rad.toFixed(2));
