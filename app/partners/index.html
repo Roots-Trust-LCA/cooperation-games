@@ -390,11 +390,11 @@ p { color: var(--text-muted); line-height: 1.65; }
 
 /* ── Sponsor tiers ──────────────────────────────────────────────── */
 .tier-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px;
   background: var(--border-dim); border: 1px solid var(--border-dim); margin-top: var(--sp-6);
 }
 .tier-cell { background: var(--bg); padding: var(--sp-6) var(--sp-5); }
-.tier-cell.featured { background: var(--panel); border-left: 2px solid var(--cool); }
+.tier-cell.featured { background: var(--panel); border-top: 2px solid var(--cool); }
 .tier-name {
   font-family: var(--font-mono); font-size: 11px; font-weight: 600;
   letter-spacing: 0.1em; text-transform: uppercase;
@@ -511,6 +511,9 @@ p { color: var(--text-muted); line-height: 1.65; }
 .sfn-bottom a:hover { color: var(--cool); text-decoration: none; }
 
 /* ── Mobile ─────────────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+  .tier-grid    { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 860px) {
   .arc          { grid-template-columns: 1fr; }
   .crops-grid   { grid-template-columns: repeat(2, 1fr); }
@@ -867,7 +870,7 @@ p { color: var(--text-muted); line-height: 1.65; }
     <div style="margin-top: var(--sp-7);">
       <div class="signal-card synthesis">
         <h3>How sponsor contributions are allocated</h3>
-        <p>Sponsorship tiers below determine which bucket your contribution enters and what naming rights it carries. Season Partner ($5K) and Founding Sponsor ($50K+) contributions are allocated across both buckets at your direction. Infrastructure Sponsor ($15K) contributions are designated to the infrastructure budget and named accordingly in the architecture record. Custom arrangements — including in-kind infrastructure contributions, model access, or prediction market co-sponsorship — can be structured to enter either bucket or both.</p>
+        <p>Sponsorship tiers below determine which bucket your contribution enters and what naming rights it carries. Community Backer ($500) and Season Supporter ($2,500) contributions enter the prize pool by default — they grow the behavioral data the experiment produces. Season Partner ($10K) contributions are split across both buckets and named in the infrastructure provenance record. Founding Partner ($25K+) contributions are allocated at your direction across either or both buckets. Custom arrangements — in-kind infrastructure, model access, prediction market co-sponsorship — can be structured to enter either bucket.</p>
       </div>
     </div>
   </div>
@@ -949,45 +952,56 @@ p { color: var(--text-muted); line-height: 1.65; }
 
     <div class="tier-grid">
       <div class="tier-cell">
-        <span class="tier-name phosphor">Season Partner</span>
-        <span class="tier-amount">$5,000</span>
-        <h3>Entry level. Named participation.</h3>
+        <span class="tier-name phosphor">Community Backer</span>
+        <span class="tier-amount">$500</span>
+        <h3>Signal your support. Named in the record.</h3>
         <ul class="tier-list">
-          <li>Named in all Season 1 public documentation</li>
-          <li>Logo on the games.synthesis.md sponsor page</li>
-          <li>Listed as a sponsor in the Synthesis directory</li>
-          <li>Credited in season-end trust graph publication</li>
-          <li>Access to anonymized season-end behavioral dataset</li>
+          <li>Named in Season 1 public documentation</li>
+          <li>Logo in the games.synthesis.md sponsor section</li>
+          <li>Listed in the Synthesis experiment directory</li>
+          <li>Credited in the season-end trust graph publication</li>
           <li>Invitation to season-end debrief</li>
         </ul>
       </div>
-      <div class="tier-cell featured">
-        <span class="tier-name synthesis">Infrastructure Sponsor</span>
-        <span class="tier-amount">$15,000</span>
-        <h3>Named co-funder of the prize pool.</h3>
+      <div class="tier-cell">
+        <span class="tier-name phosphor">Season Supporter</span>
+        <span class="tier-amount">$2,500</span>
+        <h3>Named co-funder. Visible in the arena.</h3>
         <ul class="tier-list">
-          <li>All Season Partner benefits</li>
-          <li>Named as a prize pool co-funder in all game materials</li>
-          <li>Featured placement on synthesis.md experiment directory</li>
-          <li>Builder spotlight in Synthesis live stream and X channels</li>
-          <li>Early access to research findings before public publication</li>
+          <li>All Community Backer benefits</li>
+          <li>Logo in games.coop app onboarding and game lobby</li>
+          <li>Named in the prize pool co-funder credit in all game materials</li>
+          <li>Featured in synthesis.md experiment directory</li>
+          <li>Access to anonymized season-end behavioral dataset</li>
+          <li>Builder spotlight in Synthesis channels</li>
+        </ul>
+      </div>
+      <div class="tier-cell featured">
+        <span class="tier-name synthesis">Season Partner</span>
+        <span class="tier-amount">$10,000</span>
+        <h3>Infrastructure co-funder. In the provenance record.</h3>
+        <ul class="tier-list">
+          <li>All Season Supporter benefits</li>
           <li>Named in the ERC-8004 attestation provenance record</li>
+          <li>Named co-funder in architecture decision records (public)</li>
+          <li>Early access to research findings before public release</li>
           <li>Seat at the working-group table for Season 2 scoping</li>
+          <li>Structured dataset access and research partnership</li>
+          <li>Custom attestation schema extension (if aligned with CROPS)</li>
         </ul>
       </div>
       <div class="tier-cell">
-        <span class="tier-name cool">Founding Sponsor</span>
-        <span class="tier-amount">$50,000+</span>
-        <h3>Institutional co-steward of the experiment.</h3>
+        <span class="tier-name cool">Founding Partner</span>
+        <span class="tier-amount">$25,000+</span>
+        <h3>Matches Gitcoin and dacc.fund. Institutional co-steward.</h3>
         <ul class="tier-list">
-          <li>All Infrastructure Sponsor benefits</li>
+          <li>All Season Partner benefits</li>
           <li>Named institutional co-steward of the experiment</li>
-          <li>Co-branding on games.synthesis.md and experiment materials</li>
-          <li>Dedicated dataset access and research partnership</li>
-          <li>Custom attestation schema extension (if aligned with CROPS)</li>
-          <li>First right to co-present Season 1 findings</li>
+          <li>Co-branding on games.synthesis.md and all experiment materials</li>
+          <li>First right to co-present Season 1 findings publicly</li>
           <li>Participation in Season 2 governance decisions</li>
-          <li>Structured relationship across multiple seasons</li>
+          <li>Structured multi-season relationship with the cooperative</li>
+          <li>Recognition alongside Gitcoin and dacc.fund as founding co-investors</li>
         </ul>
       </div>
     </div>
