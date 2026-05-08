@@ -273,16 +273,6 @@ p { color: var(--text-muted); line-height: 1.65; }
   border-bottom: 1px solid var(--border-dim);
   background: linear-gradient(180deg, rgba(110,183,99,0.08) 0%, transparent 60%);
 }
-/* ── Halftone grain on hero ─────────────────────────────────── */
-.hero-zone::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: radial-gradient(circle, rgba(70,66,61,0.18) 1.2px, transparent 1.2px);
-  background-size: 15px 15px;
-  pointer-events: none;
-  z-index: 0;
-}
 /* ── Halftone SVG ornaments ─────────────────────────────────── */
 .halftone-ornament {
   position: absolute;
@@ -470,112 +460,66 @@ p { color: var(--text-muted); line-height: 1.65; }
 .crops-cell h3 { font-size: 13px; margin-bottom: var(--sp-3); }
 .crops-cell p  { font-size: 12px; }
 
-/* ── NFT Tier Cards ─────────────────────────────────────────────── */
-.nft-grid {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--sp-4);
+/* ── Tier Cards ─────────────────────────────────────────────────── */
+.tier-list {
+  display: flex; flex-direction: column;
+  gap: 1px; background: var(--border-dim);
+  border: 1px solid var(--border-dim);
   margin-top: var(--sp-6);
 }
-/* gradient border wrapper */
-.nft-card {
-  padding: 2px; position: relative;
-  display: flex; flex-direction: column;
+.tier-card { background: var(--surface); }
+.tier-toggle {
+  width: 100%; padding: var(--sp-4) var(--sp-5);
+  display: flex; align-items: center; justify-content: space-between;
+  gap: var(--sp-4); cursor: pointer; border: none; background: none;
+  text-align: left; color: var(--text); transition: background 0.15s;
 }
-.nft-card-inner {
-  background: var(--bg); padding: var(--sp-6) var(--sp-5);
-  display: flex; flex-direction: column; height: 100%; position: relative; overflow: hidden;
+.tier-toggle:hover { background: var(--panel); }
+.tier-head {
+  display: flex; align-items: baseline; gap: var(--sp-5); flex: 1; flex-wrap: wrap;
 }
-/* per-rarity border gradients */
-.nft-common     { background: linear-gradient(160deg, #7A746E 0%, #AEA89F 50%, #7A746E 100%); }
-.nft-uncommon   { background: linear-gradient(160deg, #C9A85D 0%, #E8C97A 50%, #A07C2A 100%); }
-.nft-rare       { background: linear-gradient(160deg, #4a9e40 0%, #6eb763 50%, #3a7d31 100%); }
-.nft-legendary  {
-  background: linear-gradient(135deg, #FF5A1F 0%, #C9A85D 25%, #6eb763 50%, #4A8FD9 75%, #FF5A1F 100%);
-  background-size: 300% 300%;
-  animation: holo 5s ease infinite;
+.tier-name {
+  font-family: var(--font-mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-dim);
+  min-width: 150px;
 }
-@keyframes holo {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+.tier-price {
+  font-family: var(--font-serif); font-size: clamp(18px, 2vw, 24px); font-weight: 700;
+  color: var(--text); line-height: 1;
 }
-/* inner shimmer strip for legendary */
-.nft-legendary .nft-card-inner::before {
-  content: '';
-  position: absolute; top: 0; left: -100%; width: 60%; height: 100%;
-  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
-  animation: shimmer 3.5s ease infinite;
-  pointer-events: none;
+.tier-seats {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.06em;
+  color: var(--text-dim); margin-left: auto;
 }
-@keyframes shimmer {
-  0%   { left: -100%; }
-  100% { left: 200%; }
+.tier-chevron {
+  width: 14px; height: 14px; flex-shrink: 0; color: var(--text-dim);
+  transition: transform 0.22s ease;
 }
-/* card header row */
-.nft-card-header {
-  display: flex; justify-content: space-between; align-items: center;
-  margin-bottom: var(--sp-4);
+.tier-card.open .tier-chevron { transform: rotate(180deg); }
+.tier-body {
+  padding: 0 var(--sp-5) var(--sp-5);
+  border-top: 1px solid var(--border-dim);
+  display: none;
 }
-.nft-rarity {
-  font-family: var(--font-mono); font-size: 9px; font-weight: 700;
-  letter-spacing: 0.18em; text-transform: uppercase;
-  padding: 2px 6px; border: 1px solid currentColor;
+.tier-card.open .tier-body { display: block; }
+.tier-share {
+  margin: var(--sp-4) 0; padding: var(--sp-3) var(--sp-4);
+  border-left: 2px solid var(--cool-dim); background: var(--panel);
+  font-size: 12px; color: var(--text-muted); line-height: 1.5;
 }
-.nft-common   .nft-rarity { color: #7A746E; }
-.nft-uncommon .nft-rarity { color: var(--phosphor); }
-.nft-rare     .nft-rarity { color: var(--cool); }
-.nft-legendary .nft-rarity {
-  background: linear-gradient(90deg, #FF5A1F, #C9A85D, #6eb763);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text; border-color: var(--phosphor);
-}
-.nft-seats {
-  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
-  letter-spacing: 0.08em; color: var(--text-dim);
-}
-/* name and amount */
-.nft-tier-name {
-  font-family: var(--font-mono); font-size: 11px; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase;
-  display: block; margin-bottom: var(--sp-2);
-}
-.nft-common   .nft-tier-name { color: #9B948D; }
-.nft-uncommon .nft-tier-name { color: var(--phosphor); }
-.nft-rare     .nft-tier-name { color: var(--cool); }
-.nft-legendary .nft-tier-name { color: var(--hot); }
-.nft-amount {
-  font-family: var(--font-serif); font-size: clamp(20px, 2.2vw, 28px); font-weight: 700;
-  color: var(--text); display: block; margin-bottom: var(--sp-5); line-height: 1.1;
-}
-/* co-op share panel */
-.nft-share {
-  margin-bottom: var(--sp-5); padding: var(--sp-3);
-  border: 1px solid var(--border-dim); background: var(--surface);
-}
-.nft-share-title {
-  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
-  letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-dim);
-  display: block; margin-bottom: var(--sp-1);
-}
-.nft-share-body {
-  font-size: 11px; color: var(--text-muted); line-height: 1.5;
-}
-.nft-share-body strong { color: var(--text); font-weight: 600; }
-/* benefits list */
-.nft-benefits {
+.tier-share strong { color: var(--text); font-weight: 600; }
+.tier-benefits {
   list-style: none; display: flex; flex-direction: column; gap: var(--sp-2);
-  margin-top: auto; padding-top: var(--sp-4); border-top: 1px solid var(--border-dim);
+  padding-top: var(--sp-3); border-top: 1px solid var(--border-dim);
 }
-.nft-benefits li {
-  font-size: 11px; color: var(--text-muted); padding-left: var(--sp-4); position: relative;
-  line-height: 1.45;
+.tier-benefits li {
+  font-size: 12px; color: var(--text-muted); padding-left: var(--sp-4);
+  position: relative; line-height: 1.45;
 }
-.nft-common   .nft-benefits li::before { content: '—'; position: absolute; left: 0; color: #7A746E; font-size: 10px; }
-.nft-uncommon .nft-benefits li::before { content: '◆'; position: absolute; left: 0; color: var(--phosphor); font-size: 7px; top: 3px; }
-.nft-rare     .nft-benefits li::before { content: '→'; position: absolute; left: 0; color: var(--cool); font-size: 10px; top: 1px; }
-.nft-legendary .nft-benefits li::before { content: '★'; position: absolute; left: 0; color: var(--hot); font-size: 8px; top: 2px; }
-/* responsive */
-@media (max-width: 1100px) { .nft-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 600px)  { .nft-grid { grid-template-columns: 1fr; } }
+.tier-benefits li::before {
+  content: '—'; position: absolute; left: 0;
+  color: var(--text-dim); font-size: 10px;
+}
 
 /* ── Signal card ────────────────────────────────────────────────── */
 .signal-card {
@@ -596,180 +540,6 @@ p { color: var(--text-muted); line-height: 1.65; }
   position: absolute; pointer-events: none; overflow: visible;
   opacity: 0.14; color: var(--cool);
 }
-
-/* ── Arena simulation ────────────────────────────────────────────── */
-.arena-live {
-  background: #12100D; padding: var(--sp-9) 0;
-  border-top: 1px solid #3a3530; border-bottom: 1px solid #3a3530;
-  --ac:  #02E2AC; --ah: #FF5A1F; --ap: #C9A85D;
-  --abg: #1C1A17; --adp: #12100D; --apn: #211E1A;
-  --aln: #46423D; --aln2: #2F2C28;
-  --atx: #FBFAF9; --amu: #9A958C; --adm: #605B55;
-}
-.arena-live .arena-container {
-  max-width: 1120px; margin: 0 auto; padding: 0 var(--sp-5);
-}
-.arena-eyebrow {
-  display: flex; align-items: center; gap: 8px;
-  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
-  letter-spacing: 0.22em; text-transform: uppercase; color: var(--amu);
-  margin-bottom: var(--sp-3);
-}
-.arena-eyebrow::before {
-  content: ''; width: 6px; height: 6px; border-radius: 999px; flex-shrink: 0;
-  background: var(--ah); box-shadow: 0 0 8px var(--ah);
-  animation: apulse 1.8s ease infinite;
-}
-@keyframes apulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
-.arena-title {
-  font-family: var(--font-sans); font-size: clamp(22px,3vw,32px); font-weight: 700;
-  color: var(--atx); margin-bottom: var(--sp-6); line-height: 1.1;
-}
-.arena-title em { font-style: normal; color: var(--ah); }
-/* ── main 3-col grid ── */
-.arena-grid {
-  display: grid; grid-template-columns: 252px 1fr 252px; gap: 1px;
-  background: var(--aln); border: 1px solid var(--aln); margin-bottom: 1px;
-}
-/* ── match card (left col) ── */
-.mc { background: var(--apn); display: flex; flex-direction: column; }
-.mc-head {
-  padding: 10px 14px; border-bottom: 1px solid var(--aln2);
-  display: flex; justify-content: space-between; align-items: center;
-  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-}
-.mc-cool { color: var(--ac); }
-.mc-hot  { color: var(--ah); }
-.mc-live {
-  display: flex; align-items: center; gap: 5px; color: var(--ah);
-}
-.mc-live::before {
-  content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0;
-  background: var(--ah); box-shadow: 0 0 6px var(--ah);
-  animation: apulse 1.8s ease infinite;
-}
-.mc-body { flex: 1; padding: 16px 14px; }
-.mc-sides { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
-.mc-side-name {
-  font-family: var(--font-sans); font-size: 18px; font-weight: 700;
-  color: var(--atx); line-height: 1; margin-bottom: 4px;
-}
-.mc-side-id { font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.12em; color: var(--amu); }
-.mc-trust {
-  font-family: var(--font-mono); font-size: 22px; font-weight: 600;
-  line-height: 1; margin: 8px 0 4px;
-}
-.mc-trust.cool { color: var(--ac); } .mc-trust.hot { color: var(--ah); }
-.mc-badge {
-  display: inline-block; font-family: var(--font-mono); font-size: 9px; font-weight: 600;
-  letter-spacing: 0.12em; border: 1px solid currentColor; padding: 1px 5px;
-  margin-right: 4px;
-}
-.mc-badge.cool { color: var(--ac); } .mc-badge.hot { color: var(--ah); }
-.mc-odds-row {
-  display: flex; align-items: center; gap: 8px; margin: 12px 0 8px;
-  font-family: var(--font-mono); font-size: 11px; font-weight: 600; color: var(--atx);
-}
-.mc-odds-bar { flex: 1; height: 3px; background: var(--aln); position: relative; }
-.mc-odds-fill { position: absolute; left: 0; top: 0; height: 100%; background: var(--ac); transition: width 1.4s ease; }
-.mc-foot {
-  padding: 10px 14px; border-top: 1px solid var(--aln2);
-  font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.1em;
-  text-transform: uppercase; color: var(--amu);
-  display: grid; grid-template-columns: 1fr 1fr; gap: 4px;
-}
-.mc-foot b { color: var(--atx); font-weight: 600; display: block; margin-bottom: 1px; }
-/* ── arena board (center) ── */
-.arena-board-cell { background: var(--adp); position: relative; min-height: 360px; }
-.arena-board-cell canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.ab-territory {
-  position: absolute; bottom: 10px; left: 0; right: 0;
-  display: flex; justify-content: space-between; padding: 0 14px;
-  pointer-events: none; z-index: 2;
-}
-.ab-terr-label {
-  font-family: var(--font-mono); font-size: 8px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase;
-}
-.ab-terr-label.cool { color: var(--ac); }
-.ab-terr-label.neutral { color: var(--amu); }
-.ab-terr-label.hot { color: var(--ah); }
-/* ── event feed (right col) ── */
-.arena-feed-cell {
-  background: var(--apn); display: flex; flex-direction: column; overflow: hidden;
-}
-.feed-head {
-  padding: 10px 14px; border-bottom: 1px solid var(--aln2);
-  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--amu);
-}
-.feed-log {
-  flex: 1; overflow: hidden; padding: 8px 0; position: relative;
-  max-height: 320px;
-}
-.feed-entry {
-  padding: 5px 14px; font-family: var(--font-mono); font-size: 10px;
-  line-height: 1.5; color: var(--amu); display: flex; gap: 8px;
-  border-bottom: 1px solid var(--aln2); transition: background 0.3s;
-}
-.feed-entry.new { background: rgba(2,226,172,0.06); }
-.feed-ts { color: var(--adm); flex-shrink: 0; }
-.feed-msg b { color: var(--atx); font-weight: 600; }
-.feed-msg .cool-txt { color: var(--ac); }
-.feed-msg .hot-txt  { color: var(--ah); }
-/* ── roster + metrics bar (bottom full-width) ── */
-.arena-bottom {
-  display: grid; grid-template-columns: 1fr auto; gap: 1px;
-  background: var(--aln); border: 1px solid var(--aln);
-}
-.arena-roster { background: var(--apn); padding: 12px 16px; }
-.roster-head {
-  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
-  letter-spacing: 0.14em; text-transform: uppercase; color: var(--amu);
-  margin-bottom: 10px;
-}
-.roster-grid {
-  display: grid; grid-template-columns: repeat(6, 1fr); gap: 6px;
-}
-.roster-tok {
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  font-family: var(--font-mono); font-size: 8px; letter-spacing: 0.08em;
-  text-transform: uppercase; color: var(--adm);
-}
-.roster-dot {
-  width: 18px; height: 18px; border-radius: 50%;
-  border: 1px solid var(--aln); position: relative;
-}
-.roster-dot.cool { background: rgba(2,226,172,0.18); border-color: rgba(2,226,172,0.5); box-shadow: 0 0 6px rgba(2,226,172,0.3); }
-.roster-dot.hot  { background: rgba(255,90,31,0.18);  border-color: rgba(255,90,31,0.5);  box-shadow: 0 0 6px rgba(255,90,31,0.3); }
-.roster-dot.null { opacity: 0.3; }
-.roster-score { font-size: 10px; font-weight: 600; color: var(--amu); }
-.arena-metrics {
-  background: var(--adp); padding: 12px 20px;
-  display: grid; grid-template-columns: repeat(4, 80px); gap: 16px; align-items: center;
-}
-.metric { display: flex; flex-direction: column; gap: 2px; }
-.metric-val {
-  font-family: var(--font-mono); font-size: 16px; font-weight: 600; color: var(--atx); line-height: 1;
-}
-.metric-val.tick { color: var(--ah); }
-.metric-key {
-  font-family: var(--font-mono); font-size: 8px; font-weight: 600;
-  letter-spacing: 0.16em; text-transform: uppercase; color: var(--adm);
-}
-/* ── corner brackets ── */
-.brackets { position: relative; }
-.brackets::before,.brackets::after,.brackets .bl,.brackets .br {
-  content: ''; position: absolute; width: 10px; height: 10px; border: 1px solid var(--ah); pointer-events:none;
-}
-.brackets::before { top:-1px; left:-1px; border-right:0; border-bottom:0; }
-.brackets::after  { top:-1px; right:-1px; border-left:0; border-bottom:0; }
-.brackets .bl     { bottom:-1px; left:-1px; border-right:0; border-top:0; }
-.brackets .br     { bottom:-1px; right:-1px; border-left:0; border-top:0; }
-/* ── arena responsive ── */
-@media (max-width:860px)  { .arena-grid { grid-template-columns:1fr; } .arena-bottom { grid-template-columns:1fr; } .roster-grid { grid-template-columns: repeat(4,1fr); } .arena-metrics { grid-template-columns: repeat(2,1fr); } }
-@media (max-width:600px)  { .arena-grid { display:block; } }
 
 /* ── Stat row ───────────────────────────────────────────────────── */
 .stat-row {
@@ -935,7 +705,6 @@ p { color: var(--text-muted); line-height: 1.65; }
         <a href="#interfaces"  class="nav-link">Interfaces</a>
         <a href="#treasury"    class="nav-link">Treasury</a>
         <a href="#sponsors"    class="nav-link">Sponsors</a>
-        <a href="#arena"       class="nav-link">Arena</a>
         <a href="#contact"     class="nav-link">Contact</a>
         <a href="https://synthesis.md" target="_blank" rel="noopener noreferrer" class="nav-link" style="color: var(--cool);">synthesis.md ↗</a>
       </div>
@@ -973,21 +742,6 @@ p { color: var(--text-muted); line-height: 1.65; }
     <line x1="50" y1="2" x2="50" y2="98" stroke="currentColor" stroke-width="0.4"/>
     <line x1="16" y1="16" x2="84" y2="84" stroke="currentColor" stroke-width="0.3"/>
     <line x1="84" y1="16" x2="16" y2="84" stroke="currentColor" stroke-width="0.3"/>
-  </svg>
-  <!-- hero halftone ornament: quarter-arc from top-right -->
-  <svg class="halftone-ornament" style="top:20px;right:20px;width:120px;height:120px;" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <g fill="#6eb763" opacity="0.42">
-      <circle cx="88" cy="8" r="2.2"/><circle cx="78" cy="8" r="2.2"/><circle cx="68" cy="8" r="2.2"/>
-      <circle cx="58" cy="8" r="2.2"/><circle cx="48" cy="8" r="2.2"/><circle cx="38" cy="8" r="2.2"/>
-      <circle cx="28" cy="8" r="2.2"/><circle cx="88" cy="18" r="2.2"/><circle cx="78" cy="18" r="2.2"/>
-      <circle cx="68" cy="18" r="2.2"/><circle cx="58" cy="18" r="2.2"/><circle cx="48" cy="18" r="2.2"/>
-      <circle cx="38" cy="18" r="2.2"/><circle cx="88" cy="28" r="2.2"/><circle cx="78" cy="28" r="2.2"/>
-      <circle cx="68" cy="28" r="2.2"/><circle cx="58" cy="28" r="2.2"/><circle cx="48" cy="28" r="2.2"/>
-      <circle cx="88" cy="38" r="2.2"/><circle cx="78" cy="38" r="2.2"/><circle cx="68" cy="38" r="2.2"/>
-      <circle cx="58" cy="38" r="2.2"/><circle cx="88" cy="48" r="2.2"/><circle cx="78" cy="48" r="2.2"/>
-      <circle cx="68" cy="48" r="2.2"/><circle cx="88" cy="58" r="2.2"/><circle cx="78" cy="58" r="2.2"/>
-      <circle cx="88" cy="68" r="2.2"/><circle cx="88" cy="78" r="2.2"/>
-    </g>
   </svg>
   <div class="hero-inner" style="position:relative;z-index:1;">
     <span class="kicker">A Synthesis Experiment · Coordination Games · Season 1 · 2026</span>
@@ -1331,22 +1085,21 @@ p { color: var(--text-muted); line-height: 1.65; }
       <p>This is not a token. It is a legal membership interest in a Colorado LCA with a public benefit purpose. The governance it grants is real, bounded, and designed to outlast any individual season.</p>
     </div>
 
-    <div class="nft-grid">
+    <div class="tier-list">
 
-      <!-- Common -->
-      <div class="nft-card nft-common">
-        <div class="nft-card-inner">
-          <div class="nft-card-header">
-            <span class="nft-rarity">Common</span>
-            <span class="nft-seats">1 governance seat</span>
+      <!-- Community Backer -->
+      <div class="tier-card">
+        <button class="tier-toggle" aria-expanded="false">
+          <div class="tier-head">
+            <span class="tier-name">Community Backer</span>
+            <span class="tier-price">$250–$500</span>
           </div>
-          <span class="nft-tier-name">Community Backer</span>
-          <span class="nft-amount">$250–$500</span>
-          <div class="nft-share">
-            <span class="nft-share-title">Games Guild Co-op class share</span>
-            <div class="nft-share-body"><strong>$250 one-time</strong> · 1 member seat · program-level governance access · one member, one vote</div>
-          </div>
-          <ul class="nft-benefits">
+          <span class="tier-seats">1 governance seat</span>
+          <svg class="tier-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><polyline points="3 6 8 11 13 6"/></svg>
+        </button>
+        <div class="tier-body">
+          <div class="tier-share"><strong>$250 one-time</strong> · Games Guild Co-op class share · 1 member seat · one member, one vote</div>
+          <ul class="tier-benefits">
             <li>Named in all Season 1 documentation</li>
             <li>Logo in the Synthesis experiment directory</li>
             <li>Credited in the season-end trust graph publication</li>
@@ -1355,20 +1108,19 @@ p { color: var(--text-muted); line-height: 1.65; }
         </div>
       </div>
 
-      <!-- Uncommon -->
-      <div class="nft-card nft-uncommon">
-        <div class="nft-card-inner">
-          <div class="nft-card-header">
-            <span class="nft-rarity">Uncommon</span>
-            <span class="nft-seats">1 governance seat</span>
+      <!-- Season Supporter -->
+      <div class="tier-card">
+        <button class="tier-toggle" aria-expanded="false">
+          <div class="tier-head">
+            <span class="tier-name">Season Supporter</span>
+            <span class="tier-price">$1,000–$2,500</span>
           </div>
-          <span class="nft-tier-name">Season Supporter</span>
-          <span class="nft-amount">$1,000–$2,500</span>
-          <div class="nft-share">
-            <span class="nft-share-title">Games Guild Co-op class share</span>
-            <div class="nft-share-body"><strong>$250 one-time</strong> · 1 member seat · program-level governance access · one member, one vote</div>
-          </div>
-          <ul class="nft-benefits">
+          <span class="tier-seats">1 governance seat</span>
+          <svg class="tier-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><polyline points="3 6 8 11 13 6"/></svg>
+        </button>
+        <div class="tier-body">
+          <div class="tier-share"><strong>$250 one-time</strong> · Games Guild Co-op class share · 1 member seat · one member, one vote</div>
+          <ul class="tier-benefits">
             <li>All Community Backer benefits</li>
             <li>Logo in games.coop app onboarding and game lobby</li>
             <li>Prize pool co-funder credit in all game materials</li>
@@ -1378,20 +1130,19 @@ p { color: var(--text-muted); line-height: 1.65; }
         </div>
       </div>
 
-      <!-- Rare -->
-      <div class="nft-card nft-rare">
-        <div class="nft-card-inner">
-          <div class="nft-card-header">
-            <span class="nft-rarity">Rare</span>
-            <span class="nft-seats">2 governance seats</span>
+      <!-- Season Partner -->
+      <div class="tier-card">
+        <button class="tier-toggle" aria-expanded="false">
+          <div class="tier-head">
+            <span class="tier-name">Season Partner</span>
+            <span class="tier-price">$5,000–$10,000</span>
           </div>
-          <span class="nft-tier-name">Season Partner</span>
-          <span class="nft-amount">$5,000–$10,000</span>
-          <div class="nft-share">
-            <span class="nft-share-title">Games Guild Co-op class share</span>
-            <div class="nft-share-body"><strong>$250 one-time</strong> · 2 member seats · cost-curve pricing on additional shares to preserve one-member, one-vote governance</div>
-          </div>
-          <ul class="nft-benefits">
+          <span class="tier-seats">2 governance seats</span>
+          <svg class="tier-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><polyline points="3 6 8 11 13 6"/></svg>
+        </button>
+        <div class="tier-body">
+          <div class="tier-share"><strong>$250 one-time</strong> · Games Guild Co-op class share · 2 member seats · cost-curve pricing preserves one-member, one-vote governance</div>
+          <ul class="tier-benefits">
             <li>All Season Supporter benefits</li>
             <li>Named in ERC-8004 attestation provenance record</li>
             <li>Named co-funder in public architecture decision records</li>
@@ -1402,20 +1153,19 @@ p { color: var(--text-muted); line-height: 1.65; }
         </div>
       </div>
 
-      <!-- Legendary -->
-      <div class="nft-card nft-legendary">
-        <div class="nft-card-inner">
-          <div class="nft-card-header">
-            <span class="nft-rarity">Legendary</span>
-            <span class="nft-seats">up to 5 governance seats</span>
+      <!-- Founding Partner -->
+      <div class="tier-card">
+        <button class="tier-toggle" aria-expanded="false">
+          <div class="tier-head">
+            <span class="tier-name">Founding Partner</span>
+            <span class="tier-price">$25,000–$50,000</span>
           </div>
-          <span class="nft-tier-name">Founding Partner</span>
-          <span class="nft-amount">$25,000–$50,000</span>
-          <div class="nft-share">
-            <span class="nft-share-title">Games Guild Co-op class share</span>
-            <div class="nft-share-body"><strong>$250 one-time</strong> · up to 5 member seats · cost-curve pricing defends the cooperative against capture by any single entity</div>
-          </div>
-          <ul class="nft-benefits">
+          <span class="tier-seats">up to 5 governance seats</span>
+          <svg class="tier-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><polyline points="3 6 8 11 13 6"/></svg>
+        </button>
+        <div class="tier-body">
+          <div class="tier-share"><strong>$250 one-time</strong> · Games Guild Co-op class share · up to 5 member seats · cost-curve pricing defends the cooperative against capture by any single entity</div>
+          <ul class="tier-benefits">
             <li>All Season Partner benefits</li>
             <li>Named institutional co-steward alongside Gitcoin and dacc.fund</li>
             <li>Co-branding on games.synthesis.md and all experiment materials</li>
@@ -1426,7 +1176,7 @@ p { color: var(--text-muted); line-height: 1.65; }
         </div>
       </div>
 
-    </div><!-- /.nft-grid -->
+    </div><!-- /.tier-list -->
 
     <div style="margin-top: var(--sp-6);">
       <div class="signal-card">
@@ -1489,83 +1239,6 @@ p { color: var(--text-muted); line-height: 1.65; }
   </div>
 </section>
 
-<!-- ── Arena Simulation ──────────────────────────────────────────── -->
-<section class="arena-live" id="arena">
-  <div class="arena-container">
-    <div class="arena-eyebrow">Live Simulation · Season 1 Preview · Coalition Capture</div>
-    <h2 class="arena-title">The <em>Arena</em> — this is what you're backing</h2>
-
-    <div class="arena-grid brackets">
-      <span class="bl"></span><span class="br"></span>
-
-      <!-- match card -->
-      <div class="mc">
-        <div class="mc-head">
-          <span class="mc-cool">A-00042 · HELIX</span>
-          <span class="mc-live">LIVE</span>
-          <span class="mc-hot">A-00871 · RALLY</span>
-        </div>
-        <div class="mc-body">
-          <div class="mc-sides">
-            <div>
-              <div class="mc-side-name" style="color:var(--ac)">HELIX</div>
-              <div class="mc-side-id">A-00042 · COOL</div>
-              <div class="mc-trust cool" id="mc-trust-cool">0.74</div>
-              <span class="mc-badge cool">COALITION</span>
-            </div>
-            <div>
-              <div class="mc-side-name" style="color:var(--ah)">RALLY</div>
-              <div class="mc-side-id">A-00871 · HOT</div>
-              <div class="mc-trust hot" id="mc-trust-hot">0.61</div>
-              <span class="mc-badge hot">SOLO</span>
-            </div>
-          </div>
-          <div class="mc-odds-row">
-            <span id="mc-odds-cool">57%</span>
-            <div class="mc-odds-bar"><div class="mc-odds-fill" id="mc-odds-fill" style="width:57%"></div></div>
-            <span id="mc-odds-hot">43%</span>
-          </div>
-        </div>
-        <div class="mc-foot">
-          <div><b id="mc-epoch">04</b>EPOCH</div>
-          <div><b id="mc-round">11</b>ROUND</div>
-          <div><b id="mc-spectators">1,247</b>WATCHING</div>
-          <div><b id="mc-tick" style="color:var(--ah)">28</b>TICK</div>
-        </div>
-      </div>
-
-      <!-- arena board canvas -->
-      <div class="arena-board-cell">
-        <canvas id="arena-canvas"></canvas>
-        <div class="ab-territory">
-          <span class="ab-terr-label cool">COOL ZONE</span>
-          <span class="ab-terr-label neutral">CONTESTED</span>
-          <span class="ab-terr-label hot">HOT ZONE</span>
-        </div>
-      </div>
-
-      <!-- event feed -->
-      <div class="arena-feed-cell">
-        <div class="feed-head">EVENT FEED</div>
-        <div class="feed-log" id="arena-feed"></div>
-      </div>
-    </div>
-
-    <!-- roster + metrics -->
-    <div class="arena-bottom">
-      <div class="arena-roster">
-        <div class="roster-head">AGENT ROSTER — SEASON 1 COHORT</div>
-        <div class="roster-grid" id="arena-roster"></div>
-      </div>
-      <div class="arena-metrics">
-        <div class="metric"><span class="metric-val" id="m-epoch">04</span><span class="metric-key">Epoch</span></div>
-        <div class="metric"><span class="metric-val" id="m-round">11</span><span class="metric-key">Round</span></div>
-        <div class="metric"><span class="metric-val" id="m-spectators">1,247</span><span class="metric-key">Spectators</span></div>
-        <div class="metric"><span class="metric-val tick" id="m-tick">28</span><span class="metric-key">Tick</span></div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ── Contact ────────────────────────────────────────────────────── -->
 <section id="contact" class="zone">
@@ -2045,224 +1718,14 @@ p { color: var(--text-muted); line-height: 1.65; }
 })();
 </script>
 
-<!-- ── Arena Simulation Engine ───────────────────────────────────── -->
 <script>
-(function() {
-  var AGENTS = [
-    { id: 'A-00042', name: 'HELIX',  team: 'cool', trust: 0.74, x: 0.18, y: 0.42 },
-    { id: 'A-00871', name: 'RALLY',  team: 'hot',  trust: 0.61, x: 0.82, y: 0.38 },
-    { id: 'A-00153', name: 'KEPLER', team: 'cool', trust: 0.68, x: 0.25, y: 0.65 },
-    { id: 'A-00290', name: 'ISING',  team: 'hot',  trust: 0.55, x: 0.75, y: 0.58 },
-    { id: 'A-00511', name: 'OORT',   team: 'cool', trust: 0.72, x: 0.14, y: 0.28 },
-    { id: 'A-00634', name: 'SIX',    team: 'hot',  trust: 0.49, x: 0.86, y: 0.22 },
-    { id: 'A-00712', name: 'FORGE',  team: 'cool', trust: 0.63, x: 0.30, y: 0.75 },
-    { id: 'A-00815', name: 'FLINT',  team: 'hot',  trust: 0.58, x: 0.70, y: 0.72 },
-    { id: 'A-00923', name: 'NOVA',   team: 'cool', trust: 0.70, x: 0.22, y: 0.18 },
-    { id: 'A-01044', name: 'NULL-A', team: 'null', trust: 0.31, x: 0.50, y: 0.50 },
-    { id: 'A-01045', name: 'NULL-B', team: 'null', trust: 0.28, x: 0.54, y: 0.54 },
-  ];
-
-  var coolAgent = AGENTS[0];
-  var hotAgent  = AGENTS[1];
-  var epoch = 4, round = 11, tick = 28, spectators = 1247;
-
-  function r(n) { return n.toLocaleString(); }
-  function pad(n) { return String(n).padStart(2,'0'); }
-  function randAgent() { return AGENTS[Math.random() * AGENTS.length | 0]; }
-
-  var EVT = [
-    function() { var a=randAgent(),b=randAgent(); return '<span class="cool-txt">'+a.name+'</span> forms coalition w/ <b>'+b.name+'</b>'; },
-    function() { var a=randAgent(),b=randAgent(); return '<span class="hot-txt">'+a.name+'</span> defects from <b>'+b.name+'</b>'; },
-    function() { var a=randAgent(); return '<b>'+a.name+'</b> trust updated <span class="cool-txt">+'+(Math.random()*0.05+0.01).toFixed(2)+'</span>'; },
-    function() { var a=randAgent(); return '<span class="hot-txt">'+a.name+'</span> stake penalty flagged'; },
-    function() { return 'ROUND '+round+' opens · stake &#926; '+(Math.random()*20+5).toFixed(1); },
-    function() { var a=randAgent(),b=randAgent(); return '<b>'+a.name+'</b> challenges <span class="hot-txt">'+b.name+'</span>'; },
-    function() { var a=randAgent(); return 'Coalition stability: <b>'+a.name+'</b> +'+(Math.random()*3+1|0)+' nodes'; },
-    function() { var a=randAgent(); return '<span class="cool-txt">'+a.name+'</span> · COOPERATE signal sent'; },
-    function() { var a=randAgent(); return '<span class="hot-txt">'+a.name+'</span> · DEFECT vector active'; },
-  ];
-
-  /* ── Feed ── */
-  var feedEl = document.getElementById('arena-feed');
-  var feedEntries = [];
-  function addEntry(msg) {
-    var ts = 'T' + String(tick).padStart(3,'0');
-    var el = document.createElement('div');
-    el.className = 'feed-entry new';
-    el.innerHTML = '<span class="feed-ts">'+ts+'</span><span class="feed-msg">'+msg+'</span>';
-    feedEl.insertBefore(el, feedEl.firstChild);
-    setTimeout(function(){ el.classList.remove('new'); }, 600);
-    feedEntries.push(el);
-    if (feedEntries.length > 22) {
-      var old = feedEntries.shift();
-      if (old.parentNode) old.parentNode.removeChild(old);
-    }
-  }
-
-  /* ── Roster ── */
-  var rosterEl = document.getElementById('arena-roster');
-  function buildRoster() {
-    rosterEl.innerHTML = '';
-    AGENTS.forEach(function(a) {
-      var d = document.createElement('div');
-      d.className = 'roster-tok';
-      d.innerHTML = '<div class="roster-dot '+a.team+'" id="rd-'+a.id+'"></div>'
-        + '<span class="roster-score" id="rs-'+a.id+'">'+a.trust.toFixed(2)+'</span>'
-        + '<span>'+a.name+'</span>';
-      rosterEl.appendChild(d);
-    });
-  }
-  buildRoster();
-
-  function updateRoster() {
-    AGENTS.forEach(function(a) {
-      var el = document.getElementById('rs-'+a.id);
-      if (el) el.textContent = a.trust.toFixed(2);
-    });
-  }
-
-  /* ── Tick loop ── */
-  function tickFn() {
-    tick--;
-    if (tick <= 0) {
-      tick = 60; round++;
-      if (round > 30) { round = 1; epoch++; }
-      addEntry(EVT[4]());
-    }
-    spectators += (Math.random() * 5 | 0) - 1;
-    if (spectators < 0) spectators = 0;
-
-    AGENTS.forEach(function(a) {
-      var d = (Math.random() - 0.48) * 0.015;
-      a.trust = Math.max(0.10, Math.min(0.99, a.trust + d));
-    });
-
-    var total = coolAgent.trust + hotAgent.trust;
-    var cp = Math.round(coolAgent.trust / total * 100);
-    var hp = 100 - cp;
-
-    document.getElementById('mc-trust-cool').textContent  = coolAgent.trust.toFixed(2);
-    document.getElementById('mc-trust-hot').textContent   = hotAgent.trust.toFixed(2);
-    document.getElementById('mc-odds-cool').textContent   = cp + '%';
-    document.getElementById('mc-odds-hot').textContent    = hp + '%';
-    document.getElementById('mc-odds-fill').style.width   = cp + '%';
-    document.getElementById('mc-epoch').textContent       = pad(epoch);
-    document.getElementById('mc-round').textContent       = pad(round);
-    document.getElementById('mc-spectators').textContent  = r(spectators);
-    document.getElementById('mc-tick').textContent        = pad(tick);
-    document.getElementById('m-epoch').textContent        = pad(epoch);
-    document.getElementById('m-round').textContent        = pad(round);
-    document.getElementById('m-spectators').textContent   = r(spectators);
-    document.getElementById('m-tick').textContent         = pad(tick);
-
-    updateRoster();
-    if (Math.random() < 0.38) addEntry(EVT[Math.random() * EVT.length | 0]());
-  }
-  setInterval(tickFn, 45);
-
-  /* ── Canvas board ── */
-  var canvas = document.getElementById('arena-canvas');
-  if (!canvas) return;
-  var ctx = canvas.getContext('2d');
-  var GRID = 28, animFrame = null, lastDrift = 0;
-
-  function resize() {
-    var rect = canvas.parentElement.getBoundingClientRect();
-    canvas.width  = rect.width  || 600;
-    canvas.height = rect.height || 360;
-  }
-
-  function draw() {
-    var W = canvas.width, H = canvas.height, cx = W/2, cy = H/2;
-    ctx.clearRect(0, 0, W, H);
-
-    /* territory zones */
-    ctx.fillStyle = 'rgba(2,226,172,0.07)';
-    ctx.fillRect(0, 0, W * 0.35, H);
-    ctx.fillStyle = 'rgba(255,90,31,0.07)';
-    ctx.fillRect(W * 0.65, 0, W * 0.35, H);
-
-    /* grid lines */
-    ctx.strokeStyle = 'rgba(70,66,61,0.15)';
-    ctx.lineWidth = 0.5;
-    for (var gx = 0; gx < W; gx += GRID) { ctx.beginPath(); ctx.moveTo(gx,0); ctx.lineTo(gx,H); ctx.stroke(); }
-    for (var gy = 0; gy < H; gy += GRID) { ctx.beginPath(); ctx.moveTo(0,gy); ctx.lineTo(W,gy); ctx.stroke(); }
-
-    /* concentric dashed rings */
-    ctx.setLineDash([4, 7]);
-    ctx.lineWidth = 0.75;
-    ctx.strokeStyle = 'rgba(70,66,61,0.28)';
-    [0.18, 0.30, 0.42].forEach(function(rf) {
-      ctx.beginPath();
-      ctx.arc(cx, cy, Math.min(W, H) * rf, 0, Math.PI * 2);
-      ctx.stroke();
-    });
-    ctx.setLineDash([]);
-
-    /* agent tokens */
-    AGENTS.forEach(function(a) {
-      var ax = a.x * W, ay = a.y * H;
-      var isNull = a.team === 'null';
-      var isCool = a.team === 'cool';
-      var rgb = isCool ? '2,226,172' : isNull ? '150,145,140' : '255,90,31';
-      var alpha = isNull ? 0.38 : 0.88;
-
-      if (!isNull) {
-        var grd = ctx.createRadialGradient(ax, ay, 0, ax, ay, 20);
-        grd.addColorStop(0, 'rgba('+rgb+',0.32)');
-        grd.addColorStop(1, 'rgba('+rgb+',0)');
-        ctx.fillStyle = grd;
-        ctx.beginPath(); ctx.arc(ax, ay, 20, 0, Math.PI*2); ctx.fill();
-      }
-
-      ctx.beginPath(); ctx.arc(ax, ay, 7, 0, Math.PI*2);
-      ctx.fillStyle = 'rgba('+rgb+','+alpha+')'; ctx.fill();
-      ctx.strokeStyle = 'rgba('+rgb+',0.9)'; ctx.lineWidth = 1; ctx.stroke();
-
-      ctx.font = '600 7px "IBM Plex Mono",monospace';
-      ctx.fillStyle = 'rgba('+rgb+',0.82)';
-      ctx.textAlign = 'center';
-      ctx.fillText(a.name, ax, ay - 11);
-    });
-  }
-
-  function drift() {
-    AGENTS.forEach(function(a) {
-      if (a.team === 'null') return;
-      var bias = a.team === 'cool' ? -0.0018 : 0.0018;
-      a.x = Math.max(0.05, Math.min(0.94, a.x + bias + (Math.random()-0.5)*0.007));
-      a.y = Math.max(0.06, Math.min(0.94, a.y + (Math.random()-0.5)*0.007));
-    });
-  }
-
-  function loop(ts) {
-    if (ts - lastDrift > 900) { drift(); lastDrift = ts; }
-    resize(); draw();
-    animFrame = requestAnimationFrame(loop);
-  }
-
-  if ('IntersectionObserver' in window) {
-    var obs = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting) {
-          if (!animFrame) animFrame = requestAnimationFrame(loop);
-        } else {
-          if (animFrame) { cancelAnimationFrame(animFrame); animFrame = null; }
-        }
-      });
-    }, { threshold: 0.1 });
-    obs.observe(canvas.parentElement);
-  } else {
-    animFrame = requestAnimationFrame(loop);
-  }
-
-  /* seed initial feed */
-  for (var i = 0; i < 7; i++) {
-    (function(ii) {
-      setTimeout(function() { addEntry(EVT[Math.random() * EVT.length | 0]()); }, ii * 180);
-    })(i);
-  }
-})();
+document.querySelectorAll('.tier-toggle').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var card = btn.closest('.tier-card');
+    var open = card.classList.toggle('open');
+    btn.setAttribute('aria-expanded', String(open));
+  });
+});
 </script>
 </body>
 </html>
