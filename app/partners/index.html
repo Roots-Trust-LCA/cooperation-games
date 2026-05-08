@@ -191,6 +191,35 @@ p { color: var(--text-muted); line-height: 1.65; }
   border-bottom: 1px solid var(--border-dim);
   background: linear-gradient(180deg, rgba(2,226,172,0.06) 0%, transparent 60%);
 }
+/* ── Halftone grain on hero ─────────────────────────────────── */
+.hero-zone::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(70,66,61,0.09) 1px, transparent 1px);
+  background-size: 18px 18px;
+  pointer-events: none;
+  z-index: 0;
+}
+/* ── Halftone SVG ornaments ─────────────────────────────────── */
+.halftone-ornament {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible;
+}
+/* ── Interactive dot field (sponsors section) ───────────────── */
+.dot-field-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.dot-field-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
 .hero-inner { max-width: 860px; margin: 0 auto; padding: 0 var(--sp-5); }
 .hero-domain {
   font-family: var(--font-mono); font-size: clamp(14px, 2vw, 18px); font-weight: 600;
@@ -491,12 +520,27 @@ p { color: var(--text-muted); line-height: 1.65; }
 <section class="hero-zone">
   <div class="flock-stage hero-canvas-wrap" data-flock-stage>
     <canvas class="flock-canvas" id="flock-partners-hero"
-      data-flock-count="110"
-      data-flock-perception="76"
-      data-flock-separation="18"
-      data-flock-speed="1.5"
-      data-flock-trail-fade="0.93"></canvas>
+      data-flock-count="240"
+      data-flock-perception="80"
+      data-flock-separation="16"
+      data-flock-speed="2.2"
+      data-flock-trail-fade="0.86"></canvas>
   </div>
+  <!-- hero halftone ornament: quarter-arc from top-right -->
+  <svg class="halftone-ornament" style="top:20px;right:20px;width:96px;height:96px;" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="#009B76" opacity="0.20">
+      <circle cx="88" cy="8" r="2.2"/><circle cx="78" cy="8" r="2.2"/><circle cx="68" cy="8" r="2.2"/>
+      <circle cx="58" cy="8" r="2.2"/><circle cx="48" cy="8" r="2.2"/><circle cx="38" cy="8" r="2.2"/>
+      <circle cx="28" cy="8" r="2.2"/><circle cx="88" cy="18" r="2.2"/><circle cx="78" cy="18" r="2.2"/>
+      <circle cx="68" cy="18" r="2.2"/><circle cx="58" cy="18" r="2.2"/><circle cx="48" cy="18" r="2.2"/>
+      <circle cx="38" cy="18" r="2.2"/><circle cx="88" cy="28" r="2.2"/><circle cx="78" cy="28" r="2.2"/>
+      <circle cx="68" cy="28" r="2.2"/><circle cx="58" cy="28" r="2.2"/><circle cx="48" cy="28" r="2.2"/>
+      <circle cx="88" cy="38" r="2.2"/><circle cx="78" cy="38" r="2.2"/><circle cx="68" cy="38" r="2.2"/>
+      <circle cx="58" cy="38" r="2.2"/><circle cx="88" cy="48" r="2.2"/><circle cx="78" cy="48" r="2.2"/>
+      <circle cx="68" cy="48" r="2.2"/><circle cx="88" cy="58" r="2.2"/><circle cx="78" cy="58" r="2.2"/>
+      <circle cx="88" cy="68" r="2.2"/><circle cx="88" cy="78" r="2.2"/>
+    </g>
+  </svg>
   <div class="hero-inner" style="position:relative;z-index:1;">
     <span class="kicker">A Synthesis Experiment · Coordination Games · Season 1 · 2026</span>
     <span class="hero-domain">games.synthesis.md</span>
@@ -586,13 +630,13 @@ p { color: var(--text-muted); line-height: 1.65; }
     <div class="stat-row">
       <div class="flock-stage stat-canvas-wrap" data-flock-stage>
         <canvas class="flock-canvas" id="flock-partners-stats"
-          data-flock-count="60"
+          data-flock-count="140"
           data-flock-perception="90"
-          data-flock-separation="22"
+          data-flock-separation="18"
           data-flock-alignment="1.1"
           data-flock-cohesion="0.9"
-          data-flock-speed="1.2"
-          data-flock-trail-fade="0.96"></canvas>
+          data-flock-speed="1.8"
+          data-flock-trail-fade="0.90"></canvas>
       </div>
       <div class="stat-cell">
         <span class="stat-value">$25K+</span>
@@ -619,7 +663,27 @@ p { color: var(--text-muted); line-height: 1.65; }
 </section>
 
 <!-- ── CROPS Alignment ────────────────────────────────────────────── -->
-<section id="crops" class="zone">
+<section id="crops" class="zone" style="position:relative;overflow:hidden;">
+  <!-- CROPS halftone ornament: radial cluster from bottom-left -->
+  <svg class="halftone-ornament" style="bottom:-4px;left:0;width:108px;height:108px;" viewBox="0 0 108 108" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="#009B76" opacity="0.18">
+      <circle cx="6" cy="102" r="2.2"/><circle cx="16" cy="102" r="2.2"/><circle cx="26" cy="102" r="2.2"/>
+      <circle cx="36" cy="102" r="2.2"/><circle cx="46" cy="102" r="2.2"/><circle cx="56" cy="102" r="2.2"/>
+      <circle cx="66" cy="102" r="2.2"/><circle cx="76" cy="102" r="2.2"/>
+      <circle cx="6"  cy="92"  r="2.2"/><circle cx="16" cy="92"  r="2.2"/><circle cx="26" cy="92"  r="2.2"/>
+      <circle cx="36" cy="92"  r="2.2"/><circle cx="46" cy="92"  r="2.2"/><circle cx="56" cy="92"  r="2.2"/>
+      <circle cx="66" cy="92"  r="2.2"/>
+      <circle cx="6"  cy="82"  r="2.2"/><circle cx="16" cy="82"  r="2.2"/><circle cx="26" cy="82"  r="2.2"/>
+      <circle cx="36" cy="82"  r="2.2"/><circle cx="46" cy="82"  r="2.2"/><circle cx="56" cy="82"  r="2.2"/>
+      <circle cx="6"  cy="72"  r="2.2"/><circle cx="16" cy="72"  r="2.2"/><circle cx="26" cy="72"  r="2.2"/>
+      <circle cx="36" cy="72"  r="2.2"/><circle cx="46" cy="72"  r="2.2"/>
+      <circle cx="6"  cy="62"  r="2.2"/><circle cx="16" cy="62"  r="2.2"/><circle cx="26" cy="62"  r="2.2"/>
+      <circle cx="36" cy="62"  r="2.2"/>
+      <circle cx="6"  cy="52"  r="2.2"/><circle cx="16" cy="52"  r="2.2"/><circle cx="26" cy="52"  r="2.2"/>
+      <circle cx="6"  cy="42"  r="2.2"/><circle cx="16" cy="42"  r="2.2"/>
+      <circle cx="6"  cy="32"  r="2.2"/>
+    </g>
+  </svg>
   <div class="container-wide">
     <div class="section-head">
       <span class="overline">Synthesis Entry Standard</span>
@@ -655,8 +719,11 @@ p { color: var(--text-muted); line-height: 1.65; }
 </section>
 
 <!-- ── Sponsor the Experiment ─────────────────────────────────────── -->
-<section id="sponsors" class="zone">
-  <div class="container-wide">
+<section id="sponsors" class="zone" style="position:relative;overflow:hidden;">
+  <div class="dot-field-wrap" aria-hidden="true">
+    <svg class="dot-field-svg" id="dot-field-sponsors"></svg>
+  </div>
+  <div class="container-wide" style="position:relative;z-index:1;">
     <div class="section-head">
       <span class="overline">Sponsor</span>
       <h2>Back the experiment</h2>
@@ -724,7 +791,27 @@ p { color: var(--text-muted); line-height: 1.65; }
 </section>
 
 <!-- ── The Steward ────────────────────────────────────────────────── -->
-<section class="zone">
+<section class="zone" style="position:relative;overflow:hidden;">
+  <!-- steward halftone ornament: dot grid top-right -->
+  <svg class="halftone-ornament" style="top:28px;right:0;width:96px;height:72px;" viewBox="0 0 88 64" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <g fill="#46423D" opacity="0.13">
+      <circle cx="8"  cy="8"  r="2"/><circle cx="20" cy="8"  r="2"/><circle cx="32" cy="8"  r="2"/>
+      <circle cx="44" cy="8"  r="2"/><circle cx="56" cy="8"  r="2"/><circle cx="68" cy="8"  r="2"/>
+      <circle cx="80" cy="8"  r="2"/>
+      <circle cx="8"  cy="20" r="2"/><circle cx="20" cy="20" r="2"/><circle cx="32" cy="20" r="2"/>
+      <circle cx="44" cy="20" r="2"/><circle cx="56" cy="20" r="2"/><circle cx="68" cy="20" r="2"/>
+      <circle cx="80" cy="20" r="2"/>
+      <circle cx="8"  cy="32" r="2"/><circle cx="20" cy="32" r="2"/><circle cx="32" cy="32" r="2"/>
+      <circle cx="44" cy="32" r="2"/><circle cx="56" cy="32" r="2"/><circle cx="68" cy="32" r="2"/>
+      <circle cx="80" cy="32" r="2"/>
+      <circle cx="8"  cy="44" r="2"/><circle cx="20" cy="44" r="2"/><circle cx="32" cy="44" r="2"/>
+      <circle cx="44" cy="44" r="2"/><circle cx="56" cy="44" r="2"/><circle cx="68" cy="44" r="2"/>
+      <circle cx="80" cy="44" r="2"/>
+      <circle cx="8"  cy="56" r="2"/><circle cx="20" cy="56" r="2"/><circle cx="32" cy="56" r="2"/>
+      <circle cx="44" cy="56" r="2"/><circle cx="56" cy="56" r="2"/><circle cx="68" cy="56" r="2"/>
+      <circle cx="80" cy="56" r="2"/>
+    </g>
+  </svg>
   <div class="container">
     <div class="section-head">
       <span class="overline">The Operator</span>
@@ -1066,10 +1153,10 @@ p { color: var(--text-muted); line-height: 1.65; }
       const collisionRgb=stageVariable(stage,'--collision-rgb');
       ctx.beginPath();
       for(const b of circleBoids)b.addCircleToPath();
-      if(circleBoids.length){ctx.fillStyle=`rgba(${boidRgb},0.28)`;ctx.fill();}
+      if(circleBoids.length){ctx.fillStyle=`rgba(${boidRgb},0.48)`;ctx.fill();}
       ctx.beginPath();
       for(const b of lineBoids)b.addLineToPath();
-      if(lineBoids.length){ctx.lineWidth=2;ctx.lineCap='round';ctx.strokeStyle=`rgba(${boidRgb},0.28)`;ctx.stroke();}
+      if(lineBoids.length){ctx.lineWidth=2;ctx.lineCap='round';ctx.strokeStyle=`rgba(${boidRgb},0.48)`;ctx.stroke();}
       for(const b of boids){
         if(b.collisionFlash===0)continue;
         const alpha=easeOutCubic(b.collisionFlash);
@@ -1099,6 +1186,97 @@ p { color: var(--text-muted); line-height: 1.65; }
     } else {
       startAnimation();
     }
+  });
+})();
+</script>
+
+<script>
+/* ── Interactive dot field — sponsors section ────────────────── */
+(function () {
+  var svgEl = document.getElementById('dot-field-sponsors');
+  if (!svgEl) return;
+
+  var NS = 'http://www.w3.org/2000/svg';
+  var SPACING = 22, RADIUS_BASE = 1.8, RADIUS_LIT = 3.8;
+  var PROX_RADIUS = 90, DECAY = 0.028;
+  var dots = [], mouse = { x: -999, y: -999, active: false };
+
+  function build() {
+    while (svgEl.firstChild) svgEl.removeChild(svgEl.firstChild);
+    dots = [];
+    var W = svgEl.clientWidth || 800, H = svgEl.clientHeight || 400;
+    var cols = Math.ceil(W / SPACING) + 1, rows = Math.ceil(H / SPACING) + 1;
+    for (var r = 0; r < rows; r++) {
+      for (var c = 0; c < cols; c++) {
+        var cx = c * SPACING + (r % 2 === 0 ? 0 : SPACING * 0.5);
+        var cy = r * SPACING;
+        var el = document.createElementNS(NS, 'circle');
+        el.setAttribute('cx', cx);
+        el.setAttribute('cy', cy);
+        el.setAttribute('r', RADIUS_BASE);
+        el.setAttribute('fill', '#009B76');
+        el.setAttribute('fill-opacity', '0.055');
+        svgEl.appendChild(el);
+        dots.push({ el: el, cx: cx, cy: cy, brightness: 0 });
+      }
+    }
+  }
+
+  var raf;
+  function animate() {
+    for (var i = 0; i < dots.length; i++) {
+      var d = dots[i];
+      if (mouse.active) {
+        var dx = d.cx - mouse.x, dy = d.cy - mouse.y;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        if (dist < PROX_RADIUS) {
+          var t = 1 - dist / PROX_RADIUS;
+          d.brightness = Math.max(d.brightness, t * t);
+        }
+      }
+      if (d.brightness > 0) {
+        d.brightness = Math.max(0, d.brightness - DECAY);
+        var op = 0.055 + d.brightness * 0.52;
+        var rad = RADIUS_BASE + d.brightness * (RADIUS_LIT - RADIUS_BASE);
+        d.el.setAttribute('fill-opacity', op.toFixed(3));
+        d.el.setAttribute('r', rad.toFixed(2));
+      }
+    }
+    raf = requestAnimationFrame(animate);
+  }
+
+  function onMove(e) {
+    var rect = svgEl.getBoundingClientRect();
+    mouse.x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+    mouse.y = (e.touches ? e.touches[0].clientY : e.clientY) - rect.top;
+    mouse.active = true;
+  }
+  function onLeave() { mouse.active = false; }
+
+  var section = svgEl.closest('section');
+  if (section) {
+    section.addEventListener('mousemove', onMove);
+    section.addEventListener('touchmove', onMove, { passive: true });
+    section.addEventListener('mouseleave', onLeave);
+    section.addEventListener('touchend', onLeave);
+  }
+
+  var built = false;
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function (entries) {
+      if (entries[0].isIntersecting) {
+        if (!built) { build(); built = true; }
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(animate);
+      }
+    }, { rootMargin: '100px 0px', threshold: 0.01 }).observe(svgEl);
+  } else {
+    build(); built = true;
+    raf = requestAnimationFrame(animate);
+  }
+
+  window.addEventListener('resize', function () {
+    if (built) { build(); }
   });
 })();
 </script>
