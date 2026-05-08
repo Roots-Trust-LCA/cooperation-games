@@ -430,6 +430,32 @@ p { color: var(--text-muted); line-height: 1.65; }
 @media (max-width: 400px) {
   .sfn-cols { grid-template-columns: 1fr; }
 }
+/* ── Flock / boids ──────────────────────────────────────────────── */
+.flock-stage {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+}
+.flock-stage > canvas.flock-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.hero-zone { position: relative; overflow: hidden; }
+.hero-canvas-wrap {
+  position: absolute; inset: 0; pointer-events: none;
+  --boid-rgb: 2, 226, 172;
+  --collision-rgb: 201, 168, 93;
+}
+.stat-canvas-wrap {
+  position: absolute; inset: 0; pointer-events: none;
+  --boid-rgb: 2, 226, 172;
+  --collision-rgb: 201, 168, 93;
+}
+.stat-row { position: relative; }
+
 </style>
 </head>
 <body>
@@ -463,7 +489,15 @@ p { color: var(--text-muted); line-height: 1.65; }
 
 <!-- ── Hero ─────────────────────────────────────────────────────── -->
 <section class="hero-zone">
-  <div class="hero-inner">
+  <div class="flock-stage hero-canvas-wrap" data-flock-stage>
+    <canvas class="flock-canvas" id="flock-partners-hero"
+      data-flock-count="110"
+      data-flock-perception="76"
+      data-flock-separation="18"
+      data-flock-speed="1.5"
+      data-flock-trail-fade="0.93"></canvas>
+  </div>
+  <div class="hero-inner" style="position:relative;z-index:1;">
     <span class="kicker">A Synthesis Experiment · Coordination Games · Season 1 · 2026</span>
     <span class="hero-domain">games.synthesis.md</span>
     <h1>The next evolution of the Synthesis experiment.</h1>
@@ -481,7 +515,7 @@ p { color: var(--text-muted); line-height: 1.65; }
       <span class="ancestry-arrow">→</span>
       <span class="ancestry-item current">games.synthesis.md</span>
     </div>
-  </div>
+  </div><!-- /.hero-inner -->
 </section>
 
 <!-- ── The Evolution ─────────────────────────────────────────────── -->
@@ -550,6 +584,16 @@ p { color: var(--text-muted); line-height: 1.65; }
     </div>
 
     <div class="stat-row">
+      <div class="flock-stage stat-canvas-wrap" data-flock-stage>
+        <canvas class="flock-canvas" id="flock-partners-stats"
+          data-flock-count="60"
+          data-flock-perception="90"
+          data-flock-separation="22"
+          data-flock-alignment="1.1"
+          data-flock-cohesion="0.9"
+          data-flock-speed="1.2"
+          data-flock-trail-fade="0.96"></canvas>
+      </div>
       <div class="stat-cell">
         <span class="stat-value">$25K+</span>
         <span class="stat-label">Season 1 Prize Pool</span>
@@ -802,6 +846,262 @@ p { color: var(--text-muted); line-height: 1.65; }
     <a href="https://github.com/Roots-Trust-LCA/cooperation-games" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
   </div>
 </footer>
+
+
+<script>
+/* ============================================================
+   BOIDS FLOCK — cooperation.games
+   Craig Reynolds: separation · alignment · cohesion
+   Canvas 2D · No external dependencies
+   ============================================================ */
+(() => {
+  const canvases = document.querySelectorAll('.flock-canvas');
+  if (canvases.length === 0) return;
+
+  const baseConfig = {
+    count: 110, perception: 76, separationDistance: 18,
+    collisionDistance: 2, collisionFlashDuration: 900,
+    maxSpeed: 1.5, maxForce: 0.05,
+    alignmentWeight: 0.95, cohesionWeight: 0.6, separationWeight: 1.2,
+    mouseRadius: 120, mouseWeight: 1.5, trailFadeAlpha: 0.93,
+  };
+  const maxParticleCount = 2000;
+
+  function cssVariable(name) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+  }
+  function stageVariable(el, name) {
+    const v = getComputedStyle(el).getPropertyValue(name).trim();
+    return v || cssVariable(name);
+  }
+  function cssColorToRgb(color) {
+    if (color.startsWith('#')) {
+      const hex = color.slice(1);
+      const norm = hex.length === 3 ? hex.split('').map(c => c+c).join('') : hex;
+      const val = parseInt(norm, 16);
+      return `${(val>>16)&255}, ${(val>>8)&255}, ${val&255}`;
+    }
+    const rgb = color.match(/\d+(\.\d+)?/g);
+    return rgb ? rgb.slice(0,3).join(', ') : '242, 239, 233';
+  }
+  function validCount(v, fb, max=Infinity) {
+    const n=Number(v); if(!Number.isFinite(n)||n<0) return fb;
+    return Math.min(Math.floor(n), max);
+  }
+  function validNumber(v, fb) { const n=Number(v); return Number.isFinite(n)?n:fb; }
+
+  canvases.forEach(canvas => {
+    const stage = canvas.closest('[data-flock-stage]') || canvas.parentElement;
+    if (!stage) return;
+    const ctx = canvas.getContext('2d');
+    const config = { ...baseConfig };
+    const attrMap = {
+      count:'flockCount', perception:'flockPerception',
+      separationDistance:'flockSeparation', maxSpeed:'flockSpeed',
+      maxForce:'flockForce', alignmentWeight:'flockAlignment',
+      cohesionWeight:'flockCohesion', separationWeight:'flockSeparationWeight',
+      mouseRadius:'flockMouseRadius', mouseWeight:'flockMouseWeight',
+      trailFadeAlpha:'flockTrailFade',
+    };
+    let width=0, height=0, pixelRatio=1;
+    let boids=[], animFrame=0, isVisible=false;
+    let spatialGrid=new Map();
+    const mouse={x:0, y:0, active:false};
+
+    function updateConfigFromDataset() {
+      for (const [key,dsName] of Object.entries(attrMap)) {
+        if (canvas.dataset[dsName]===undefined) continue;
+        config[key] = key==='count'
+          ? validCount(canvas.dataset[dsName], config[key], maxParticleCount)
+          : validNumber(canvas.dataset[dsName], config[key]);
+      }
+    }
+
+    class Vector {
+      constructor(x=0,y=0){this.x=x;this.y=y;}
+      add(v){this.x+=v.x;this.y+=v.y;return this;}
+      subtract(v){this.x-=v.x;this.y-=v.y;return this;}
+      multiply(s){this.x*=s;this.y*=s;return this;}
+      divide(s){if(s!==0){this.x/=s;this.y/=s;}return this;}
+      magnitude(){return Math.hypot(this.x,this.y);}
+      normalize(){const m=this.magnitude();return m>0?this.divide(m):this;}
+      limit(max){if(this.magnitude()>max)this.normalize().multiply(max);return this;}
+      clone(){return new Vector(this.x,this.y);}
+      static random(spd=1){const a=Math.random()*Math.PI*2;return new Vector(Math.cos(a)*spd,Math.sin(a)*spd);}
+    }
+    function distSq(a,b){const dx=a.x-b.x,dy=a.y-b.y;return dx*dx+dy*dy;}
+
+    class Boid {
+      constructor() {
+        this.position = new Vector(Math.random()*width, Math.random()*height);
+        this.velocity = Vector.random(1.2+Math.random()*config.maxSpeed);
+        this.acceleration = new Vector();
+        this.size = 5+Math.random()*3;
+        this.shape = Math.random()<0.45?'circle':'line';
+        this.isColliding=false; this.wasColliding=false;
+        this.collisionFlashStartedAt=-Infinity; this.collisionFlash=0;
+      }
+      update(neighbors,now) {
+        this.acceleration
+          .add(this.align(neighbors).multiply(config.alignmentWeight))
+          .add(this.cohere(neighbors).multiply(config.cohesionWeight))
+          .add(this.separate(neighbors).multiply(config.separationWeight))
+          .add(this.attractToMouse().multiply(config.mouseWeight));
+        this.velocity.add(this.acceleration).limit(config.maxSpeed);
+        this.position.add(this.velocity);
+        this.acceleration.multiply(0);
+        this.wrapEdges();
+      }
+      align(neighbors) {
+        const s=new Vector();let total=0;const r=config.perception*config.perception;
+        for(const o of neighbors){if(o!==this&&distSq(this.position,o.position)<r){s.add(o.velocity);total++;}}
+        if(!total)return s;
+        return s.divide(total).normalize().multiply(config.maxSpeed).subtract(this.velocity).limit(config.maxForce);
+      }
+      cohere(neighbors) {
+        const s=new Vector();let total=0;const r=config.perception*config.perception;
+        for(const o of neighbors){if(o!==this&&distSq(this.position,o.position)<r){s.add(o.position);total++;}}
+        if(!total)return s;
+        return s.divide(total).subtract(this.position).normalize().multiply(config.maxSpeed).subtract(this.velocity).limit(config.maxForce);
+      }
+      separate(neighbors) {
+        const s=new Vector();let total=0;
+        const sr=config.separationDistance*config.separationDistance;
+        const cr=2*2;
+        for(const o of neighbors){
+          const d=distSq(this.position,o.position);
+          if(o!==this&&d<sr){
+            if(d<cr){this.isColliding=true;o.isColliding=true;}
+            s.add(this.position.clone().subtract(o.position).divide(Math.sqrt(d)||1));total++;
+          }
+        }
+        if(!total)return s;
+        return s.divide(total).normalize().multiply(config.maxSpeed).subtract(this.velocity).limit(config.maxForce*1.7);
+      }
+      attractToMouse() {
+        if(!mouse.active)return new Vector();
+        const target=new Vector(mouse.x,mouse.y);
+        const d=Math.sqrt(distSq(this.position,target));
+        if(d>config.mouseRadius)return new Vector();
+        const prox=1-d/config.mouseRadius;
+        return target.subtract(this.position).normalize().multiply(config.maxSpeed*prox).subtract(this.velocity).limit(config.maxForce*3);
+      }
+      wrapEdges() {
+        const m=this.size;
+        if(this.position.x<-m)this.position.x=width+m;
+        if(this.position.y<-m)this.position.y=height+m;
+        if(this.position.x>width+m)this.position.x=-m;
+        if(this.position.y>height+m)this.position.y=-m;
+      }
+      addLineToPath() {
+        const spd=this.velocity.magnitude()||1;
+        const dx=this.velocity.x/spd,dy=this.velocity.y/spd;
+        const len=this.size+spd*1.4,half=len*0.5;
+        ctx.moveTo(this.position.x+dx*half,this.position.y+dy*half);
+        ctx.lineTo(this.position.x-dx*half,this.position.y-dy*half);
+      }
+      addCircleToPath() {
+        ctx.moveTo(this.position.x+this.size*0.3,this.position.y);
+        ctx.arc(this.position.x,this.position.y,this.size*0.15,0,Math.PI*2);
+      }
+    }
+
+    function buildSpatialGrid() {
+      spatialGrid=new Map();const cs=config.perception;
+      for(const b of boids){
+        const key=`${Math.floor(b.position.x/cs)},${Math.floor(b.position.y/cs)}`;
+        if(!spatialGrid.has(key))spatialGrid.set(key,[]);
+        spatialGrid.get(key).push(b);
+      }
+    }
+    function getNeighbors(boid) {
+      const neighbors=[];const cs=config.perception;
+      const col=Math.floor(boid.position.x/cs),row=Math.floor(boid.position.y/cs);
+      for(let y=row-1;y<=row+1;y++)for(let x=col-1;x<=col+1;x++){
+        const cell=spatialGrid.get(`${x},${y}`);if(cell)neighbors.push(...cell);
+      }
+      return neighbors;
+    }
+    function clearCanvas() {
+      ctx.fillStyle=`rgba(${cssColorToRgb(cssVariable('--bg'))}, ${config.trailFadeAlpha})`;
+      ctx.fillRect(0,0,width,height);
+    }
+    function resizeCanvas() {
+      const rect=stage.getBoundingClientRect();
+      pixelRatio=Math.min(window.devicePixelRatio||1,2);
+      width=Math.max(1,Math.round(rect.width));
+      height=Math.max(1,Math.round(rect.height));
+      canvas.width=Math.floor(width*pixelRatio);
+      canvas.height=Math.floor(height*pixelRatio);
+      canvas.style.width=`${width}px`;
+      canvas.style.height=`${height}px`;
+      ctx.setTransform(pixelRatio,0,0,pixelRatio,0,0);
+      clearCanvas();
+      for(const b of boids){
+        b.position.x=Math.min(b.position.x,width);
+        b.position.y=Math.min(b.position.y,height);
+      }
+    }
+    function syncBoidCount() {
+      const n=validCount(config.count,baseConfig.count,maxParticleCount);
+      config.count=n;
+      if(boids.length<n)boids.push(...Array.from({length:n-boids.length},()=>new Boid()));
+      else if(boids.length>n)boids.length=n;
+    }
+    function easeOutCubic(v){return 1-Math.pow(1-v,3);}
+    function updateCollisionFlash(boid,now){
+      if(boid.isColliding&&!boid.wasColliding)boid.collisionFlashStartedAt=now;
+      const elapsed=now-boid.collisionFlashStartedAt;
+      boid.collisionFlash=elapsed<config.collisionFlashDuration?1-elapsed/config.collisionFlashDuration:0;
+      boid.wasColliding=boid.isColliding;
+    }
+    function animate(now=performance.now()) {
+      if(!isVisible)return;
+      clearCanvas();
+      buildSpatialGrid();
+      const lineBoids=[],circleBoids=[];
+      for(const b of boids)b.isColliding=false;
+      for(const b of boids){b.update(getNeighbors(b),now);updateCollisionFlash(b,now);(b.shape==='circle'?circleBoids:lineBoids).push(b);}
+      const boidRgb=stageVariable(stage,'--boid-rgb');
+      const collisionRgb=stageVariable(stage,'--collision-rgb');
+      ctx.beginPath();
+      for(const b of circleBoids)b.addCircleToPath();
+      if(circleBoids.length){ctx.fillStyle=`rgba(${boidRgb},0.28)`;ctx.fill();}
+      ctx.beginPath();
+      for(const b of lineBoids)b.addLineToPath();
+      if(lineBoids.length){ctx.lineWidth=2;ctx.lineCap='round';ctx.strokeStyle=`rgba(${boidRgb},0.28)`;ctx.stroke();}
+      for(const b of boids){
+        if(b.collisionFlash===0)continue;
+        const alpha=easeOutCubic(b.collisionFlash);
+        ctx.beginPath();
+        if(b.shape==='circle'){b.addCircleToPath();ctx.fillStyle=`rgba(${collisionRgb},${0.5*alpha})`;ctx.fill();}
+        else{b.addLineToPath();ctx.lineWidth=2;ctx.lineCap='round';ctx.strokeStyle=`rgba(${collisionRgb},${0.5*alpha})`;ctx.stroke();}
+      }
+      if(isVisible)animFrame=requestAnimationFrame(animate);
+    }
+    function startAnimation(){if(isVisible)return;isVisible=true;cancelAnimationFrame(animFrame);animFrame=requestAnimationFrame(animate);}
+    function stopAnimation(){isVisible=false;cancelAnimationFrame(animFrame);}
+
+    window.addEventListener('resize',resizeCanvas);
+    stage.addEventListener('pointerenter',e=>{const r=canvas.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;mouse.active=true;});
+    stage.addEventListener('pointermove', e=>{const r=canvas.getBoundingClientRect();mouse.x=e.clientX-r.left;mouse.y=e.clientY-r.top;mouse.active=true;});
+    stage.addEventListener('pointerleave',()=>{mouse.active=false;});
+
+    resizeCanvas();
+    updateConfigFromDataset();
+    syncBoidCount();
+
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(entries=>{
+        if(entries[0]?.isIntersecting){resizeCanvas();startAnimation();}
+        else stopAnimation();
+      },{rootMargin:'160px 0px',threshold:0.01}).observe(stage);
+    } else {
+      startAnimation();
+    }
+  });
+})();
+</script>
 
 <script>
 (function () {
