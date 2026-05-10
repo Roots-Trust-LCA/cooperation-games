@@ -201,6 +201,33 @@
     .stat-card {
       background: var(--surface); border: 1px solid var(--border-mid);
       border-radius: var(--radius); padding: 16px;
+      position: relative; cursor: help;
+    }
+    .stat-card:hover .stat-tooltip {
+      opacity: 1; pointer-events: auto;
+    }
+    .stat-tooltip {
+      position: absolute; bottom: calc(100% + 8px); left: 50%;
+      transform: translateX(-50%);
+      background: var(--raised); border: 1px solid var(--border-light);
+      border-radius: 6px; padding: 12px; width: 280px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s;
+      z-index: 10;
+    }
+    .stat-tooltip-title {
+      font-family: var(--font-mono); font-size: 11px;
+      font-weight: 500; color: var(--parchment);
+      margin-bottom: 6px;
+    }
+    .stat-tooltip-desc {
+      font-size: 12px; line-height: 1.5;
+      color: var(--muted); margin-bottom: 8px;
+    }
+    .stat-tooltip-meta {
+      font-family: var(--font-mono); font-size: 10px;
+      color: var(--muted-2); font-style: italic;
     }
     .stat-label {
       font-family: var(--font-mono); font-size: 9px; letter-spacing: 0.08em;
@@ -217,6 +244,9 @@
     }
     .stat-fill { height: 100%; border-radius: 2px; background: var(--gold); }
     .stat-fill.cool { background: var(--cool); }
+    .stat-fill.blue { background: #4A9EFF; }
+    .stat-fill.green { background: #02E2AC; }
+    .stat-fill.orange { background: #FF8C42; }
 
     /* Section */
     .section { margin-bottom: 28px; }
@@ -627,15 +657,57 @@ function render(profile) {
     </div>
   `;
 
-  // Scores
+  // Scores (P509: reputation signal separation)
   const scores = [
-    { label: 'Conduct score', key: 'conduct_score', color: 'gold' },
-    { label: 'Skill score',   key: 'skill_score',   color: 'gold' },
-    { label: 'Reliability',   key: 'reliability_score', color: 'cool' },
+    {
+      label: 'Conduct',
+      key: 'conduct_score',
+      recordKey: 'conduct_score_record',
+      color: 'blue',
+      tooltip: {
+        title: 'Conduct Score',
+        desc: 'Platform integrity signal. Cooperation rate and rule adherence across all games. Sourced from game completions + conduct attestations.',
+      }
+    },
+    {
+      label: 'Skill',
+      key: 'skill_score',
+      recordKey: 'skill_score_record',
+      color: 'green',
+      tooltip: {
+        title: 'Skill Score',
+        desc: 'In-game capability signal. Derived from ELO performance across game types, normalized by season percentile.',
+      }
+    },
+    {
+      label: 'Reliability',
+      key: 'reliability_score',
+      recordKey: 'reliability_score_record',
+      color: 'orange',
+      tooltip: {
+        title: 'Reliability Score',
+        desc: 'Claim-behavior alignment signal. How well stated archetype matches observed strategy patterns.',
+      }
+    },
   ];
   document.getElementById('stats-row').innerHTML = scores.map(s => {
-    const v = p[s.key];
+    // Try ScoreRecord first (v1.1), fall back to legacy number field
+    const record = p[s.recordKey];
+    const v = record ? record.score : p[s.key];
     const hasVal = v !== null && v !== undefined;
+
+    // Build tooltip metadata
+    let tooltipMeta = '';
+    if (hasVal && record) {
+      const computedDate = record.computed_at ? new Date(record.computed_at).toISOString().split('T')[0] : 'Unknown';
+      const gamesSampled = record.games_sampled || 0;
+      const primaryGame = (s.key === 'skill_score' && p.primary_game) ? ` | Primary: ${p.primary_game}` : '';
+      tooltipMeta = `Computed: ${computedDate} | Games: ${gamesSampled}${primaryGame}`;
+    } else if (!hasVal) {
+      const minGames = s.key === 'reliability_score' ? 20 : 5;
+      tooltipMeta = `Minimum ${minGames} games required`;
+    }
+
     return `
       <div class="stat-card">
         <div class="stat-label">${s.label}</div>
@@ -643,8 +715,13 @@ function render(profile) {
           ? `<div class="stat-value">${(v*100).toFixed(0)}<span style="font-size:12px;color:var(--muted)">%</span></div>
              <div class="stat-bar"><div class="stat-fill ${s.color}" style="width:${v*100}%"></div></div>`
           : `<div class="stat-value empty">—</div>
-             <div style="font-size:11px;color:var(--muted-2);font-family:var(--font-mono);margin-top:4px">Populates post-game</div>`
+             <div style="font-size:11px;color:var(--muted-2);font-family:var(--font-mono);margin-top:4px">Insufficient data</div>`
         }
+        <div class="stat-tooltip">
+          <div class="stat-tooltip-title">${s.tooltip.title}: ${hasVal ? (v*100).toFixed(0) + '%' : '—'}</div>
+          <div class="stat-tooltip-desc">${s.tooltip.desc}</div>
+          <div class="stat-tooltip-meta">${tooltipMeta}</div>
+        </div>
       </div>
     `;
   }).join('');

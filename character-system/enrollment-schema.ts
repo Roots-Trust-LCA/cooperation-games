@@ -1,6 +1,6 @@
 /**
  * Coordination Games — Enrollment & Stakeholder Profile Schema
- * coordination-games/enrollment@1.0
+ * coordination-games/enrollment@1.1
  *
  * Defines the base profile and stakeholder extension interfaces
  * for all seven participation classes across the Coordination Games ecosystem.
@@ -32,8 +32,10 @@
  *
  * See: /character-system/prd-enrollment-stakeholder-profiles.md
  *      /character-system/did-strategy.md
+ *      /character-system/reputation-signals.md
  * Author: Nou (Techne Studio) on behalf of RegenHub, LCA
  * Version: 1.1.0 — April 2026 (adds DID fields)
+ * Version: 1.1.1 — May 2026 (P509: adds ScoreRecord interfaces for reputation signals)
  */
 
 // ── Stakeholder class enum ──────────────────────────────────────────────────
@@ -143,6 +145,83 @@ export interface DomainDIDDocument {
   alsoKnownAs: string[];  // cross-links the three ecosystem domains
 }
 
+// ── Reputation score records ─────────────────────────────────────────────────
+
+/**
+ * Score record with computation metadata.
+ * Used for conduct_score, skill_score, reliability_score on BaseProfile.
+ *
+ * P509: Reputation signal separation
+ * See: character-system/reputation-signals.md
+ */
+export interface ScoreRecord {
+  score: number;              // [0, 1]
+  computed_at: string;        // ISO timestamp of last computation
+  games_sampled: number;      // number of games included in computation
+  season: number;             // season in which score was computed
+  decay_applied?: boolean;    // true if decay factor was applied since last game
+  last_game_at?: string;      // ISO timestamp of most recent game (for decay calculation)
+}
+
+/**
+ * Per-game skill score variant.
+ * Example: skill:prisoners-dilemma, skill:capture-the-flag
+ *
+ * P509: Reputation signal separation
+ */
+export interface PerGameSkillRecord extends ScoreRecord {
+  game_type: string;          // e.g. "prisoners-dilemma", "capture-the-flag"
+  elo_rating: number;         // raw ELO before percentile normalization
+  percentile_rank: number;    // [0, 1] percentile within season
+}
+
+/**
+ * Input data for conduct score computation.
+ * Used by backend scoring systems.
+ *
+ * P509: Reputation signal separation
+ */
+export interface ConductScoreInput {
+  participant_id: string;
+  game_completions: number;
+  cooperative_outcomes: number;
+  defections: number;
+  conduct_attestations: number;  // count of peer attestations with weight ≥ 0.6
+  moderation_warnings: number;
+  suspensions: number;
+  bans: number;
+  last_game_at: string;  // ISO timestamp
+}
+
+/**
+ * Input data for skill score computation.
+ * Used by backend scoring systems.
+ *
+ * P509: Reputation signal separation
+ */
+export interface SkillScoreInput {
+  participant_id: string;
+  game_type: string;
+  elo_rating: number;
+  games_played: number;
+  season_elo_distribution: number[];  // all participant ELOs for percentile calculation
+  last_game_at: string;
+}
+
+/**
+ * Input data for reliability score computation.
+ * Used by backend scoring systems.
+ *
+ * P509: Reputation signal separation
+ */
+export interface ReliabilityScoreInput {
+  participant_id: string;
+  declared_archetype_vector: number[];  // 5-dimensional [0,1] vector
+  observed_behavior_vector: number[];   // 5-dimensional [0,1] vector from game logs
+  games_sampled: number;
+  last_game_at: string;
+}
+
 // ── Base profile ─────────────────────────────────────────────────────────────
 
 export interface BaseProfile {
@@ -177,7 +256,19 @@ export interface BaseProfile {
   erc8004_id?: number;          // assigned at enrollment on Base (opt-in for humans)
   erc8004_tx?: string;          // transaction hash of identity registration
 
-  // Attestation scores (populated post-game)
+  // Attestation scores (populated post-game) — v1.1 adds ScoreRecord structure
+  conduct_score_record?: ScoreRecord;     // platform integrity signal (cross-game)
+  skill_score_record?: ScoreRecord;       // in-game capability signal (ELO-derived)
+  reliability_score_record?: ScoreRecord; // claim-behavior alignment signal
+
+  // Per-game skill breakdown (optional)
+  skill_scores_by_game?: Record<string, PerGameSkillRecord>;
+
+  // Primary game (highest or most-played) for skill_score display
+  primary_game?: string;  // e.g. "shelling-point", "prisoners-dilemma"
+
+  // Legacy score fields (deprecated in v1.1, retained for backward compat)
+  // Use ScoreRecord fields above for new implementations
   conduct_score?: number;       // [0, 1] cross-game cooperation rate
   skill_score?: number;         // derived from archetype + capability doc
   reliability_score?: number;   // claim vs. actual behavior delta
